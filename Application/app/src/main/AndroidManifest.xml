@@ -18,6 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PageProfils"
+            android:label="@string/title_activity_page_profils"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
