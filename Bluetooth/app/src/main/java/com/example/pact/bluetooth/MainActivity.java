@@ -29,18 +29,14 @@ public class MainActivity extends Activity {
             String action = intent.getAction();
             // get bluetooth device searched 获得已经搜索到的蓝牙设备
             if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                BluetoothDevice device = intent
-                        .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                // search bluetooth device not connected before
-                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    // presente on screen 显示在TextView上
-                    mTextView.append(device.getName() + ":"
-                            + device.getAddress()+"\n");
-                }
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                // search bluetooth device
+                // present on screen 显示在TextView上
+                mTextView.append(device.getName() + ":" + device.getAddress()+"\n\n");
                 // finish
-            } else if (action
-                    .equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
+            } else if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
                 setTitle("searching bluetooth device");
+                mTextView.append("Search ended\n\n");
             }
         }
     };
@@ -53,13 +49,14 @@ public class MainActivity extends Activity {
 
         mTextView = (TextView) findViewById(R.id.tvDevices);
 
+        mTextView.append("Bonded devices:\n\n");
+
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         // get all device connected 获取所有已经绑定的蓝牙设备
         Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
         if (devices.size() > 0) {
             for (BluetoothDevice bluetoothDevice : devices) {
-                mTextView.append(bluetoothDevice.getName() + ":"
-                        + bluetoothDevice.getAddress() + "\n\n");
+                mTextView.append(bluetoothDevice.getName() + ":" + bluetoothDevice.getAddress() + "\n\n");
             }
         }
         IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -93,6 +90,8 @@ public class MainActivity extends Activity {
         }
         // 开始搜索蓝牙设备,搜索到的蓝牙设备通过广播返回
         mBluetoothAdapter.startDiscovery();
+        mTextView.setText("");
+        mTextView.append("Search started\n\n");
     }
 
 }
