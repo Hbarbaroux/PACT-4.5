@@ -1,0 +1,8 @@
+ANDROID -> AUDIO
+
+- fichier MIDI de la partition jouée
+- son enregistré
+
+
+AUDIO -> ANDROID
+

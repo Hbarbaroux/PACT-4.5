@@ -1,0 +1,18 @@
+ANDROID -> BLUETOOTH
+
+- Fonction connexion
+- Fonction déconnexion
+- Fonction test //vérifie que toutes les leds fonctionnent
+- Fonction d'allummage des leds:
+	entrée: tableau de tuples de trois entiers (1-6,1-20,1-5) //(corde,frete,doigt)
+	(retour): si les paramètres sont bons ou pas
+
+
+
+
+
+
+BLUETOOTH -> ANDROID
+
+- Signal connexion perdu
+- Signal batterie faible
