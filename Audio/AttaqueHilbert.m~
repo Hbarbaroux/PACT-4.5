@@ -1,0 +1,4 @@
+function derenv = AttaqueHilbert(signal)
+n=length(
+env=abs(hilbert(signal))
+derenv=diff(env)/(t(1))
