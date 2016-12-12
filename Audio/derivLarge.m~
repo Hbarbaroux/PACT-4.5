@@ -1,0 +1,6 @@
+function dL = derivLarge (signal,N)
+n=length(signal)
+dL=zeros(1,n-2*N)
+dL=[sum(signal(1:N))-sum(signal(1+N:2*N))]
+
+    

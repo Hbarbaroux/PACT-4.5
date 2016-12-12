@@ -1,4 +1,4 @@
-function derenv = AttaqueHilbert(signal)
+function derenv = AttaqueHilbert(signal,N)
 n=length(signal)
 env=abs(hilbert(signal))
-derenv=derivLarge(env,4410)*n
+derenv=derivLarge(env,N)*n
