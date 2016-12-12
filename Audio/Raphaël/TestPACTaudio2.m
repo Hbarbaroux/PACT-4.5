@@ -4,7 +4,6 @@ T = 1/Fs ;
 L = 10000;
 t = (0:L-1)*T;
 Y = fft(y);
-env = abs(hilbert(y)); % enveloppe du signal
-denv = derivLarge(denv,4400) ./ t(2);
+denv=AttaqueHilbert(y,4410);
 plot(t(1:L),denv(1:L))
 
