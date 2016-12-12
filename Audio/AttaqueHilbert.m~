@@ -1,4 +1,0 @@
-function derenv = AttaqueHilbert(signal)
-n=length(signal)
-env=abs(hilbert(signal))
-derenv=d(env)*n
