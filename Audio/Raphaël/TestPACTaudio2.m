@@ -4,6 +4,9 @@ T = 1/Fs ;
 L = 10000;
 t = (0:L-1)*T;
 Y = fft(y);
-denv=AttaqueHilbert(y,4410);
+denv = AttaqueHilbert(y,4410);
+M = max(denv);
+indiceDuMax = (find(denv==M));
+R = t(indiceDuMax)
 plot(t(1:L),denv(1:L))
 
