@@ -12,7 +12,7 @@ for i=1000:length(Y)
 end
  % filtre passe-haut afin de se débarasser des effets de bords (la simple
  % concaténation renvoie une erreur...)
-freq = (find(Z==max(Z)));
-freq = freq/(length(signal)/44100); %on divise par le nombre de secondes du signal, si on est à 44100 Hz de fréquence d'échantillonage
+f = (find(Z==max(Z)));
+freq = f/(length(signal)/44100); %on divise par le nombre de secondes du signal, si on est à 44100 Hz de fréquence d'échantillonage
 end
 
