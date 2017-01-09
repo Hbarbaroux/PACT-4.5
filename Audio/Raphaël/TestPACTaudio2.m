@@ -5,7 +5,7 @@ L = 10000;
 t = (0:L-1)*T;
 f = (0:L-1)/L*Fs;
 NS= sin(880*pi*t).*(1-exp(-10*t));
-denv = AttaqueHilbert(NS,4410);
+denv = AttaqueHilbert(y,4410)
 M = max(denv);
 indiceDuMax = (find(denv==M));
 R = t(indiceDuMax);
@@ -13,8 +13,8 @@ t1 = R - 0.1;
 t2 = R + 0.1;
 T1 = indiceDuMax ;
 T2 = indiceDuMax + 1000;
-Y = [zeros(1,T1-1),fft(NS(T1:T2)),zeros(1,length(NS)-T2)];
+Y = [zeros(1,T1-1),fft(y(T1:T2)),zeros(1,length(y)-T2)];
 Z = abs([zeros(1,999),Y(1000:length(Y))]);
 freq = f(find(Z==max(Z)))/10
-plot(f,Z);
+plot(t,denv)
 
