@@ -21,8 +21,7 @@ limite = 0.15
     end
     for k=1:(length(Y) - 1)
         q = signal((Y(k)):Y(k+1));
-        freq = estimation_hauteur_note(q);
-        notes = [notes,freq]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
+        notes = [notes, estimation_hauteur_note(q)]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
     end
 end
     
