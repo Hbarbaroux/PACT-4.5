@@ -1,3 +1,4 @@
+
 function freq = estimation_hauteur_note(signal)
 Y = fft(signal);
 Y=Y(1:length(Y)/2);% transformée de fourier, on ne prend que la première moitié car elle est symétrique
