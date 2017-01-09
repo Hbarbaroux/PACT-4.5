@@ -14,13 +14,13 @@ i = 1;
         while denv(i) > M*0.99&& i < length(denv)
             i = i + 1;
         end
-       L = [L, i];
+       L = [L, i]
     end
     for k=1:(length(L)/2)
         Y = [Y, L(2*k-1)];
     end
     for k=1:(length(Y) - 1)
-        notes = [estimation_hauteur_note(signal(Y(k:k+1)))]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
+        notes = [estimation_hauteur_note(signal(Y(k)):Y(k+1))] % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
     end
 end
     
