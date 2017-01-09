@@ -7,6 +7,7 @@ notes = [];
 M = max(denv);
 i = 1;
     while i < length(denv) 
+<<<<<<< HEAD
         while (denv(i) < M*0.5) && (i < length(denv))
             i = i + 1;
         end
@@ -20,7 +21,8 @@ i = 1;
         Y = [Y, L(2*k-1)];
     end
     for k=1:(length(Y) - 1)
-        notes = [estimation_hauteur_note(signal(Y(k)):Y(k+1))]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
+        q = signal((Y(k)):Y(k+1));
+        notes = [notes, estimation_hauteur_note(q)]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
     end
 end
     
