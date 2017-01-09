@@ -7,7 +7,6 @@ notes = [];
 M = max(denv);
 i = 1;
     while i < length(denv) 
-<<<<<<< HEAD
         while (denv(i) < M*0.5) && (i < length(denv))
             i = i + 1;
         end
