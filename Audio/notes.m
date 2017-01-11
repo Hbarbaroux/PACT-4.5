@@ -7,7 +7,7 @@ L = []; % index des montées et des descentes autour de la valeur limite (max à
 notes = [];
 M = max(denv);
 i = 1;
-limite = 0.1
+limite = 0.3
     while i < length(denv) 
         while denv(i) < M*limite && i < length(denv)
             i = i + 1;
