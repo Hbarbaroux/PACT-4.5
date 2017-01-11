@@ -1,11 +1,11 @@
 function notes = notes(signal) % renvoie un tableau des positions temporelles de chaque note avec leur fréquence
-denv = AttaqueHilbert(signal,4410);
+denv = AttaqueEnveloppe(signal,0.999);
 Y = []; % index des montées
 L = []; % index des montées et des descentes autour de la valeur limite (max à 90%)
 notes = [];
 M = max(denv);
 i = 1;
-limite = 0.15
+limite = 0.15;
     while i < length(denv) 
         while denv(i) < M*limite && i < length(denv)
             i = i + 1;
