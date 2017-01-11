@@ -10,4 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hugo.guitarledgend.StartActivity">
 
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="112sp"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:maxWidth = "250sp"/>
+
+
 </RelativeLayout>
