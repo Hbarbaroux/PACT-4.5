@@ -1,8 +1,10 @@
 package com.example.hugo.guitarledgend;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,6 +16,12 @@ public class ProfilesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profiles);
 
         Button next_button = (Button) findViewById(R.id.next_button);
+        next_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfilesActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         TextView comment = (TextView) findViewById(R.id.comment_profile);
         Typeface century = Typeface.createFromAsset(getAssets(), "fonts/Century Gothic.ttf");
