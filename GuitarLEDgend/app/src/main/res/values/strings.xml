@@ -9,4 +9,18 @@
     <string name="action_settings">Settings</string>
 
     <string name="stats">Statistiques</string>
+    <string name="startPlay">Start</string>
+
+    <string name="choisirPartition">Choisir partition</string>
+    <string name="ajouterPartition">Ajouter partition</string>
+
+    <string name="ok">OK</string>
+
+    <string name="jouer">Jouer ?</string>
+    <string name="oui">OUI</string>
+    <string name="non">NON</string>
+
+
+
+
 </resources>
