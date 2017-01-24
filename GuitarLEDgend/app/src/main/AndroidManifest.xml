@@ -24,6 +24,8 @@
 
         <activity android:name=".StatsActivity" />
         <activity android:name=".StatsSQLiteHelper" />
+        <activity android:name=".ProfilesSQLiteHelper" />
+        <activity android:name=".PartitionsSQLiteHelper" />
         <activity android:name=".StartPlayActivity" />
         <activity android:name=".ChooseSpeedActivity" />
         <activity android:name=".ChoosePartitionActivity" />
