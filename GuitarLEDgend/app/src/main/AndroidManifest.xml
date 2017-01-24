@@ -29,6 +29,7 @@
         <activity android:name=".ChoosePartitionActivity" />
         <activity android:name=".AddPartitionActivity" />
         <activity android:name=".PlayPartitionActivity" />
+        <activity android:name=".StatsShownActivity" />
 
 
     </application>
