@@ -16,5 +16,37 @@
         android:minHeight="50dip"
         android:minWidth="120dip"/>
 
+    <EditText
+        android:id="@+id/fichier_addPartition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/fichier" />
+
+    <EditText
+        android:id="@+id/nom_addPartition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/fichier_addPartition"
+        android:hint="@string/nom" />
+
+    <EditText
+        android:id="@+id/auteur_addPartition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/nom_addPartition"
+        android:hint="@string/auteur" />
+
+    <EditText
+        android:id="@+id/genre_addPartition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/auteur_addPartition"
+        android:hint="@string/genre" />
+
+
 
 </RelativeLayout>

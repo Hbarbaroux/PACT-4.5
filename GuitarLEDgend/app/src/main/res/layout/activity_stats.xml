@@ -14,19 +14,19 @@
             android:id="@+id/annee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="annee" />
+            android:hint="@string/annee" />
 
         <EditText
             android:id="@+id/mois"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="mois" />
+            android:hint="@string/mois" />
 
         <EditText
             android:id="@+id/jour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="jour" />
+            android:hint="@string/jour" />
 
     </LinearLayout>
 

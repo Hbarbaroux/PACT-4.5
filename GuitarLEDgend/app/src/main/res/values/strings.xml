@@ -20,7 +20,15 @@
     <string name="oui">OUI</string>
     <string name="non">NON</string>
 
+    <string name="jour">Jour</string>
+    <string name="annee">Annee</string>
+    <string name="mois">Mois</string>
     <string name="chercher">Chercher</string>
+
+    <string name="fichier">Fichier</string>
+    <string name="nom">Nom</string>
+    <string name="auteur">Auteur</string>
+    <string name="genre">Genre</string>
 
 
 
