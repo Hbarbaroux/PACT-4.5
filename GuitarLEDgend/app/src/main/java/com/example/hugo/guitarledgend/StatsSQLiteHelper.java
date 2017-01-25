@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class StatsSQLiteHelper extends SQLiteOpenHelper {
 
-    String sqlCreate = "CREATE TABLE Stats (annee TEXT, mois TEXT, jour TEXT, score INTEGER , id TEXT)";
+    public String sqlCreate = "CREATE TABLE Stats (annee TEXT, mois TEXT, jour TEXT, score INTEGER , id TEXT)";
 
     public StatsSQLiteHelper (Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);

@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class PartitionsSQLiteHelper extends SQLiteOpenHelper {
 
-    String sqlCreate = "CREATE TABLE Music (genre TEXT, auteur TEXT, nom TEXT, id TEXT)";
+    public String sqlCreate = "CREATE TABLE Music (genre TEXT, auteur TEXT, nom TEXT, id TEXT)";
 
     public PartitionsSQLiteHelper (Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);

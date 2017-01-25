@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class ProfilesSQLiteHelper extends SQLiteOpenHelper {
 
-    String sqlCreate = "CREATE TABLE Profiles (nom TEXT, prenom TEXT, sexe TEXT)";
+    public String sqlCreate = "CREATE TABLE Profiles (nom TEXT, prenom TEXT, sexe TEXT)";
 
     public ProfilesSQLiteHelper (Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
