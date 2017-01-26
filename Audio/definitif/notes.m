@@ -25,6 +25,7 @@ M=0.1;
     for k=1:length(Y)
         q(L(2*k-1):L(2*k)) = signalb(L(2*k-1):L(2*k)) ; 
         notes = [notes, estimation_hauteur_note(q), Y(k)]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
+    est=estimation_hauteur_note(q)% notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
     end
 end
-     %#ok<*COLND>
+    
