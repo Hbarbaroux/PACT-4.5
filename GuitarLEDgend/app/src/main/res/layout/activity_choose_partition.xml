@@ -3,19 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        style="@style/button"
-        android:text="@string/ok"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ok_button_ChoosePartitionActivity"
-        android:layout_marginTop="92dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:minHeight="50dip"
-        android:minWidth="120dip"/>
-
     <EditText
         android:id="@+id/nom_choosePartition"
         android:layout_width="wrap_content"
@@ -38,5 +25,18 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/auteur_choosePartition"
         android:hint="@string/genre" />
+
+    <Button
+        style="@style/button"
+        android:text="@string/ok"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ok_button_ChoosePartitionActivity"
+        android:minHeight="50dip"
+        android:minWidth="90dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp" />
 
 </RelativeLayout>

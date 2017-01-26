@@ -41,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/linearLayout_stats"
         android:minHeight="50dip"
-        android:minWidth="120dip"/>
+        android:minWidth="160dip"/>
 
 
 </RelativeLayout>
