@@ -39,4 +39,6 @@
         android:layout_below="@+id/auteur_choosePartition"
         android:hint="@string/genre" />
 
+
+
 </RelativeLayout>
