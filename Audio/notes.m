@@ -19,7 +19,7 @@ limite = 0.1
        L = [L, i];
     end
     for k=1:(length(L)/2)
-        Y = [Y, L(2*k-1)];
+        Y = [Y, L(2*k-1)]
     end
     for k=1:(length(Y) - 1)
         q = signalb((Y(k)):Y(k+1));
