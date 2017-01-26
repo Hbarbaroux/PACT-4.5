@@ -22,7 +22,7 @@ limite = 0.1
         Y = [Y, L(2*k-1)];
     end
     for k=1:(length(Y) - 1)
-        q = signalb((Y(k)):Y(k+1));
+        q = signalb((L(2*k)):L(2*k+1));
         notes = [notes, estimation_hauteur_note(q), ((Y(k)*75+Y(k+1)*25)/100)]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
     end
 end
