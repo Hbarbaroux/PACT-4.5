@@ -19,6 +19,7 @@ public class AddPartitionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_partition);
 
         database = new PartitionDAO(this);
+        database.open();
 
         EditText editTextFichier = (EditText) findViewById(R.id.fichier_addPartition);
         String fichier= editTextFichier.getText().toString();
@@ -53,7 +54,7 @@ public class AddPartitionActivity extends AppCompatActivity {
 
 
 
-
+        database.close();
 
 
 
