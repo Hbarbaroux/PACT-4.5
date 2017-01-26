@@ -16,7 +16,7 @@ limite = 0.1
         while denv(i) > M*limite && i < length(denv)
             i = i + 1;
         end
-        L = [L, i];
+       L = [L, i];
     end
     for k=1:(length(L)/2)
         Y = [Y, L(2*k-1)];
