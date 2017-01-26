@@ -26,6 +26,7 @@
         android:layout_below="@+id/auteur_choosePartition"
         android:hint="@string/genre" />
 
+
     <Button
         style="@style/button"
         android:text="@string/ok"
@@ -38,5 +39,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp" />
+
 
 </RelativeLayout>
