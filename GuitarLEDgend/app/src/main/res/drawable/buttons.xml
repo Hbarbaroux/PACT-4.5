@@ -32,6 +32,9 @@
                     <solid android:color="@color/colorButton"/>
                     <corners android:radius="3sp" />
                 </shape>
+                <padding
+                    android:left="20dp"
+                    android:right="20dp" />
             </item>
         </layer-list>
     </item>
