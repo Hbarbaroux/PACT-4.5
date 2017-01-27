@@ -1,13 +1,13 @@
 
 function notes = notes(signal)% renvoie un tableau des positions temporelles de chaque note avec leur fréquence
 signalb = filter(1, [1, (1/10000)], signal);% filtre passe bas se débarassant des fréquences trop aigues n'appartenant pas à la guitare
-denv = AttaqueEnveloppe(signalb,0.999);
+denv = AttaqueEnveloppe(signalb,0.999); % partie positive de la dérivée de l'enveloppe 
 Y = []; % index des montées
-L = []; % index des montées et des descentes autour de la valeur limite (max à 90%)
+L = []; % index des montées et des descentes autour de la valeur limite
 notes = [];
-M = max(denv);
 i = 1;
-limite = 0.1
+limite = denv(length(denv)-1);
+M=0.1;
     while i < length(denv) 
         while denv(i) < M*limite && i < length(denv)
             i = i + 1;
@@ -21,9 +21,10 @@ limite = 0.1
     for k=1:(length(L)/2)
         Y = [Y, L(2*k-1)];
     end
+    q = zeros(Y(length(Y)));
     for k=1:length(Y)
-        q = signalb((L(2*k-1)):L(2*k));
+        q(L(2*k-1):L(2*k)) = signalb(L(2*k-1):L(2*k)) ; 
         notes = [notes, estimation_hauteur_note(q), Y(k)]; % notes contient dans les indices impairs les fréquences des notes et dans les indices pairs la position correspondante dans le morceau
     end
 end
-    
+     %#ok<*COLND>
