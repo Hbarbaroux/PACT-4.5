@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend.databases;
+package com.example.hugo.guitarledgend.databases.users;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

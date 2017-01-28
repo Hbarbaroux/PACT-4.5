@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
-import com.example.hugo.guitarledgend.databases.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
 
 import java.util.List;
 

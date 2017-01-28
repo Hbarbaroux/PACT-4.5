@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.hugo.guitarledgend.databases.Partition;
-import com.example.hugo.guitarledgend.databases.PartitionDAO;
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.R;
 
 public class AddPartitionActivity extends AppCompatActivity {

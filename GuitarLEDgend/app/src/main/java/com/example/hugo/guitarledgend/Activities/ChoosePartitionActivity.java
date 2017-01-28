@@ -4,12 +4,11 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.hugo.guitarledgend.databases.Partition;
-import com.example.hugo.guitarledgend.databases.PartitionDAO;
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.R;
 
 import java.util.List;
