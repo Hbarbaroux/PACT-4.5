@@ -1,53 +1,44 @@
 package com.example.hugo.guitarledgend;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
 
 public class PartitionDAO {
 
-    private int VERSION;
-    private PartitionsSQLiteHelper ssqlh = null;
-    private SQLiteDatabase db = null ;
+    private PartitionsSQLiteHelper mHandler = null;
+    private SQLiteDatabase mDb = null ;
+    private String[] allColumns = { PartitionsSQLiteHelper.PARTITION_KEY, PartitionsSQLiteHelper.PARTITION_FILE, PartitionsSQLiteHelper.PARTITION_NAME, PartitionsSQLiteHelper.PARTITION_AUTHOR, PartitionsSQLiteHelper.PARTITION_GENRE};
 
 
-    public PartitionDAO(Context pContext) {
-        this.ssqlh = new PartitionsSQLiteHelper(pContext, "MyMusic", null, VERSION);
+    public PartitionDAO(Context Context) {
+        mHandler = new PartitionsSQLiteHelper(Context);
     }
 
-    public SQLiteDatabase open() {
-        // Pas besoin de fermer la dernière base puisque getWritableDatabase s'en charge
-        db = ssqlh.getWritableDatabase();
-        return db;
+    public void open() throws SQLException {
+        mDb = mHandler.getWritableDatabase();
     }
 
     public void close() {
-        db.close();
+        mDb.close();
     }
 
     public SQLiteDatabase getDb() {
-        return db;
+        return mDb;
     }
-
-    //propre a cette table
-
-    public static final String TABLE_NAME = "Music";
-    public static final String ID = "id";
-    public static final String NOM = "nom";
-    public static final String AUTEUR = "auteur";
-    public static final String GENRE = "genre";
 
 
     public void ajouter (Partition p) {
-        ContentValues newPartition = new ContentValues();
-        newPartition.put(GENRE, p.getGenre());
-        newPartition.put(AUTEUR,p.getAuteur());
-        newPartition.put(NOM,p.getNom());
-        newPartition.put(ID,p.getId());
-        //insert the new partition into the database
-        db.insert(TABLE_NAME, null, newPartition);
+        ContentValues values = new ContentValues();
+        values.put(PartitionsSQLiteHelper.PARTITION_FILE,p.getFichier());
+        values.put(PartitionsSQLiteHelper.PARTITION_NAME,p.getNom());
+        values.put(PartitionsSQLiteHelper.PARTITION_AUTHOR,p.getAuteur());
+        values.put(PartitionsSQLiteHelper.PARTITION_GENRE, p.getGenre());
+
+        mDb.insert(PartitionsSQLiteHelper.PARTITION_TABLE_NAME, null, values);
     }
 
     public void modifier (Partition p){
@@ -58,16 +49,24 @@ public class PartitionDAO {
 
     }
 
-    public String selectionner (String genre, String auteur, String nom){
+/*    public long selectionner (String genre, String auteur, String nom){
         String[] args = new String[] {genre,auteur,nom};
-        Cursor c = db.rawQuery("SELECT "+ID+" FROM "+TABLE_NAME+" WHERE "+GENRE+" = ? , "+AUTEUR+" = ? , "+NOM+" = ?", args);
+        Cursor c = mDb.rawQuery("SELECT "+KEY+" FROM "+TABLE_NAME+" WHERE "+GENRE+" = ? , "+AUTHOR+" = ? , "+NOM+" = ?", args);
         c.moveToFirst();
-        String id = c.getString(4);
+        long id = c.getLong(0);
         return id;
     }
+*/
 
-
-
+    private Partition cursorToPartition(Cursor cursor) {
+        Partition partition = new Partition(0, null, null, null, null);
+        partition.setId(cursor.getLong(0));
+        partition.setFichier(cursor.getString(1));
+        partition.setNom(cursor.getString(2));
+        partition.setAuteur(cursor.getString(3));
+        partition.setGenre(cursor.getString(4));
+        return partition;
+    }
 
 
 }

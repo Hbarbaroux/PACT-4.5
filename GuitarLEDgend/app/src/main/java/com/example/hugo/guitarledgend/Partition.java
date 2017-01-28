@@ -1,23 +1,32 @@
 package com.example.hugo.guitarledgend;
 
-/**
- * Created by jesusbm on 26/01/17.
- */
-
 public class Partition {
 
-    private String genre;
-    private String auteur;
+    private long id;
+    private String fichier;
     private String nom;
-    private String id;
+    private String auteur;
+    private String genre;
 
-    public Partition (String genre, String auteur, String nom, String id){
+
+
+    public Partition (long id, String fichier, String genre, String auteur, String nom){
+        super();
+        this.id=id;
+        this.fichier=fichier;
         this.genre=genre;
         this.auteur=auteur;
         this.nom=nom;
-        this.id=id;
     }
 
+
+    public String getFichier() {
+        return fichier;
+    }
+
+    public void setFichier(String fichier) {
+        this.fichier = fichier;
+    }
 
     public String getGenre() {
         return genre;
@@ -43,11 +52,11 @@ public class Partition {
         this.nom = nom;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -11,53 +11,44 @@ import android.widget.EditText;
 
 public class AddPartitionActivity extends AppCompatActivity {
 
-    private  PartitionDAO database;
+    private PartitionDAO database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_partition);
 
-        database = new PartitionDAO(this);
+        database = new PartitionDAO(AddPartitionActivity.this);
         database.open();
 
-        EditText editTextFichier = (EditText) findViewById(R.id.fichier_addPartition);
-        String fichier= editTextFichier.getText().toString();
+        final EditText editTextFichier = (EditText) findViewById(R.id.fichier_addPartition);
 
-        EditText editTextNom = (EditText) findViewById(R.id.nom_addPartition);
-        String nom= editTextNom.getText().toString();
+        final EditText editTextNom = (EditText) findViewById(R.id.nom_addPartition);
 
-        EditText editTextAuteur = (EditText) findViewById(R.id.auteur_addPartition);
-        String auteur= editTextAuteur.getText().toString();
+        final EditText editTextAuteur = (EditText) findViewById(R.id.auteur_addPartition);
 
-        EditText editTextGenre = (EditText) findViewById(R.id.genre_addPartition);
-        String genre= editTextGenre.getText().toString();
+        final EditText editTextGenre = (EditText) findViewById(R.id.genre_addPartition);
 
-
-        String id="";
-
-
-        final Partition p = new Partition(genre, auteur, nom, id);
 
         Button ok = (Button) findViewById(R.id.ok_button_AddPartitionActivity);
         ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                String fichier = editTextFichier.getText().toString();
+                String nom = editTextNom.getText().toString();
+                String auteur = editTextAuteur.getText().toString();
+                String genre = editTextGenre.getText().toString();
+
+
+                Partition p = new Partition(0, fichier, nom, auteur, genre);
 
                 database.ajouter(p);
-
-
+                database.close();
                 Intent intent = new Intent(AddPartitionActivity.this, PlayPartitionActivity.class);
                 startActivity(intent);
             }
         });
 
-
-
-        database.close();
-
-
-
-
     }
+
 }
