@@ -1,13 +1,15 @@
-package com.example.hugo.guitarledgend;
+package com.example.hugo.guitarledgend.Activities;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.hugo.guitarledgend.Databases.StatsSQLiteHelper;
+import com.example.hugo.guitarledgend.R;
 
 
 public class StatsActivity extends AppCompatActivity {

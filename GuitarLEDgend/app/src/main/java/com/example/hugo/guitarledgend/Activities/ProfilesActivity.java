@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend;
+package com.example.hugo.guitarledgend.Activities;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.hugo.guitarledgend.R;
 
 public class ProfilesActivity extends AppCompatActivity {
 

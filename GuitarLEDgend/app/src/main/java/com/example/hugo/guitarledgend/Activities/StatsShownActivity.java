@@ -1,7 +1,9 @@
-package com.example.hugo.guitarledgend;
+package com.example.hugo.guitarledgend.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.hugo.guitarledgend.R;
 
 
 public class StatsShownActivity extends AppCompatActivity{
