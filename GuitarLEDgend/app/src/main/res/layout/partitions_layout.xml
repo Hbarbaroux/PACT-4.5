@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="TextView"
+        android:text="Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name"
@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="Author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
@@ -22,7 +22,7 @@
         android:id="@+id/author" />
 
     <TextView
-        android:text="TextView"
+        android:text="Genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/genre"
