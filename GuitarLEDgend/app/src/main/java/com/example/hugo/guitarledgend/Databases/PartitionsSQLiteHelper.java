@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend.Databases;
+package com.example.hugo.guitarledgend.databases;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +14,7 @@ public class PartitionsSQLiteHelper extends SQLiteOpenHelper {
     public static final String PARTITION_GENRE = "genre";
 
 
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final String NOM = "Partitions.db";
     public static final String PARTITION_TABLE_NAME = "PARTITIONS";
     public static final String PARTITION_TABLE_CREATE = "CREATE TABLE " + PARTITION_TABLE_NAME + " (" + PARTITION_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PARTITION_FILE + " TEXT, " + PARTITION_NAME + " TEXT, " + PARTITION_AUTHOR + " TEXT, " + PARTITION_GENRE + " TEXT);";

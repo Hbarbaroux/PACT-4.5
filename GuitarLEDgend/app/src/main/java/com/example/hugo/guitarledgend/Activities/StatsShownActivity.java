@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend.Activities;
+package com.example.hugo.guitarledgend.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

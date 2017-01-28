@@ -8,30 +8,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.StartActivity">
+        <activity android:name=".activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ProfilesActivity" />
+        <activity android:name=".activities.ProfilesActivity" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.SettingsActivity"></activity>
+        <activity android:name=".activities.SettingsActivity"></activity>
 
-        <activity android:name=".Activities.StatsActivity" />
-        <activity android:name=".Databases.StatsSQLiteHelper" />
-        <activity android:name=".Databases.ProfilesSQLiteHelper" />
-        <activity android:name=".Databases.PartitionsSQLiteHelper" />
-        <activity android:name=".Activities.StartPlayActivity" />
-        <activity android:name=".Activities.ChooseSpeedActivity" />
-        <activity android:name=".Activities.ChoosePartitionActivity" />
-        <activity android:name=".Activities.AddPartitionActivity" />
-        <activity android:name=".Activities.PlayPartitionActivity" />
-        <activity android:name=".Activities.StatsShownActivity" />
+        <activity android:name=".activities.StatsActivity" />
+        <activity android:name=".databases.StatsSQLiteHelper" />
+        <activity android:name=".databases.ProfilesSQLiteHelper" />
+        <activity android:name=".databases.PartitionsSQLiteHelper" />
+        <activity android:name=".activities.StartPlayActivity" />
+        <activity android:name=".activities.ChooseSpeedActivity" />
+        <activity android:name=".activities.ChoosePartitionActivity" />
+        <activity android:name=".activities.AddPartitionActivity" />
+        <activity android:name=".activities.PlayPartitionActivity" />
+        <activity android:name=".activities.StatsShownActivity" />
 
 
     </application>

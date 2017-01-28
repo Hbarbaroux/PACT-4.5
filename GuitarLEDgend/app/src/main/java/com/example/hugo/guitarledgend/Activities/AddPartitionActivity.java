@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend.Activities;
+package com.example.hugo.guitarledgend.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.hugo.guitarledgend.Databases.Partition;
-import com.example.hugo.guitarledgend.Databases.PartitionDAO;
+import com.example.hugo.guitarledgend.databases.Partition;
+import com.example.hugo.guitarledgend.databases.PartitionDAO;
 import com.example.hugo.guitarledgend.R;
 
 public class AddPartitionActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend.Databases;
+package com.example.hugo.guitarledgend.databases;
 
 public class Partition {
 

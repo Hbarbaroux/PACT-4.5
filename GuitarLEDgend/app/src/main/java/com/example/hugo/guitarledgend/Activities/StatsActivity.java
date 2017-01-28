@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend.Activities;
+package com.example.hugo.guitarledgend.activities;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.hugo.guitarledgend.Databases.StatsSQLiteHelper;
+import com.example.hugo.guitarledgend.databases.StatsSQLiteHelper;
 import com.example.hugo.guitarledgend.R;
 
 

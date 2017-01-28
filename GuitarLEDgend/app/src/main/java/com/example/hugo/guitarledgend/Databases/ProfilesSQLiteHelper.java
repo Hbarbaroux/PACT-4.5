@@ -1,9 +1,8 @@
-package com.example.hugo.guitarledgend.Databases;
+package com.example.hugo.guitarledgend.databases;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
 
 
 public class ProfilesSQLiteHelper extends SQLiteOpenHelper {

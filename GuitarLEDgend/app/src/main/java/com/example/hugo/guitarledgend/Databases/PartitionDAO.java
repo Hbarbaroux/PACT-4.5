@@ -1,10 +1,13 @@
-package com.example.hugo.guitarledgend.Databases;
+package com.example.hugo.guitarledgend.databases;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PartitionDAO {
@@ -57,6 +60,20 @@ public class PartitionDAO {
         return id;
     }
 */
+    public List<Partition> getAllPartitions() {
+        List<Partition> partitions = new ArrayList<Partition>();
+
+        Cursor cursor = mDb.query(PartitionsSQLiteHelper.PARTITION_TABLE_NAME, allColumns, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Partition partition = cursorToPartition(cursor);
+            partitions.add(partition);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return partitions;
+    }
 
     private Partition cursorToPartition(Cursor cursor) {
         Partition partition = new Partition(0, null, null, null, null);
