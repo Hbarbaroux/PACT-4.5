@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class ProfilesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String user = "USER EXAMPLE";
+    public static String user = "-1";
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
@@ -45,15 +45,6 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-/*        Button next_button = (Button) findViewById(R.id.next_button);
-        next_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfilesActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
