@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 import com.jjoe64.graphview.GraphView;
@@ -24,6 +26,7 @@ public class StatsActivity extends AppCompatActivity {
     public static final int DISPLAYED_STATS=10;
 
     private UserDAO database;
+    private PartitionDAO database_partition;
     String partition_id;
 
     @Override
@@ -45,15 +48,17 @@ public class StatsActivity extends AppCompatActivity {
         long partition_id=intent.getLongExtra("partition_id",1L);
 
 
+        database_partition = new PartitionDAO(StatsActivity.this);
+        database_partition.open();
 
-
+        Partition partition = database_partition.selectionner(partition_id+1);
 
         //GRAPHE
 
         database = new UserDAO(StatsActivity.this);
         database.open();
 
-        List<Stats> values = database.getStats(ProfilesActivity.getUser(),partition_id);
+        List<Stats> values = database.getStats(ProfilesActivity.getUser(),partition_id+1);
 
         DataPoint[] d1= new DataPoint[DISPLAYED_STATS];
         for (int i=0;i<Math.min(DISPLAYED_STATS,values.size());i++){
@@ -80,7 +85,7 @@ public class StatsActivity extends AppCompatActivity {
 
         graph.addSeries(series);
 
-        graph.setTitle("Derniers scores");
+        graph.setTitle("DERNIERS SCORES : " + partition.getNom());
         graph.setTitleColor(Color.BLACK);
         graph.setTitleTextSize(100);
 

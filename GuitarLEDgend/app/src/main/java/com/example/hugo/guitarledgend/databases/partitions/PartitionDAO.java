@@ -52,14 +52,15 @@ public class PartitionDAO {
 
     }
 
-/*    public long selectionner (String genre, String auteur, String nom){
-        String[] args = new String[] {genre,auteur,nom};
-        Cursor c = mDb.rawQuery("SELECT "+KEY+" FROM "+TABLE_NAME+" WHERE "+GENRE+" = ? , "+AUTHOR+" = ? , "+NOM+" = ?", args);
+    public Partition selectionner (long id){
+        String[] args = new String[] {String.valueOf(id)};
+        String whereClause = PartitionsSQLiteHelper.PARTITION_KEY + " = ?";
+        Cursor c = mDb.query(PartitionsSQLiteHelper.PARTITION_TABLE_NAME, null, whereClause, args, null, null, null);
         c.moveToFirst();
-        long id = c.getLong(0);
-        return id;
+        Partition p = cursorToPartition(c);
+        return p;
     }
-*/
+
     public List<Partition> getAllPartitions() {
         List<Partition> partitions = new ArrayList<Partition>();
 
