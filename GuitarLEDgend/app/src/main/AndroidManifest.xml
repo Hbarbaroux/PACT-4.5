@@ -15,12 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ProfilesActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SettingsActivity"></activity>
+        <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.StatsActivity" />
         <activity android:name=".activities.StartPlayActivity" />
         <activity android:name=".activities.ChooseSpeedActivity" />
@@ -28,8 +27,14 @@
         <activity android:name=".activities.AddPartitionActivity" />
         <activity android:name=".activities.PlayPartitionActivity" />
         <activity android:name=".activities.StatsShownActivity" />
-
-
+        <activity
+            android:name=".activities.NavigationDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ProfilesActivity"
+            android:label="@string/title_activity_profils"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

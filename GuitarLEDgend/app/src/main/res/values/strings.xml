@@ -29,8 +29,9 @@
     <string name="nom">Nom</string>
     <string name="auteur">Auteur</string>
     <string name="genre">Genre</string>
-
-
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="title_activity_profils">ProfilsActivity</string>
+    <string name="title_activity_bla">BlaActivity</string>
 
 
 </resources>
