@@ -10,13 +10,13 @@ public class Partition {
 
 
 
-    public Partition (long id, String fichier, String genre, String auteur, String nom){
+    public Partition (long id, String fichier, String nom, String auteur, String genre){
         super();
         this.id=id;
         this.fichier=fichier;
-        this.genre=genre;
-        this.auteur=auteur;
         this.nom=nom;
+        this.auteur=auteur;
+        this.genre=genre;
     }
 
 
