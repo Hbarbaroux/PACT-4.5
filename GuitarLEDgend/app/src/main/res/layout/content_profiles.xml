@@ -13,28 +13,5 @@
     tools:context="com.example.hugo.guitarledgend.activities.ProfilesActivity"
     tools:showIn="@layout/app_bar_profiles">
 
-    <TextView
-        android:id="@+id/comment_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="112sp"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:maxWidth = "250sp"/>
-
-    <Button
-        style="@style/button"
-        android:text="Vers WelcomeActivity"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/next_button"
-        android:minHeight="100dip"
-        android:width="270dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="84dp" />
 
 </RelativeLayout>

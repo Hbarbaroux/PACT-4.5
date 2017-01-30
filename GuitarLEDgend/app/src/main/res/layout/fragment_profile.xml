@@ -6,11 +6,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.hugo.guitarledgend.activities.ExActivity$PlaceholderFragment">
+    tools:context="com.example.hugo.guitarledgend.activities.ProfilesActivity$PlaceholderFragment">
 
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        style="@style/button"
+        android:text="Vers WelcomeActivity"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/next_button"
+        android:minHeight="100dip"
+        android:width="270dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="84dp" />
 
 </RelativeLayout>

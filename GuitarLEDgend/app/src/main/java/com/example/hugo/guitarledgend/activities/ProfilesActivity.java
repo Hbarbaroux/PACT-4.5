@@ -46,31 +46,27 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        Button next_button = (Button) findViewById(R.id.next_button);
+/*        Button next_button = (Button) findViewById(R.id.next_button);
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilesActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TextView comment = (TextView) findViewById(R.id.comment_profile);
-        Typeface century = Typeface.createFromAsset(getAssets(), "fonts/Century Gothic.ttf");
-        comment.setTypeface(century);
-        comment.setText("/* Page des profils non encore implémentée */ ");
-
-        TextView next_text_view = (TextView) findViewById(R.id.next_button);
+/*        TextView next_text_view = (TextView) findViewById(R.id.next_button);
         Typeface century_bold = Typeface.createFromAsset(getAssets(), "fonts/Century Gothic Bold.ttf");
         next_text_view.setTypeface(century_bold);
+*/
     }
 
     @Override
@@ -131,6 +127,15 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
             View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            Button next_button = (Button) rootView.findViewById(R.id.next_button);
+            next_button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
             return rootView;
         }
 
@@ -141,7 +146,7 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
             }
         }
 
-        private void addTab(String title) {
+        public void addTab(String title) {
             tabLayout.addTab(tabLayout.newTab().setText(title));
             mSectionsPagerAdapter.addTabPage(title);
         }
