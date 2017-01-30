@@ -21,9 +21,14 @@ end
 for k=1:(length(L)/2)
     Y = [Y, L(2*k-1)];
 end
-for k=1:length(Y)
-    q = signalb(L(2*k-1):L(2*k)) ; 
-    tabnotes = [tabnotes, estimation_hauteur_note(q), Y(k)]; 
+for j=1:length(Y)
+    ecart = L(2*j)-L(2*j-1)
+    if ecart > 0
+        q=signalb(L(2*j-1):L(2*j));
+        est=estimation_hauteur_note(q)
+        if est<2000 && est>50
+            tabnotes=[tabnotes,est,Y(j)];
+        end
+    end
 end
 end
-    
