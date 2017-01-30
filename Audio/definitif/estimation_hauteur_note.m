@@ -1,9 +1,8 @@
 
 function freq = estimation_hauteur_note(signal)
-Y = fft(signal);
-Y=Y(1:floor(length(Y)/2));% transformée de fourier, on ne prend que la première moitié car elle est symétrique
-Y=abs(Y);
 n = length(signal);
+L = 2^nextpow2(n*100);
+Y = fft(signal, L)/L;
 Z=zeros(1, length(Y));
 for i=floor(100*44100/n):min([length(Y), floor(2000*44100/n)])
     Z(i)=Y(i);
