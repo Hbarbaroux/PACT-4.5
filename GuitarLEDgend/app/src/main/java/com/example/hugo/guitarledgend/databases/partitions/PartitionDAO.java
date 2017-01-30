@@ -48,7 +48,7 @@ public class PartitionDAO {
 
     }
 
-    public void supprimer (String id){
+    public void supprimer (long id){
 
     }
 

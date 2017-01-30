@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.hugo.guitarledgend.databases.partitions.Partition;
-import com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,7 @@ public class UserDAO {
 
     private UsersSQLiteHelper mHandler = null;
     private SQLiteDatabase mDb = null ;
-    private String[] allColumns = { com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper.PARTITION_KEY, com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper.PARTITION_FILE, com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper.PARTITION_NAME, com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper.PARTITION_AUTHOR, com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper.PARTITION_GENRE};
+    private String[] allProfileColumns = { UsersSQLiteHelper.PROFILE_KEY, UsersSQLiteHelper.PROFILE_NAME, UsersSQLiteHelper.PROFILE_SEX };
 
 
     public UserDAO(Context Context) {
@@ -45,48 +43,65 @@ public class UserDAO {
         ContentValues values = new ContentValues();
         values.put(UsersSQLiteHelper.PROFILE_NAME,p.getNom());
         values.put(UsersSQLiteHelper.PROFILE_SEX,p.getSexe());
-
-        mDb.insert(com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper.PARTITION_TABLE_NAME, null, values);
+        mDb.insert(UsersSQLiteHelper.PROFILE_TABLE_NAME, null, values);
     }
 
-    public void modifier (Partition p){
+    public void ajouter (Stats s) {
+        ContentValues values = new ContentValues();
+        values.put(UsersSQLiteHelper.STATS_DATE,s.getDate());
+        values.put(UsersSQLiteHelper.STATS_FICHIER,s.getFichier());
+        values.put(UsersSQLiteHelper.STATS_PROFILE,s.getProfil());
+        mDb.insert(UsersSQLiteHelper.STATS_TABLE_NAME, null, values);
+    }
+
+
+    public void modifier (Profile p){
 
     }
 
-    public void supprimer (String id){
+    public void modifier (Stats s){
 
     }
 
-    /*    public long selectionner (String genre, String auteur, String nom){
-            String[] args = new String[] {genre,auteur,nom};
-            Cursor c = mDb.rawQuery("SELECT "+KEY+" FROM "+TABLE_NAME+" WHERE "+GENRE+" = ? , "+AUTHOR+" = ? , "+NOM+" = ?", args);
-            c.moveToFirst();
-            long id = c.getLong(0);
-            return id;
-        }
+    public void supprimerProfil (long id){
+
+    }
+
+    public void supprimerStats (long id){
+
+    }
+
+    /*
+    public Stats selectionnerStats (long id){
+
+    }
+
+    public Profile selectionnerProfile (long id){
+
+    }
     */
-    public List<Partition> getAllProfiles() {
-        List<Partition> partitions = new ArrayList<Partition>();
 
-        Cursor cursor = mDb.query(com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper.PARTITION_TABLE_NAME, allColumns, null, null, null, null, null);
+
+    public List<Profile> getAllProfiles() {
+        List<Profile> profiles = new ArrayList<Profile>();
+
+        Cursor cursor = mDb.query(UsersSQLiteHelper.PROFILE_TABLE_NAME, allProfileColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Partition partition = cursorToPartition(cursor);
-            partitions.add(partition);
+            Profile profile = cursorToProfile(cursor);
+            profiles.add(profile);
             cursor.moveToNext();
         }
         cursor.close();
-        return partitions;
+        return profiles;
     }
 
-    private Partition cursorToPartition(Cursor cursor) {
-        Partition partition = new Partition(0, null, null, null, null);
-        partition.setId(cursor.getLong(0));
-        partition.setFichier(cursor.getString(1));
-        partition.setNom(cursor.getString(2));
-        partition.setAuteur(cursor.getString(3));
-        partition.setGenre(cursor.getString(4));
-        return partition;
+    private Profile cursorToProfile(Cursor cursor) {
+        Profile profile = new Profile(0, null, null);
+        profile.setId(cursor.getLong(0));
+        profile.setNom(cursor.getString(1));
+        profile.setSexe(cursor.getString(2));
+        return profile;
     }
 }
