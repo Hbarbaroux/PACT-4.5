@@ -7,6 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +85,14 @@ public class UserDAO {
     }
     */
 
+    public Profile selectionnerProfile (long id){
+        String[] args = new String[] {String.valueOf(id)};
+        String whereClause = UsersSQLiteHelper.PROFILE_KEY + " = ?";
+        Cursor c = mDb.query(UsersSQLiteHelper.PROFILE_TABLE_NAME, null, whereClause, args, null, null, null);
+        c.moveToFirst();
+        Profile p = cursorToProfile(c);
+        return p;
+    }
 
     public List<Profile> getAllProfiles() {
         List<Profile> profiles = new ArrayList<Profile>();

@@ -40,7 +40,7 @@ public class ChoosePartitionInStatsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
 
                 Intent intent = new Intent(ChoosePartitionInStatsActivity.this, StatsActivity.class);
-                intent.putExtra("partition_id", (long) position);
+                intent.putExtra("partition_id", (long) position+1);
                 startActivity(intent);
             }
         });
