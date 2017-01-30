@@ -26,8 +26,16 @@ import com.example.hugo.guitarledgend.R;
 import java.util.ArrayList;
 
 public class ProfilesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static long user = -1;
 
-    public static String user = "-1";
+    public static long getUser() {
+        return user;
+    }
+
+    public static void setUser(long user) {
+        ProfilesActivity.user = user;
+    }
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 

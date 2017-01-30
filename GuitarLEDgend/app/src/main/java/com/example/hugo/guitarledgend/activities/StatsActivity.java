@@ -24,7 +24,7 @@ public class StatsActivity extends AppCompatActivity {
     public static final int DISPLAYED_STATS=10;
 
     private UserDAO database;
-
+    String partition_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,11 @@ public class StatsActivity extends AppCompatActivity {
         });
 
 
+        Intent intent =getIntent();
+        long partition_id=intent.getLongExtra("partition_id",1L);
+
+
+
 
 
         //GRAPHE
@@ -48,7 +53,7 @@ public class StatsActivity extends AppCompatActivity {
         database = new UserDAO(StatsActivity.this);
         database.open();
 
-        List<Stats> values = database.getStats(0,0);
+        List<Stats> values = database.getStats(ProfilesActivity.getUser(),partition_id);
 
         DataPoint[] d1= new DataPoint[DISPLAYED_STATS];
         for (int i=0;i<Math.min(DISPLAYED_STATS,values.size());i++){
