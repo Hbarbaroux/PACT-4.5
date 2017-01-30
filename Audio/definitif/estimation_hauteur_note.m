@@ -6,4 +6,3 @@ Y = fft(signal, L)/L;
 [M, I] = max(abs(Y));
 freq = I*(44100/L);
 end 
-

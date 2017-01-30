@@ -6,12 +6,13 @@ Y = []; % index des montées
 L = []; % index des montées et des descentes autour de la valeur limite (max à 90%)
 tabnotes = [];
 i = 1;
+M=max(denv);
 while i < length(denv) 
-    while denv(i) < 0.0001 && i < length(denv)
+    while denv(i) < 0.1*M && i < length(denv)
         i = i + 1;
     end
     L =  [L, i]; %#ok<*AGROW>
-    while denv(i) > 0.0001 && i < length(denv)
+    while denv(i) > 0.1*M && i < length(denv)
         i = i + 1;
     end
     L = [L, i];
