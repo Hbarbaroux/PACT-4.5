@@ -10,7 +10,7 @@ for i=floor(100*44100/n):min([length(Y), floor(2000*44100/n)])
 end
  % filtre passe-haut afin de se débarasser des effets de bords (la simple
  % concaténation renvoie une erreur...)
-f = (find(Z==max(Z)));
+f=findmax(Z);
 freq = f*44100/(length(signal)); %on divise par le nombre de secondes du signal, si on est à 44100 Hz de fréquence d'échantillonage
 end
 
