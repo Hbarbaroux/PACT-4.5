@@ -50,6 +50,7 @@ public class UserDAO {
         ContentValues values = new ContentValues();
         values.put(UsersSQLiteHelper.STATS_DATE,s.getDate());
         values.put(UsersSQLiteHelper.STATS_FICHIER,s.getFichier());
+        values.put(UsersSQLiteHelper.STATS_SCORE,s.getScore());
         values.put(UsersSQLiteHelper.STATS_PROFILE,s.getProfil());
         mDb.insert(UsersSQLiteHelper.STATS_TABLE_NAME, null, values);
     }
@@ -103,5 +104,35 @@ public class UserDAO {
         profile.setNom(cursor.getString(1));
         profile.setSexe(cursor.getString(2));
         return profile;
+    }
+
+    public List<Stats> getStats(long profile, long partition){
+        List<Stats> stats = new ArrayList<Stats>();
+
+        String p1= String.valueOf(profile);
+        String p2= String.valueOf(partition);
+
+        String[] args = new String[] {p1,p2};
+        String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = ? AND "+UsersSQLiteHelper.STATS_PARTITION+" = ?";
+        String orderBy = UsersSQLiteHelper.STATS_KEY + " DESC";
+        Cursor cursor = mDb.query (UsersSQLiteHelper.STATS_TABLE_NAME, null,whereClause,args,null,null,orderBy);
+        while (!cursor.isAfterLast()) {
+            Stats s = cursorToStats(cursor);
+            stats.add(s);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return stats;
+    }
+
+    private Stats cursorToStats (Cursor cursor){
+        Stats stats = new Stats (0,null,null,0,0,0);
+        stats.setId(cursor.getLong(0));
+        stats.setDate(cursor.getString(1));
+        stats.setFichier(cursor.getString(2));
+        stats.setScore(cursor.getLong(3));
+        stats.setPartition(cursor.getLong(4));
+        stats.setProfil(cursor.getLong(5));
+        return stats;
     }
 }
