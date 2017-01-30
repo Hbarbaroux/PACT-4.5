@@ -8,6 +8,6 @@ end
 T
 if max(T) > 0.7
     z = findmax(T);
-    freq = 82.4*(2^(1/12)^z);
+    freq = 82.4*(2^(1/12)^(z+11));
 end
 
