@@ -44,21 +44,6 @@ public class ChoosePartitionInStatsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button ok = (Button) findViewById(R.id.ok_button_ChoosePartitionInStatsActivity);
-        ok.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-
-                Intent intent = new Intent(ChoosePartitionInStatsActivity.this, StatsActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-
-
-
     }
 
 }
