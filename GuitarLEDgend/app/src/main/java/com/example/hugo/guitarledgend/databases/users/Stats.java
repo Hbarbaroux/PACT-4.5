@@ -5,13 +5,17 @@ public class Stats {
     private long id;
     private String date;
     private String fichier;
+    private long score;
+    private long partition;
     private long profil;
 
-    public Stats (long id, String date, String fichier, long profil){
+    public Stats (long id, String date, String fichier, long score, long partition, long profil){
         super();
         this.id=id;
         this.date=date;
         this.fichier=fichier;
+        this.score=score;
+        this.partition=partition;
         this.profil=profil;
     }
 
@@ -45,6 +49,22 @@ public class Stats {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getScore() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        this.score = score;
+    }
+
+    public long getPartition() {
+        return partition;
+    }
+
+    public void setPartition(long partition) {
+        this.partition = partition;
     }
 
 
