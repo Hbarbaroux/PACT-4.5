@@ -23,8 +23,6 @@
         <activity android:name=".activities.SettingsActivity"></activity>
 
         <activity android:name=".activities.StatsActivity" />
-        <activity android:name=".databases.users.StatsSQLiteHelper" />
-        <activity android:name=".databases.users.ProfilesSQLiteHelper" />
         <activity android:name=".databases.partitions.PartitionsSQLiteHelper" />
         <activity android:name=".activities.StartPlayActivity" />
         <activity android:name=".activities.ChooseSpeedActivity" />

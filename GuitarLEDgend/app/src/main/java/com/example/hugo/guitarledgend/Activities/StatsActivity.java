@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.hugo.guitarledgend.databases.users.StatsSQLiteHelper;
+
 import com.example.hugo.guitarledgend.R;
 
 
@@ -39,14 +39,7 @@ public class StatsActivity extends AppCompatActivity {
         String annee= editTextAnnee.getText().toString();
 
 
-        StatsSQLiteHelper ssqlh = new StatsSQLiteHelper(this,"MyStats",null,1);
-        SQLiteDatabase db = ssqlh.getReadableDatabase();
 
-        String[] args = new String[] {jour,mois,annee};
-        //Cursor c = db.rawQuery(" SELECT id FROM Stats WHERE jour =? , mois =? , annee =? ", args);
-
-
-        db.close();
 
 
 
