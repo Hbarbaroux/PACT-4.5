@@ -24,7 +24,7 @@ for j=1:length(Y)
     ecart = L(2*j)-L(2*j-1);
     if ecart > 0
         q=signalb(L(2*j-1):L(2*j));
-        est=estimation_hauteur_note(q);
+        est=estim_note_autoc(q);
         if est<2000 && est>50
             tabnotes=[tabnotes,est,Y(j)];
         end
