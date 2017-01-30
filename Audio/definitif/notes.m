@@ -6,10 +6,9 @@ q = zeros(length(signalb))
 Y = []; % index des montées
 L = []; % index des montées et des descentes autour de la valeur limite (max à 90%)
 tabnotes = [];
-M = max(denv);
 i = 1;
-limite = denv(length(denv)-1);
-M=0.1;
+limite = 0.1;
+M=max(denv);
 while i < length(denv) 
     while denv(i) < M*limite && i < length(denv)
         i = i + 1;
