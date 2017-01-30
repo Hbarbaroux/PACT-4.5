@@ -21,9 +21,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SettingsActivity"></activity>
-
         <activity android:name=".activities.StatsActivity" />
-        <activity android:name=".databases.partitions.PartitionsSQLiteHelper" />
         <activity android:name=".activities.StartPlayActivity" />
         <activity android:name=".activities.ChooseSpeedActivity" />
         <activity android:name=".activities.ChoosePartitionActivity" />
