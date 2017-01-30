@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button statsButton = (Button) findViewById(R.id.stats_button);
         statsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StatsActivity.class);
+                Intent intent = new Intent(MainActivity.this, ChoosePartitionInStatsActivity.class);
                 startActivity(intent);
             }
         });

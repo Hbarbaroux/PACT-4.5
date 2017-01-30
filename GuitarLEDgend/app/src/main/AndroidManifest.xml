@@ -26,6 +26,7 @@
         <activity android:name=".activities.ChoosePartitionActivity" />
         <activity android:name=".activities.AddPartitionActivity" />
         <activity android:name=".activities.PlayPartitionActivity" />
+        <activity android:name=".activities.ChoosePartitionInStatsActivity" />
         <activity android:name=".activities.StatsShownActivity" />
         <activity
             android:name=".activities.NavigationDrawerActivity"
