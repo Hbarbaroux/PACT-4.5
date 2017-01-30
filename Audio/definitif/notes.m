@@ -5,15 +5,13 @@ denv = AttaqueEnveloppe(signalb,0.999); % partie positive de la dérivée de l'e
 Y = []; % index des montées
 L = []; % index des montées et des descentes autour de la valeur limite (max à 90%)
 tabnotes = [];
-M = max(denv);
 i = 1;
-limite=0.1;
 while i < length(denv) 
-    while denv(i) < M*limite && i < length(denv)
+    while denv(i) < 0.0001 && i < length(denv)
         i = i + 1;
     end
     L =  [L, i]; %#ok<*AGROW>
-    while denv(i) > M*limite && i < length(denv)
+    while denv(i) > 0.0001 && i < length(denv)
         i = i + 1;
     end
     L = [L, i];
@@ -22,10 +20,10 @@ for k=1:(length(L)/2)
     Y = [Y, L(2*k-1)];
 end
 for j=1:length(Y)
-    ecart = L(2*j)-L(2*j-1)
+    ecart = L(2*j)-L(2*j-1);
     if ecart > 0
         q=signalb(L(2*j-1):L(2*j));
-        est=estimation_hauteur_note(q)
+        est=estimation_hauteur_note(q);
         if est<2000 && est>50
             tabnotes=[tabnotes,est,Y(j)];
         end
