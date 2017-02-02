@@ -11,6 +11,8 @@ import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.R;
 
+import java.util.List;
+
 public class AddPartitionActivity extends AppCompatActivity {
 
     private PartitionDAO database;
@@ -45,8 +47,13 @@ public class AddPartitionActivity extends AppCompatActivity {
                 Partition p = new Partition(0, fichier, nom, auteur, genre);
 
                 database.ajouter(p);
+
+                List<Partition> values = database.getAllPartitions();
+
                 database.close();
+
                 Intent intent = new Intent(AddPartitionActivity.this, PlayPartitionActivity.class);
+                intent.putExtra("partition_id", (long) values.size());
                 startActivity(intent);
             }
         });

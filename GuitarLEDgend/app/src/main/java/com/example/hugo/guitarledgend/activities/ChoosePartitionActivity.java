@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -33,12 +34,12 @@ public class ChoosePartitionActivity extends ListActivity {
         PartitionsAdapter adapter = new PartitionsAdapter(ChoosePartitionActivity.this, values);
         mListView.setAdapter(adapter);
 
-        Button ok = (Button) findViewById(R.id.ok_button_ChoosePartitionActivity);
-        ok.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
 
                 Intent intent = new Intent(ChoosePartitionActivity.this, ChooseSpeedActivity.class);
+                intent.putExtra("partition_id", (long) position+1);
                 startActivity(intent);
             }
         });

@@ -9,18 +9,6 @@
         android:layout_height="wrap_content" />
 
 
-    <Button
-        style="@style/button"
-        android:text="@string/ok"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ok_button_ChoosePartitionActivity"
-        android:minHeight="50dip"
-        android:minWidth="90dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="62dp" />
 
 
 </RelativeLayout>

@@ -15,10 +15,14 @@ public class PlayPartitionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_partition);
 
+        Intent intent =getIntent();
+        final long partition_id=intent.getLongExtra("partition_id",1L);
+
         Button oui = (Button) findViewById(R.id.oui_button);
         oui.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(PlayPartitionActivity.this, ChooseSpeedActivity.class);
+                intent.putExtra("partition_id", (long) partition_id);
                 startActivity(intent);
             }
         });
