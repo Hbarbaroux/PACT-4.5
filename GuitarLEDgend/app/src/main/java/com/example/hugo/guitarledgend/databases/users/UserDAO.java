@@ -90,8 +90,11 @@ public class UserDAO {
         String whereClause = UsersSQLiteHelper.PROFILE_KEY + " = ?";
         Cursor c = mDb.query(UsersSQLiteHelper.PROFILE_TABLE_NAME, null, whereClause, args, null, null, null);
         c.moveToFirst();
-        Profile p = cursorToProfile(c);
-        return p;
+        if (!c.isAfterLast()) {
+            Profile p = cursorToProfile(c);
+            return p;
+        }
+        return null;
     }
 
     public List<Profile> getAllProfiles() {

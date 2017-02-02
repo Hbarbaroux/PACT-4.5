@@ -56,7 +56,7 @@ public class StatsActivity extends AppCompatActivity {
         database_user.open();
 
         Partition partition = database_partition.selectionner(partition_id);
-        //Profile profil = database_user.selectionnerProfile(profile_id);
+        Profile profil = database_user.selectionnerProfile(profile_id);
 
         //GRAPHE
 
@@ -67,10 +67,12 @@ public class StatsActivity extends AppCompatActivity {
             d1[i]=new DataPoint(i,values.get(i).getScore());
         }
 
+        //exemple a suprimer une fois on aura des vrais stats
         DataPoint[] d= new DataPoint[DISPLAYED_STATS];
         for (int i=0;i<DISPLAYED_STATS;i++){
             d[i]=new DataPoint(i,i);
         }
+        //fin
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
@@ -87,7 +89,7 @@ public class StatsActivity extends AppCompatActivity {
 
         graph.addSeries(series);
 
-        graph.setTitle("DERNIERS SCORES : " + partition.getNom());
+        //graph.setTitle("DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom());
         graph.setTitleColor(Color.BLACK);
         graph.setTitleTextSize(100);
 
