@@ -27,25 +27,14 @@ public class StatsActivity extends AppCompatActivity {
 
     private UserDAO database_user;
     private PartitionDAO database_partition;
-    String partition_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
-
-        Button chercher = (Button) findViewById(R.id.dernieres_stats);
-        chercher.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(StatsActivity.this, StatsShownActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
         Intent intent =getIntent();
-        long partition_id=intent.getLongExtra("partition_id",1L);
+        final long partition_id=intent.getLongExtra("partition_id",1L);
 
         long profile_id = ProfilesActivity.getUser();
 
@@ -57,6 +46,17 @@ public class StatsActivity extends AppCompatActivity {
 
         Partition partition = database_partition.selectionner(partition_id);
         Profile profil = database_user.selectionnerProfile(profile_id);
+
+
+        Button chercher = (Button) findViewById(R.id.dernieres_stats);
+        chercher.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(StatsActivity.this, StatsShownActivity.class);
+                intent.putExtra("partition_id", (long) partition_id);
+                startActivity(intent);
+            }
+        });
+
 
         //GRAPHE
 
