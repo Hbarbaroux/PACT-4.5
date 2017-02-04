@@ -37,6 +37,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ex">ExActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="nouveau_profil">Nouveau Profil</string>
+    <string name="sexe">Sexe</string>
+    <string name="homme">Homme</string>
+    <string name="femme">Femme</string>
 
 
 </resources>

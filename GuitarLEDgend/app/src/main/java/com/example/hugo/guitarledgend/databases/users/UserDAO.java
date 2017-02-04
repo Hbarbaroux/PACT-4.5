@@ -79,11 +79,13 @@ public class UserDAO {
     public Stats selectionnerStats (long id){
 
     }
+*/
 
-    public Profile selectionnerProfile (long id){
-
+    public int nombreProfils () {
+        Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.PROFILE_TABLE_NAME, null);
+        c.moveToFirst();
+        return c.getInt(0);
     }
-    */
 
     public Profile selectionnerProfile (long id){
         String[] args = new String[] {String.valueOf(id)};
