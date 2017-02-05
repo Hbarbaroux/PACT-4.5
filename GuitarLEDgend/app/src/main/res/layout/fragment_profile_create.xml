@@ -14,8 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/create_button"
-        android:minHeight="100dip"
-        android:width="270dip"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="84dp" />

@@ -19,9 +19,7 @@
         android:id="@+id/dernieres_stats"
         android:layout_marginTop="92dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/graph"
-        android:minHeight="50dip"
-        android:minWidth="160dip"/>
+        android:layout_below="@id/graph" />
 
 
 

@@ -11,9 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/choisirPartition_button"
         android:layout_marginTop="92dp"
-        android:layout_centerHorizontal="true"
-        android:minHeight="50dip"
-        android:minWidth="250dip"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="@style/button"
@@ -24,8 +22,6 @@
         android:id="@+id/ajouterPartition_button"
         android:layout_marginTop="92dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/choisirPartition_button"
-        android:minHeight="50dip"
-        android:minWidth="250dip"/>
+        android:layout_below="@id/choisirPartition_button" />
 
 </RelativeLayout>

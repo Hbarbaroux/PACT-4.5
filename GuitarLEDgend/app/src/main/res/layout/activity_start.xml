@@ -31,9 +31,7 @@
         android:id="@+id/start_button"
         android:layout_marginTop="92dp"
         android:layout_below="@+id/app_name"
-        android:layout_centerHorizontal="true"
-        android:minHeight="50dip"
-        android:minWidth="120dip"/>
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

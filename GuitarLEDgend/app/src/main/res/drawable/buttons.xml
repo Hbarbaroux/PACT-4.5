@@ -14,6 +14,11 @@
                 <shape>
                     <solid android:color="@color/colorButtonPressed"/>
                     <corners android:radius="3sp" />
+                    <padding
+                        android:left="20dp"
+                        android:right="20dp"
+                        android:bottom="10dp"
+                        android:top="10dp"/>
                 </shape>
             </item>
         </layer-list>
@@ -31,10 +36,12 @@
                 <shape>
                     <solid android:color="@color/colorButton"/>
                     <corners android:radius="3sp" />
+                    <padding
+                        android:left="20dp"
+                        android:right="20dp"
+                        android:bottom="10dp"
+                        android:top="10dp"/>
                 </shape>
-                <padding
-                    android:left="20dp"
-                    android:right="20dp" />
             </item>
         </layer-list>
     </item>

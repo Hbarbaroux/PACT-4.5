@@ -15,25 +15,40 @@ public class ProfilesAdapter extends FragmentStatePagerAdapter {
     private Context mContext;
     private final ArrayList<CharSequence> tabItems = new ArrayList<>();
     int mNumOfTabs;
+    private UserDAO database;
 
     public ProfilesAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.mContext=context;
-        UserDAO database = new UserDAO(mContext);
+        database = new UserDAO(mContext);
         database.open();
-        this.mNumOfTabs = database.nombreProfils();
+        this.mNumOfTabs = database.nombreProfils()+1;
+        database.close();
+        initiateItems();
+    }
+
+    private void initiateItems () {
+        database = new UserDAO(mContext);
+        database.open();
+        for (int i = 0 ; i < mNumOfTabs - 1; i++) {
+            tabItems.add(database.selectionnerProfile(i+1).getNom());
+        }
+        database.close();
     }
 
     @Override
     public Fragment getItem(int position) {
-
-        if (position == 0) return CreateProfileFragment.newInstance();
-
-        else {
-            UserDAO database = new UserDAO(mContext);
-            database.open();
-            return ChooseProfileFragment.newInstance(database.selectionnerProfile(position).getNom());
+        database = new UserDAO(mContext);
+        database.open();
+        if (position == 0) {
+            return CreateProfileFragment.newInstance();
         }
+        else if (position <= database.nombreProfils()){
+            String nom = database.selectionnerProfile(position).getNom();
+            return ChooseProfileFragment.newInstance(nom);
+        }
+        database.close();
+        return null;
     }
 
     @Override
@@ -55,8 +70,9 @@ public class ProfilesAdapter extends FragmentStatePagerAdapter {
     }
 
     public void removeTabPage(int position) {
-        if (!tabItems.isEmpty() && position<tabItems.size()) {
+        if (!tabItems.isEmpty() && position<tabItems.size()+1) {
             tabItems.remove(position);
+            mNumOfTabs--;
             notifyDataSetChanged();
         }
     }

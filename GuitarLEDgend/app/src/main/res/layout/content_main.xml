@@ -21,9 +21,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/stats_button"
         android:layout_marginTop="92dp"
-        android:layout_centerHorizontal="true"
-        android:minHeight="50dip"
-        android:minWidth="220dip"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="@style/button"
@@ -34,8 +32,6 @@
         android:id="@+id/startPlay_button"
         android:layout_marginTop="92dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/stats_button"
-        android:minHeight="50dip"
-        android:minWidth="120dip"/>
+        android:layout_below="@id/stats_button" />
 
 </RelativeLayout>

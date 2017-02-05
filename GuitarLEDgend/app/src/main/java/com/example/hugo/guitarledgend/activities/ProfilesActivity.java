@@ -30,8 +30,11 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
     }
 
     private static ProfilesAdapter mFragmentPagerAdapter;
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
 
+    public static ViewPager getmViewPager() {
+        return mViewPager;
+    }
 
     public static ProfilesAdapter getmFragmentPagerAdapter() {
         return mFragmentPagerAdapter;

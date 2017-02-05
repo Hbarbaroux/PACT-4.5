@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,6 @@ public class CreateProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile_create, container, false);
 
-        database = new UserDAO(getActivity());
-        database.open();
-
         nom_edit = (EditText) rootView.findViewById(R.id.nom);
         TextView nom_text_wiew = (TextView) rootView.findViewById(R.id.nom);
         Typeface insomnia = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Century Gothic.ttf");
@@ -63,17 +61,24 @@ public class CreateProfileFragment extends Fragment {
 
                 String nom = nom_edit.getText().toString();
 
-                if (sexe_check.getCheckedRadioButtonId() == R.id.femme) sexe = "femme";
+                if(TextUtils.isEmpty(nom)) {
+                    nom_edit.setError("Veuillez rentrer un nom");
+                }
 
-                Profile profile = new Profile(0, nom, sexe);
+                else {
+                    if (sexe_check.getCheckedRadioButtonId() == R.id.femme) sexe = "femme";
 
-                database.ajouter(profile);
-                database.close();
+                    Profile profile = new Profile(0, nom, sexe);
+                    database = new UserDAO(getActivity());
+                    database.open();
+                    database.ajouter(profile);
+                    database.close();
 
-                mFragmentPagerAdapter.addTabPage("profile");
+                    mFragmentPagerAdapter.addTabPage("profile");
 
-                getActivity().finish();
-                startActivity(getActivity().getIntent());
+                    getActivity().finish();
+                    startActivity(getActivity().getIntent());
+                }
             }
         });
 

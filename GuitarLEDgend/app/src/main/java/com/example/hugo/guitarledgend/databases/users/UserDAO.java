@@ -12,6 +12,7 @@ import com.example.hugo.guitarledgend.databases.partitions.PartitionsSQLiteHelpe
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by jesusbm on 30/01/17.
@@ -68,14 +69,25 @@ public class UserDAO {
     }
 
     public void supprimerProfil (long id){
-
+        mDb.execSQL("DELETE FROM " + UsersSQLiteHelper.PROFILE_TABLE_NAME + " WHERE id = " + String.valueOf(id));
+        mDb.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + UsersSQLiteHelper.PROFILE_TABLE_NAME + "'");
+        mDb.execSQL("VACUUM " + UsersSQLiteHelper.PROFILE_TABLE_NAME);
+        updateProfileID();
     }
 
-    public void supprimerStats (long id){
-
+    public void updateProfileID () {
+        int i = 1;
+        List<Long> ids = getAllProfilesIds();
+        for (long j : ids) {
+            mDb.execSQL("UPDATE " + UsersSQLiteHelper.PROFILE_TABLE_NAME + " SET id = " + String.valueOf(i) + " WHERE id = " + String.valueOf(j));
+            i++;
+        }
     }
 
     /*
+    public void supprimerStats (long id){
+    }
+
     public Stats selectionnerStats (long id){
 
     }
@@ -112,6 +124,17 @@ public class UserDAO {
         }
         cursor.close();
         return profiles;
+    }
+
+    public List<Long> getAllProfilesIds() {
+        List<Long> ids = new ArrayList<Long>();
+        List<Profile> profiles = getAllProfiles();
+
+        for (Profile profile : profiles ) {
+            ids.add(profile.getId());
+        }
+
+        return ids;
     }
 
     private Profile cursorToProfile(Cursor cursor) {
