@@ -42,5 +42,7 @@
     <string name="homme">Homme</string>
     <string name="femme">Femme</string>
 
+    <string name="vitesse">Vitesse ?</string>
+
 
 </resources>
