@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,6 +25,8 @@ import java.util.List;
 public class StatsActivity extends AppCompatActivity {
 
     public static final int DISPLAYED_STATS=10;
+
+    private String TAG = "DEBUG";
 
     private UserDAO database_user;
     private PartitionDAO database_partition;
@@ -62,17 +65,12 @@ public class StatsActivity extends AppCompatActivity {
 
         List<Stats> values = database_user.getAllStats(profil.getId(),partition_id);
 
-        DataPoint[] d1= new DataPoint[DISPLAYED_STATS];
+        DataPoint[] d= new DataPoint[DISPLAYED_STATS];
         for (int i=0;i<Math.min(DISPLAYED_STATS,values.size());i++){
-            d1[i]=new DataPoint(i,values.get(i).getScore());
+            d[i]=new DataPoint(i,values.get(i).getScore());
         }
 
-        //exemple a suprimer une fois on aura des vrais stats
-        DataPoint[] d= new DataPoint[DISPLAYED_STATS];
-        for (int i=0;i<DISPLAYED_STATS;i++){
-            d[i]=new DataPoint(i,i);
-        }
-        //fin
+
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
@@ -89,12 +87,22 @@ public class StatsActivity extends AppCompatActivity {
 
         graph.addSeries(series);
 
-        //graph.setTitle("DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom());
+        graph.setTitle("DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom());
         graph.setTitleColor(Color.BLACK);
         graph.setTitleTextSize(100);
 
 
 
+        //AJOUT STATS A SUPRIMER TEST
+        Stats s =new Stats(0,"21/05/02","stats_example.txt",78,profil.getId(),partition_id);
+        Log.d(TAG, String.valueOf(profil.getId()));
+        Log.d(TAG, String.valueOf(partition_id));
+        database_user.ajouter(s);
+
+        List<Stats > stats  = database_user.getAllStats(profil.getId(), partition_id);
+        Log.d(TAG, String.valueOf(stats.size()));
+
+        database_user.close();
 
 
     }

@@ -1,5 +1,19 @@
 package com.example.hugo.guitarledgend.databases.users;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.os.Environment;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Stats {
@@ -69,8 +83,41 @@ public class Stats {
         this.partition = partition;
     }
 
-    public List<Boolean> tabFromFile (){
-        return null;
+    public List<Integer> tabFromFile (Context context){
+        List<Integer> tab = new ArrayList<>();
+        BufferedReader bf = null;
+        InputStream is;
+        AssetManager assetManager= context.getAssets();
+        try {
+            is = assetManager.open("data/" + fichier);
+
+            bf = new BufferedReader(new InputStreamReader(is));
+
+            String line = bf.readLine();
+            while (line != null){
+                if (line.equals("0")) {
+                    tab.add(0);
+                }
+                if (line.equals("1")) {
+                    tab.add(1);
+                }
+                line = bf.readLine();
+            }
+
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } finally {
+            if(bf!=null){
+                try{
+                    bf.close();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return tab;
     }
 
 

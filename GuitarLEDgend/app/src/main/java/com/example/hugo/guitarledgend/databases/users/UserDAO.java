@@ -55,6 +55,7 @@ public class UserDAO {
         values.put(UsersSQLiteHelper.STATS_DATE,s.getDate());
         values.put(UsersSQLiteHelper.STATS_FICHIER,s.getFichier());
         values.put(UsersSQLiteHelper.STATS_SCORE,s.getScore());
+        values.put(UsersSQLiteHelper.STATS_PARTITION,s.getPartition());
         values.put(UsersSQLiteHelper.STATS_PROFILE,s.getProfil());
         mDb.insert(UsersSQLiteHelper.STATS_TABLE_NAME, null, values);
     }
@@ -100,8 +101,8 @@ public class UserDAO {
     }
 
     public int nombreStats (long profile, long partition){
-        String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = ? AND "+UsersSQLiteHelper.STATS_PARTITION+" = ?";
-        Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.STATS_TABLE_NAME + "WHERE" + whereClause, null);
+        String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = " + String.valueOf(profile) + " AND " +UsersSQLiteHelper.STATS_PARTITION+" = " + String.valueOf(partition);
+        Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.STATS_TABLE_NAME + " WHERE " + whereClause, null);
         c.moveToFirst();
         return c.getInt(0);
     }
@@ -162,6 +163,7 @@ public class UserDAO {
         String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = ? AND "+UsersSQLiteHelper.STATS_PARTITION+" = ?";
         String orderBy = UsersSQLiteHelper.STATS_KEY + " DESC";
         Cursor cursor = mDb.query (UsersSQLiteHelper.STATS_TABLE_NAME, null,whereClause,args,null,null,orderBy);
+        cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Stats s = cursorToStats(cursor);
             stats.add(s);
