@@ -1,5 +1,7 @@
 package com.example.hugo.guitarledgend.databases.users;
 
+import java.util.List;
+
 public class Stats {
 
     private long id;
@@ -65,6 +67,10 @@ public class Stats {
 
     public void setPartition(long partition) {
         this.partition = partition;
+    }
+
+    public List<Boolean> tabFromFile (){
+        return null;
     }
 
 
