@@ -15,13 +15,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.databases.users.Profile;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
 public class ChooseProfileFragment extends Fragment {
 
-    public static final String TAG = "DEBUG";
     TextView textView;
-    TextView textView2;
     Button next_button;
     Button delete_button;
     static String name;
@@ -53,6 +52,11 @@ public class ChooseProfileFragment extends Fragment {
         next_button = (Button) rootView.findViewById(R.id.next_button);
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                database = new UserDAO(getActivity());
+                database.open();
+                Profile profil = database.selectionnerProfile(position);
+                ProfilesActivity.setUser(profil);
+                database.close();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }

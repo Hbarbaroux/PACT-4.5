@@ -14,18 +14,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.databases.users.Profile;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
 public class ProfilesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static long user = -1;
+    private static Profile user;
 
-    public static int nbProfiles ;
-
-    public static long getUser() {
+    public static Profile getUser() {
         return user;
     }
 
-    public static void setUser(long user) {
+    public static void setUser(Profile user) {
         ProfilesActivity.user = user;
     }
 
