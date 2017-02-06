@@ -36,7 +36,6 @@ public class StatsActivity extends AppCompatActivity {
         Intent intent =getIntent();
         final long partition_id=intent.getLongExtra("partition_id",1L);
 
-        long profile_id = ProfilesActivity.getUser();
 
         database_partition = new PartitionDAO(StatsActivity.this);
         database_partition.open();
@@ -45,7 +44,8 @@ public class StatsActivity extends AppCompatActivity {
         database_user.open();
 
         Partition partition = database_partition.selectionner(partition_id);
-        Profile profil = database_user.selectionnerProfile(profile_id);
+        Profile profil = ProfilesActivity.getUser();
+
 
 
         Button chercher = (Button) findViewById(R.id.dernieres_stats);
@@ -60,7 +60,7 @@ public class StatsActivity extends AppCompatActivity {
 
         //GRAPHE
 
-        List<Stats> values = database_user.getStats(profile_id,partition_id);
+        List<Stats> values = database_user.getAllStats(profil.getId(),partition_id);
 
         DataPoint[] d1= new DataPoint[DISPLAYED_STATS];
         for (int i=0;i<Math.min(DISPLAYED_STATS,values.size());i++){

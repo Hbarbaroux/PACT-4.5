@@ -99,6 +99,13 @@ public class UserDAO {
         return c.getInt(0);
     }
 
+    public int nombreStats (long profile, long partition){
+        String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = ? AND "+UsersSQLiteHelper.STATS_PARTITION+" = ?";
+        Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.STATS_TABLE_NAME + "WHERE" + whereClause, null);
+        c.moveToFirst();
+        return c.getInt(0);
+    }
+
     public Profile selectionnerProfile (long id){
         String[] args = new String[] {String.valueOf(id)};
         String whereClause = UsersSQLiteHelper.PROFILE_KEY + " = ?";
@@ -145,7 +152,7 @@ public class UserDAO {
         return profile;
     }
 
-    public List<Stats> getStats(long profile, long partition){
+    public List<Stats> getAllStats(long profile, long partition){
         List<Stats> stats = new ArrayList<Stats>();
 
         String p1= String.valueOf(profile);
