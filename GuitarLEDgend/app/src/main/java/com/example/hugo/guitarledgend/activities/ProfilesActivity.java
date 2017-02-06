@@ -1,5 +1,6 @@
 package com.example.hugo.guitarledgend.activities;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
 public class ProfilesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static Profile user;
+
+    public static Activity pa;
 
     public static Profile getUser() {
         return user;
@@ -45,6 +48,8 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_profiles);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        pa = this;
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

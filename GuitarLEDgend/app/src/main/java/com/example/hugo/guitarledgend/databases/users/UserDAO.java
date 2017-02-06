@@ -101,7 +101,7 @@ public class UserDAO {
 
     public int nombreStats (long profile, long partition){
         String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = ? AND "+UsersSQLiteHelper.STATS_PARTITION+" = ?";
-        Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.STATS_TABLE_NAME + "WHERE" + whereClause, null);
+        Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.STATS_TABLE_NAME + " WHERE " + whereClause, null);
         c.moveToFirst();
         return c.getInt(0);
     }

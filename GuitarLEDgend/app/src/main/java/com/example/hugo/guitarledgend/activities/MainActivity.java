@@ -71,9 +71,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_profils) {
             Intent intent = new Intent(MainActivity.this, ProfilesActivity.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
+            ProfilesActivity.pa.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
