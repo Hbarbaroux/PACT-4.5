@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.databases.users.Stats;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -65,27 +67,34 @@ public class StatsFragment extends Fragment {
         database.open();
 
         List<Stats > stats  = database.getAllStats(ProfilesActivity.getUser().getId(), ((StatsShownActivity) getActivity()).getPartitionId());
-        List<Boolean> tab=stats.get(position).tabFromFile();
+        List<Integer> tab=stats.get(position-1).tabFromFile(getContext());
 
-        //exemple a suprimer une fois on aura des vrais stats
+
         DataPoint[] d= new DataPoint[tab.size()];
         for (int i=0;i<tab.size();i++){
-            d[i]=new DataPoint(i,i);
+
+            d[i]=new DataPoint(i, tab.get(i));
         }
-        //fin
+
 
         GraphView graph = (GraphView) rootView.findViewById(R.id.graph_stats_fragment);
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(d);
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(d);
 
-        series.setThickness(35);
-        series.setColor(Color.BLACK);
+        series.setColor(R.color.colorPrimaryDark);
+        series.setDataWidth(1);
+        series.setSpacing(0);
+        series.setAnimated(true);
 
-        series.setDrawBackground(true);
-        series.setBackgroundColor(Color.LTGRAY);
 
-        series.setDrawDataPoints(false);
-        series.setDataPointsRadius(30);
+
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(tab.size());
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(1.5);
+
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
 
         graph.addSeries(series);
 
