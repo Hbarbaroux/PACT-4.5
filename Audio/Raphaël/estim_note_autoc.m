@@ -1,4 +1,4 @@
-function [ freq ] = estim_note_autoc(signal)
+function freq = estim_note_autoc(signal)
 T = [];
 freq=0;
 j = 155.55;

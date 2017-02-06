@@ -1,4 +1,4 @@
-function [ t ] = autoc(signal, k)
+function t= autoc(signal, k)
 a = 0;
 b = 0;
 c = 0;
