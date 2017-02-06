@@ -24,6 +24,8 @@ public class PlayPartitionActivity extends AppCompatActivity {
                 Intent intent = new Intent(PlayPartitionActivity.this, ChooseSpeedActivity.class);
                 intent.putExtra("partition_id", (long) partition_id);
                 startActivity(intent);
+                finish();
+                AddPartitionActivity.apa.finish();
             }
         });
 
@@ -32,6 +34,8 @@ public class PlayPartitionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PlayPartitionActivity.this, StartPlayActivity.class);
                 startActivity(intent);
+                finish();
+                AddPartitionActivity.apa.finish();
             }
         });
 

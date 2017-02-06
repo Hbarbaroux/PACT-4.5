@@ -1,7 +1,7 @@
 package com.example.hugo.guitarledgend.activities;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,7 +39,7 @@ public class StatsFragment extends Fragment {
     public StatsFragment() {
     }
 
-    public static StatsFragment newInstance(String nom) {
+    public static StatsFragment newInstance() {
         StatsFragment fragment = new StatsFragment();
         return fragment;
     }
