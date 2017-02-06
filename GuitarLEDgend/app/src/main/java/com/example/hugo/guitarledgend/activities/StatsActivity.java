@@ -93,17 +93,5 @@ public class StatsActivity extends AppCompatActivity {
 
 
 
-        //AJOUT STATS A SUPRIMER TEST
-        Stats s =new Stats(0,"21/05/02","stats_example.txt",78,profil.getId(),partition_id);
-        Log.d(TAG, String.valueOf(profil.getId()));
-        Log.d(TAG, String.valueOf(partition_id));
-        database_user.ajouter(s);
-
-        List<Stats > stats  = database_user.getAllStats(profil.getId(), partition_id);
-        Log.d(TAG, String.valueOf(stats.size()));
-
-        database_user.close();
-
-
     }
 }
