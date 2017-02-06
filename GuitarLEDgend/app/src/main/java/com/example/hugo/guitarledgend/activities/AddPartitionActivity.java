@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,18 +48,36 @@ public class AddPartitionActivity extends AppCompatActivity {
                 String auteur = editTextAuteur.getText().toString();
                 String genre = editTextGenre.getText().toString();
 
+                if(TextUtils.isEmpty(fichier)) {
+                    editTextFichier.setError("Veuillez rentrer un fichier");
+                }
+                else if(TextUtils.isEmpty(nom)) {
+                    editTextNom.setError("Veuillez rentrer un nom");
+                }
+                else if(TextUtils.isEmpty(auteur)) {
+                    editTextAuteur.setError("Veuillez rentrer un auteur");
+                }
+                else if(TextUtils.isEmpty(genre)) {
+                    editTextGenre.setError("Veuillez rentrer un genre");
+                }
 
-                Partition p = new Partition(0, fichier, nom, auteur, genre);
 
-                database.ajouter(p);
+                else{
+                    Partition p = new Partition(0, fichier, nom, auteur, genre);
 
-                List<Partition> values = database.getAllPartitions();
+                    database.ajouter(p);
 
-                database.close();
+                    List<Partition> values = database.getAllPartitions();
 
-                Intent intent = new Intent(AddPartitionActivity.this, PlayPartitionActivity.class);
-                intent.putExtra("partition_id", (long) values.size());
-                startActivity(intent);
+                    database.close();
+
+                    Intent intent = new Intent(AddPartitionActivity.this, PlayPartitionActivity.class);
+                    intent.putExtra("partition_id", (long) values.size());
+                    startActivity(intent);
+                    finish();
+                }
+
+
             }
         });
 

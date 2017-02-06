@@ -1,5 +1,6 @@
 package com.example.hugo.guitarledgend.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -23,10 +24,10 @@ import java.util.List;
 
 
 public class StatsActivity extends AppCompatActivity {
-
     public static final int DISPLAYED_STATS=10;
 
-    private String TAG = "DEBUG";
+
+    public static Activity sa;
 
     private UserDAO database_user;
     private PartitionDAO database_partition;
@@ -35,6 +36,8 @@ public class StatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
+
+        sa = this;
 
         Intent intent =getIntent();
         final long partition_id=intent.getLongExtra("partition_id",1L);
@@ -86,6 +89,7 @@ public class StatsActivity extends AppCompatActivity {
         series.setDataPointsRadius(30);
 
         graph.addSeries(series);
+
 
         graph.setTitle("DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom());
         graph.setTitleColor(Color.BLACK);

@@ -59,6 +59,8 @@ public class StatsFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), StatsActivity.class);
                 startActivity(intent);
+                getActivity().finish();
+                StatsActivity.sa.finish();
             }
         });
 
