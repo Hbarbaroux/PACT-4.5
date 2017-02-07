@@ -3,6 +3,7 @@ package com.example.hugo.guitarledgend.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.R;
 
+import java.io.File;
 import java.util.List;
 
 public class AddPartitionActivity extends AppCompatActivity {
@@ -48,6 +50,8 @@ public class AddPartitionActivity extends AppCompatActivity {
                 String auteur = editTextAuteur.getText().toString();
                 String genre = editTextGenre.getText().toString();
 
+                File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "GuitarLEDgend" + File.separator + fichier);
+
                 if(TextUtils.isEmpty(fichier)) {
                     editTextFichier.setError("Veuillez rentrer un fichier");
                 }
@@ -59,6 +63,9 @@ public class AddPartitionActivity extends AppCompatActivity {
                 }
                 else if(TextUtils.isEmpty(genre)) {
                     editTextGenre.setError("Veuillez rentrer un genre");
+                }
+                else if(!(file.exists())) {
+                    editTextFichier.setError("Ce fichier n'existe pas. Assurez-vous d'avoir indiqué  la bonne extension");
                 }
 
 
