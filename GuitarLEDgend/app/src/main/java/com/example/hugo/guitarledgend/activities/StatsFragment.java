@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 import com.jjoe64.graphview.GraphView;
@@ -33,6 +35,7 @@ public class StatsFragment extends Fragment {
     Button ok_button;
     private int position;
     private UserDAO database;
+    private PartitionDAO database_partition;
 
     private ViewPager mViewPager = StatsShownActivity.getmViewPager();
 
@@ -69,7 +72,8 @@ public class StatsFragment extends Fragment {
         database.open();
 
         List<Stats > stats  = database.getAllStats(ProfilesActivity.getUser().getId(), ((StatsShownActivity) getActivity()).getPartitionId());
-        List<Integer> tab=stats.get(position-1).tabFromFile(getContext());
+        Stats s = stats.get(position-1);
+        List<Integer> tab=s.tabFromFile(getContext());
 
 
         DataPoint[] d= new DataPoint[tab.size()];
@@ -100,7 +104,12 @@ public class StatsFragment extends Fragment {
 
         graph.addSeries(series);
 
-        //graph.setTitle("DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom());
+        database_partition = new PartitionDAO(getActivity());
+        database_partition.open();
+
+        Partition p=database_partition.selectionner(((StatsShownActivity) getActivity()).getPartitionId());
+
+        graph.setTitle(s.getDate() + " / " + p.getNom());
         graph.setTitleColor(Color.BLACK);
         graph.setTitleTextSize(100);
 
