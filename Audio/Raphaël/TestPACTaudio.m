@@ -1,7 +1,7 @@
-Fs = 1000
+Fs = 44100
 [y, Fs]=audioread('/cal/homes/rteboul/workspace/PACT-4.5/Audio/note.mp3'); % on charge le son enregistré
 T = 1/Fs ;
-L = 1000;
+L = 44100;
 t = (0:L-1)*T;
 Y = fft(y);
 env=abs(hilbert(y)); % enveloppe du signal
