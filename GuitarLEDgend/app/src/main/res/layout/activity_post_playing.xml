@@ -10,4 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hugo.guitarledgend.activities.PostPlayingActivity">
 
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/graph_PostPlayingActivity" />
+
+    <TextView
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/graph_PostPlayingActivity"
+        android:id="@+id/score"
+        android:layout_marginTop="92dp"
+        android:layout_centerHorizontal="true"
+        android:minHeight="50dip"
+        android:minWidth="120dip"/>
+
 </RelativeLayout>
