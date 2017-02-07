@@ -7,11 +7,11 @@ tabnotes = [];
 i = 1;
 M=max(denv);
 while i < length(denv) 
-    while denv(i) < 0.2*M && i < length(denv)
+    while denv(i) < 0.1*M && i < length(denv)
         i = i + 1;
     end
     L =  [L, i]; %#ok<*AGROW>
-    while denv(i) >= 0.2*M && i < length(denv)
+    while denv(i) >= 0.1*M && i < length(denv)
         i = i + 1;
     end
     L = [L, i];
