@@ -1,4 +1,3 @@
-
 function freq = estimation_hauteur_note(signal)
 n = length(signal);
 L = 2^nextpow2(n*20); %zero_padding

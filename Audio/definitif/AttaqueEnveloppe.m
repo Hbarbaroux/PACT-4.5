@@ -1,4 +1,6 @@
 function derenv= AttaqueEnveloppe(signal,a)
+[A,B]=butter(2,20000/44100, 'high');
+signal=filter(A,B,signal);
 %après différents tests, la valeur de a la plus pertinente est 0.999
 n=length(signal);
 env=enveloppe(signal,a);
