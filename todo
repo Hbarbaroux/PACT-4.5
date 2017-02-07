@@ -1,6 +1,5 @@
 verifier que fichier existe lors de ajout et choix de partition
 lors du choix de partition, si le fichier nexiste plus on propose de suprimer la partition de la bdd
-au debut creer un dossier pour les partitions dans la sdcard sil nexiste pas
 faire dossier "reception" sur lappli ou lon reçoit le tableau des booleans de laudio, il faudra le renommer et le placer dans "data" puis le suprimer de "reception"
 
 photo profil
