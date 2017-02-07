@@ -22,7 +22,7 @@ public class PlayPartitionActivity extends AppCompatActivity {
         oui.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(PlayPartitionActivity.this, ChooseSpeedActivity.class);
-                intent.putExtra("partition_id", (long) partition_id);
+                intent.putExtra("partition_id", partition_id);
                 startActivity(intent);
                 finish();
             }
