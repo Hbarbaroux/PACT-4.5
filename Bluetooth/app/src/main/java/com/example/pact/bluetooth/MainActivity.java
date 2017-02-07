@@ -1,7 +1,9 @@
 package com.example.pact.bluetooth;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
-import java.util.Set;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -9,38 +11,40 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
     private TextView mTextView;
-    private BluetoothAdapter mBluetoothAdapter;
+    private TextView mTextViewState;
+    private EditText mEditTextCorde;
+    private EditText mEditTextFrette;
+    private EditText mEditTextDoigt;
+    private Button mButtonSearch;
+    private Handler mHandler;
+    private BluetoothModule myDevice;
+
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
-            // TODO Auto-generated method stub
-
             String action = intent.getAction();
-            // get bluetooth device searched 获得已经搜索到的蓝牙设备
-            if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                BluetoothDevice device = intent
-                        .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                // search bluetooth device not connected before
-                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    // presente on screen 显示在TextView上
-                    mTextView.append(device.getName() + ":"
-                            + device.getAddress()+"\n");
-                }
-                // finish
-            } else if (action
-                    .equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
-                setTitle("searching bluetooth device");
+
+            if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
+                // TODO : action when connection established
+            }
+            else if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
+                // TODO : action when connection lost
+            }
+            else if (action.equals(BluetoothModule.ACTION_BATTERY_LOW)) {
+                // TODO : action when battery low
             }
         }
     };
@@ -52,28 +56,49 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mTextView = (TextView) findViewById(R.id.tvDevices);
+        mTextViewState = (TextView) findViewById(R.id.textViewState);
+        mEditTextCorde = (EditText) findViewById(R.id.editTextCorde);
+        mEditTextFrette = (EditText) findViewById(R.id.editTextFrette);
+        mEditTextDoigt = (EditText) findViewById(R.id.editTextDoigt);
+        mButtonSearch = (Button) findViewById(R.id.button_id);
 
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        // get all device connected 获取所有已经绑定的蓝牙设备
-        Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
-        if (devices.size() > 0) {
-            for (BluetoothDevice bluetoothDevice : devices) {
-                mTextView.append(bluetoothDevice.getName() + ":"
-                        + bluetoothDevice.getAddress() + "\n\n");
+        IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+        registerReceiver(mReceiver, mFilter);
+        mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        registerReceiver(mReceiver, mFilter);
+        mFilter = new IntentFilter(BluetoothModule.ACTION_BATTERY_LOW);
+        registerReceiver(mReceiver, mFilter);
+
+        // Defines a Handler object that's attached to the UI thread
+        mHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message inputMessage) {
+                try {
+                    byte[] shortenedMessage = Arrays.copyOf((byte[]) inputMessage.obj, inputMessage.arg1);
+                    String value = new String(shortenedMessage, "UTF-8");
+                    if (value.equals("1")) {
+                        Intent intent = new Intent(BluetoothModule.ACTION_BATTERY_LOW);
+                        sendBroadcast(intent);
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, mFilter);
+        };
 
-        mFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        registerReceiver(mReceiver, mFilter);
+        try {
+            myDevice = new BluetoothModule(this, mHandler);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        //
+
         unregisterReceiver(mReceiver);
     }
 
@@ -85,14 +110,35 @@ public class MainActivity extends Activity {
     }
 
     public void onClick_Search(View v) {
-
-        setTitle("being searching....");
-        // 如果正在搜索，就先取消搜索
-        if (mBluetoothAdapter.isDiscovering()) {
-            mBluetoothAdapter.cancelDiscovery();
-        }
-        // 开始搜索蓝牙设备,搜索到的蓝牙设备通过广播返回
-        mBluetoothAdapter.startDiscovery();
+        myDevice.search();
     }
 
+    public void onClick_Connect(View v) {
+        try {
+            myDevice.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onClick_Disconnect(View v) {
+        myDevice.disconnect();
+    }
+
+    public void onClick_Play(View v) {
+        try {
+            myDevice.send(Integer.parseInt(mEditTextCorde.getText().toString()), Integer.parseInt(mEditTextFrette.getText().toString()), Integer.parseInt(mEditTextDoigt.getText().toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onClick_Test(View v) {
+        try {
+            myDevice.send(0,0,1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
