@@ -10,4 +10,3 @@ if max(T) > 0.7
     z = findmax(T);
     freq = 155.55*(2^(1/12)^(z)); 
 end
-
