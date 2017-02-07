@@ -1,4 +1,6 @@
 function t = autocor(signal, k)
+b = 0;
+c = 0;
 for j=1:(length(signal)-1)
     if j-k*44100 > 0
         b = b + signal(j)*signal(j);
