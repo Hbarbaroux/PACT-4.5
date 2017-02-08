@@ -86,6 +86,7 @@ public class Stats {
     public List<Integer> tabFromFile (Context context){
         List<Integer> tab = new ArrayList<>();
         BufferedReader bf = null;
+        /*
         InputStream is;
         AssetManager assetManager= context.getAssets();
         try {
@@ -113,6 +114,34 @@ public class Stats {
                     bf.close();
                 } catch (IOException e){
                     e.printStackTrace();
+                }
+            }
+        }
+        */
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard,"/GuitarLEDgend/statsData/" + fichier);
+        if (file.exists()){
+            try {
+                bf = new BufferedReader(new FileReader(file));
+                String line = bf.readLine();
+                while (line != null){
+                    if (line.equals("0")) {
+                        tab.add(0);
+                    }
+                    if (line.equals("1")) {
+                        tab.add(1);
+                    }
+                    line = bf.readLine();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } finally {
+                if(bf!=null){
+                    try{
+                        bf.close();
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
                 }
             }
         }
