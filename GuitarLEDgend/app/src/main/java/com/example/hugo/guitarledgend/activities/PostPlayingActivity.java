@@ -34,7 +34,7 @@ import java.util.List;
 
 public class PostPlayingActivity extends AppCompatActivity {
 
-    private final String receptionFile = "si";
+    private final String receptionFile = "receptionFile.txt";
     private UserDAO database;
     private PartitionDAO database_partition;
 
@@ -50,7 +50,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final long partition_id = intent.getLongExtra("partition_id", 1L);
 
-        String newFile = "hola";
+        String newFile = "newFile.txt";
 
         fileCreation();
         moveFile(newFile);
@@ -116,7 +116,10 @@ public class PostPlayingActivity extends AppCompatActivity {
 
         PrintWriter pw = null;
         try {
-            pw = new PrintWriter(dir.getPath()+receptionFile);
+            File f=new File (dir,receptionFile);
+            if (!f.exists())
+                f.mkdirs();
+            pw = new PrintWriter(f);
 
             for (int i=0;i<50;i++){
                 double r = Math.random();
@@ -143,56 +146,59 @@ public class PostPlayingActivity extends AppCompatActivity {
     public void moveFile(String newFile) {
         //va chercher le file dans reception et le renomme et deplace en data.
         File sdcard = Environment.getExternalStorageDirectory();
-        File from = new File(sdcard, "/GuitarLEDgend/statsData/reception/" + receptionFile);
-        File to = new File(sdcard, "/GuitarLEDgend/statsData/reception/" + newFile);
-        if (from.exists())
-            from.renameTo(to);
 
-        String outputPath=sdcard.getPath()+"/GuitarLEDgend/statsData/";
-        String inputPath =sdcard.getPath()+"/GuitarLEDgend/statsData/reception/";
-        String inputFile = newFile;
+        File fromDir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/reception/");
+        if (!fromDir.exists()) {
+            fromDir.mkdirs();
+        }
+        File toDir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/");
+        if (!toDir.exists()) {
+            toDir.mkdirs();
+        }
+
+        File from = new File(fromDir, receptionFile);
+        File to = new File(toDir, newFile);
 
         BufferedReader bf = null;
         PrintWriter pw = null;
-        try {
 
-            //create output directory if it doesn't exist
-            File dir = new File(outputPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
+        if (from.exists()){
+            try {
 
+                to.createNewFile();
 
-            bf = new BufferedReader(new FileReader(inputPath+inputFile));
-            pw = new PrintWriter(outputPath+inputFile);
+                bf = new BufferedReader(new FileReader(from));
+                pw = new PrintWriter(to);
 
-            String line = bf.readLine();
-            while (line != null){
-                pw.println(line);
-                line = bf.readLine();
-            }
-
-            // delete the original file
-            new File(inputPath + inputFile).delete();
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }finally {
-            if(bf!=null){
-                try{
-                    bf.close();
-                } catch (IOException e){
-                    e.printStackTrace();
+                String line = bf.readLine();
+                while (line != null){
+                    pw.println(line);
+                    line = bf.readLine();
                 }
-            }
-            if(pw!=null){
-                try{
-                    pw.close();
-                } catch (Exception e){
-                    e.printStackTrace();
+
+                // delete the original file
+                from.delete();
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }finally {
+                if(bf!=null){
+                    try{
+                        bf.close();
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+                if(pw!=null){
+                    try{
+                        pw.close();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+
     }
 
     public int score(String file) {
@@ -203,7 +209,7 @@ public class PostPlayingActivity extends AppCompatActivity {
             dir.mkdirs();
         }
 
-        File f =new File(dir.getPath()+file);
+        File f =new File(dir,file);
         int score =0;
         int length=0;
 
