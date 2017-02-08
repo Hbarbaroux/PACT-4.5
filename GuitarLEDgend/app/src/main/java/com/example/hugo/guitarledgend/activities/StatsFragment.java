@@ -75,13 +75,11 @@ public class StatsFragment extends Fragment {
         Stats s = stats.get(position-1);
         List<Integer> tab=s.tabFromFile(getContext());
 
-
         DataPoint[] d= new DataPoint[tab.size()];
         for (int i=0;i<tab.size();i++){
 
             d[i]=new DataPoint(i, tab.get(i));
         }
-
 
         GraphView graph = (GraphView) rootView.findViewById(R.id.graph_stats_fragment);
 
@@ -91,8 +89,6 @@ public class StatsFragment extends Fragment {
         series.setDataWidth(1);
         series.setSpacing(0);
         series.setAnimated(true);
-
-
 
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(tab.size());
@@ -106,7 +102,6 @@ public class StatsFragment extends Fragment {
 
         database_partition = new PartitionDAO(getActivity());
         database_partition.open();
-
         Partition p=database_partition.selectionner(((StatsShownActivity) getActivity()).getPartitionId());
 
         graph.setTitle(s.getDate() + " / " + p.getNom());
