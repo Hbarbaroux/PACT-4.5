@@ -54,9 +54,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
         fileCreation();
         moveFile(newFile);
-
-        Intent intent =getIntent();
-        final long partition_id=intent.getLongExtra("partition_id",1L);
+        
 
         Date now = new Date();
         String nowAsString = new SimpleDateFormat("yyyy-MM-dd").format(now);
