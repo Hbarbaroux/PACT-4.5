@@ -1,14 +1,9 @@
 function t = autocor(signal, k)
-b = 0;
-c = 0;
-for j=1:(length(signal)-1)
-    if j-k*44100 > 0
-        b = b + signal(j)*signal(j);
-        c = c + signal(j-floor(k*44100))*signal(j-floor(k*44100));
-    end
-end
+n = length(signal);
+nfft = 2^nextpow2(2*n);
 t = 0;
 if length(signal)-floor(k*44100)> 0
-    t = (ifft((fft(signal(floor(k*44100)+1:length(signal)))).*(fft(signal(1:length(signal)-floor(k*44100)))))) / sqrt(b*c);
+    t = (ifft((fft(signal(floor(k*44100)+1:length(signal), nfft))).*(fft(signal(1:length(signal)-floor(k*44100)nfft)))));
 end
+t = t(1: n);
 end

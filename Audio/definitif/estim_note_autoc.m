@@ -6,8 +6,7 @@ while j < 2000
     T = [T, autocor(signal, 1/j)]; %#ok<AGROW>
     j = j*2^(1/12);
 end
-if max(T) > 0.1
-    z = findmax(T);
-    freq = 82.5*2^(z/12); 
+z = findmax(T);
+freq = 82.5*2^(z/12); 
 end
 
