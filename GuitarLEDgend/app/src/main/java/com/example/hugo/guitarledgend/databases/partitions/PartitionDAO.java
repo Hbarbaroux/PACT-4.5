@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.hugo.guitarledgend.databases.users.Profile;
+import com.example.hugo.guitarledgend.databases.users.UsersSQLiteHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +52,29 @@ public class PartitionDAO {
     }
 
     public void supprimer (long id){
+        mDb.execSQL("DELETE FROM " + PartitionsSQLiteHelper.PARTITION_TABLE_NAME + " WHERE id = " + String.valueOf(id));
+        mDb.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + PartitionsSQLiteHelper.PARTITION_TABLE_NAME + "'");
+        mDb.execSQL("VACUUM " + PartitionsSQLiteHelper.PARTITION_TABLE_NAME);
+        updatePartitionID();
+    }
 
+    public void updatePartitionID () {
+        int i = 1;
+        List<Long> ids = getAllPartitionsIds();
+        for (long j : ids) {
+            mDb.execSQL("UPDATE " + PartitionsSQLiteHelper.PARTITION_TABLE_NAME + " SET id = " + String.valueOf(i) + " WHERE id = " + String.valueOf(j));
+            i++;
+        }
+    }
+
+    public List<Long> getAllPartitionsIds() {
+        List<Long> ids = new ArrayList<Long>();
+        List<Partition> partitions = getAllPartitions();
+
+        for (Partition partition : partitions ) {
+            ids.add(partition.getId());
+        }
+        return ids;
     }
 
     public Partition selectionner (long id){
