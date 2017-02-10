@@ -1,9 +1,11 @@
 package com.example.hugo.guitarledgend.activities;
 
+import android.support.v4.app.DialogFragment;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,10 +19,15 @@ import com.example.hugo.guitarledgend.R;
 import java.io.File;
 import java.util.List;
 
-public class ChoosePartitionActivity extends ListActivity {
+public class ChoosePartitionActivity extends FragmentActivity {
 
     private PartitionDAO database;
     ListView mListView;
+    private int position;
+
+    public int getPosition() {
+        return position;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +50,24 @@ public class ChoosePartitionActivity extends ListActivity {
                 String fichier = database.selectionner(position + 1).getFichier();
                 File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "GuitarLEDgend" + File.separator + fichier);
 
+                ChoosePartitionActivity.this.position = position;
                 if (!(file.exists())) {
-                    Toast.makeText(ChoosePartitionActivity.this, "Le fichier correspondant n'existe plus", Toast.LENGTH_SHORT);
+                    askingForDeletion();
+                } else {
+                    Intent intent = new Intent(ChoosePartitionActivity.this, ChooseSpeedActivity.class);
+                    intent.putExtra("partition_id", (long) position + 1);
+                    startActivity(intent);
                 }
-
-                Intent intent = new Intent(ChoosePartitionActivity.this, ChooseSpeedActivity.class);
-                intent.putExtra("partition_id", (long) position+1);
-                startActivity(intent);
             }
         });
-
-
-
     }
+
+    public void askingForDeletion() {
+        DialogFragment newFragment = new DeleteActivityFragment();
+        newFragment.show(getSupportFragmentManager(), "delete");
+    }
+
+
+
+
 }
