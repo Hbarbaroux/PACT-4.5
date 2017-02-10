@@ -1,4 +1,4 @@
-function audio = transcription_sheet(midifile)
-audio = notes(readmidi(midifile));
+function sheet = transcription_sheet(midifile)
+sheet = notes(readmidi(midifile));
 end
 
