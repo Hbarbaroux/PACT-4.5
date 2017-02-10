@@ -228,6 +228,10 @@ public class PostPlayingActivity extends AppCompatActivity {
                     length+=1;
                     line = bf.readLine();
                 }
+                if (length == 0) {
+                    return -1;
+                }
+                return (int) 100*score/length;
 
 
             }catch (IOException e){
@@ -241,9 +245,9 @@ public class PostPlayingActivity extends AppCompatActivity {
                     }
                 }
             }
-            return (int) 100*score/length;
+            return -2;
         }
-        return 0;
+        return -3;
 
 
     }
