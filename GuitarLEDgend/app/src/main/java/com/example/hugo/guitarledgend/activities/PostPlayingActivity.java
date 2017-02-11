@@ -37,6 +37,7 @@ public class PostPlayingActivity extends AppCompatActivity {
     private final String receptionFile = "receptionFile.txt";
     private UserDAO database;
     private PartitionDAO database_partition;
+    private long user_id = ProfilesActivity.getUser().getId();
 
 
 
@@ -50,16 +51,15 @@ public class PostPlayingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final long partition_id = intent.getLongExtra("partition_id", 1L);
 
-        String newFile = "newFile.txt";
+        Date now = new Date();
+        String nowAsString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
+
+        String dataFile = "User_" + user_id + "-Part_" + partition_id + "-Date_" + nowAsString + ".txt";
 
         fileCreation();
-        moveFile(newFile);
-        
+        moveFile(dataFile);
 
-        Date now = new Date();
-        String nowAsString = new SimpleDateFormat("yyyy-MM-dd").format(now);
-
-        Stats s = new Stats(0, nowAsString, newFile, score(newFile), partition_id, ProfilesActivity.getUser().getId());
+        Stats s = new Stats(0, nowAsString, dataFile, score(dataFile), partition_id, user_id);
 
         database = new UserDAO(PostPlayingActivity.this);
         database.open();
@@ -117,8 +117,10 @@ public class PostPlayingActivity extends AppCompatActivity {
         PrintWriter pw = null;
         try {
             File f=new File (dir,receptionFile);
-            if (!f.exists())
-                f.mkdirs();
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
             pw = new PrintWriter(f);
 
             for (int i=0;i<50;i++){
@@ -176,9 +178,6 @@ public class PostPlayingActivity extends AppCompatActivity {
                     line = bf.readLine();
                 }
 
-                // delete the original file
-                from.delete();
-
             }catch (IOException e){
                 e.printStackTrace();
             }finally {
@@ -223,9 +222,9 @@ public class PostPlayingActivity extends AppCompatActivity {
                 String line = bf.readLine();
                 while (line != null){
                     if (line.equals("1")) {
-                        score+=1;
+                        score++;
                     }
-                    length+=1;
+                    length++;
                     line = bf.readLine();
                 }
                 if (length == 0) {
