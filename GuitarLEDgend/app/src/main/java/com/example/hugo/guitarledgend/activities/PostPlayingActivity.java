@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
@@ -16,6 +17,8 @@ import com.example.hugo.guitarledgend.databases.users.UserDAO;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,6 +34,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class PostPlayingActivity extends AppCompatActivity {
 
@@ -59,7 +63,9 @@ public class PostPlayingActivity extends AppCompatActivity {
         fileCreation();
         moveFile(dataFile);
 
-        Stats s = new Stats(0, nowAsString, dataFile, score(dataFile), partition_id, user_id);
+        int score = score(dataFile);
+
+        Stats s = new Stats(0, nowAsString, dataFile, score, partition_id, user_id);
 
         database = new UserDAO(PostPlayingActivity.this);
         database.open();
@@ -101,6 +107,9 @@ public class PostPlayingActivity extends AppCompatActivity {
         graph.setTitle(s.getDate() + " / " + p.getNom());
         graph.setTitleColor(Color.BLACK);
         graph.setTitleTextSize(100);
+
+        TextView score_view = (TextView) findViewById(R.id.score);
+        score_view.setText(String.valueOf(score)+"%");
 
 
     }
