@@ -68,16 +68,19 @@ public class StatsActivity extends AppCompatActivity {
 
         List<Stats> values = database_user.getAllStats(profil.getId(),partition_id);
 
-        DataPoint[] d= new DataPoint[DISPLAYED_STATS];
-        for (int i=0;i<Math.min(DISPLAYED_STATS,values.size());i++){
-            d[i]=new DataPoint(i,values.get(i).getScore());
-        }
 
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(d);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+
+        DataPoint[] d= new DataPoint[DISPLAYED_STATS];
+        for (int i=0;i<Math.min(DISPLAYED_STATS,values.size());i++){
+            d[i]=new DataPoint(i,values.get(i).getScore());
+            series.appendData(d[i],true,500);
+        }
+
 
         series.setThickness(35);
         series.setColor(Color.BLACK);
