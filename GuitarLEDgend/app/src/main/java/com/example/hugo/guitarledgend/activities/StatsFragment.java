@@ -57,16 +57,6 @@ public class StatsFragment extends Fragment {
 
         position = mViewPager.getCurrentItem()+1;
 
-        ok_button = (Button) rootView.findViewById(R.id.ok_button_StatsFragment);
-        ok_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), StatsActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-                StatsActivity.sa.finish();
-            }
-        });
-
         //GRAPHE
         database = new UserDAO(getActivity());
         database.open();

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import com.example.hugo.guitarledgend.R;
 import java.io.File;
 import java.util.List;
 
-public class ChoosePartitionActivity extends FragmentActivity {
+public class ChoosePartitionActivity extends AppCompatActivity {
 
     private PartitionDAO database;
     ListView mListView;
