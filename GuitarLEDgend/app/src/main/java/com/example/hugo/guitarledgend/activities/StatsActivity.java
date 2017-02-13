@@ -76,8 +76,8 @@ public class StatsActivity extends AppCompatActivity {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
 
         DataPoint[] d= new DataPoint[DISPLAYED_STATS];
-        for (int i=0;i<Math.min(DISPLAYED_STATS,values.size());i++){
-            d[i]=new DataPoint(i,values.get(i).getScore());
+        for (int i=1;i<=Math.min(DISPLAYED_STATS,values.size());i++){
+            d[i]=new DataPoint(i,values.get(i-1).getScore());
             series.appendData(d[i],true,500);
         }
 
@@ -90,6 +90,9 @@ public class StatsActivity extends AppCompatActivity {
 
         series.setDrawDataPoints(false);
         series.setDataPointsRadius(30);
+
+        graph.getViewport().setMinX(1);
+        graph.getViewport().setMaxX(Math.min(DISPLAYED_STATS,values.size()));
 
         graph.addSeries(series);
 

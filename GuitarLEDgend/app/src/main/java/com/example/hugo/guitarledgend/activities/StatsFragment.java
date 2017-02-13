@@ -110,6 +110,9 @@ public class StatsFragment extends Fragment {
 
         //GRAPHE
 
+        TextView score_view = (TextView) rootView.findViewById(R.id.score_statsFragment);
+        score_view.setText(String.valueOf(s.getScore())+"%");
+
         return rootView;
     }
 }
