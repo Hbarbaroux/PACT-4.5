@@ -1,4 +1,23 @@
-photo profil
-tinder: proposition aleatoire de partitions
+Au plus vite :
 
-choix des partitions : trois boutons nom, genre, auteur -> tri des partitions affichées en fonction
+- Enregistrement micro pendant PlayPartition
+- Activité de test à la place de PostPlaying, pour écouter ce qui a été enregistré
+- Fin du scénario
+- Intégration du bluetooth (+ tests)
+
+
+
+Moins important :
+
+- Organiser les activités en packages, celles qui comportent beaucoup de classes
+- Organiser les layouts, fusionner ceux qui sont fusionnables
+- Mettre des navigations drawer là où il en faut (préférences, profils, aide, share pour stats renvoyant aux sms)
+- Choix des partitions : trois boutons nom, genre, auteur -> tri des partitions affichées en fonction
+
+
+
+Plus tard : 
+
+- Photo profil
+- Tinder: proposition aleatoire de partitions
+- Définir des styles de boutons, gérer les polices
