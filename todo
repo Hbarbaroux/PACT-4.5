@@ -9,8 +9,7 @@ Au plus vite :
 
 Moins important :
 
-- Organiser les activités en packages, celles qui comportent beaucoup de classes
-- Organiser les layouts, fusionner ceux qui sont fusionnables
+- Fusionner les layouts fusionnables
 - Mettre des navigations drawer là où il en faut (préférences, profils, aide, share pour stats renvoyant aux sms)
 - Choix des partitions : trois boutons nom, genre, auteur -> tri des partitions affichées en fonction
 

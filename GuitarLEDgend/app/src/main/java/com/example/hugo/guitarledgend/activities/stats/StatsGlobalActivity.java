@@ -1,16 +1,16 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.stats;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Profile;
@@ -23,7 +23,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.List;
 
 
-public class StatsActivity extends AppCompatActivity {
+public class StatsGlobalActivity extends AppCompatActivity {
     public static final int DISPLAYED_STATS=10;
 
 
@@ -35,7 +35,7 @@ public class StatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats);
+        setContentView(R.layout.activity_stats_global);
 
         sa = this;
 
@@ -43,10 +43,10 @@ public class StatsActivity extends AppCompatActivity {
         final long partition_id=intent.getLongExtra("partition_id",1L);
 
 
-        database_partition = new PartitionDAO(StatsActivity.this);
+        database_partition = new PartitionDAO(StatsGlobalActivity.this);
         database_partition.open();
 
-        database_user = new UserDAO(StatsActivity.this);
+        database_user = new UserDAO(StatsGlobalActivity.this);
         database_user.open();
 
         Partition partition = database_partition.selectionner(partition_id);
@@ -57,7 +57,7 @@ public class StatsActivity extends AppCompatActivity {
         Button chercher = (Button) findViewById(R.id.dernieres_stats);
         chercher.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(StatsActivity.this, StatsShownActivity.class);
+                Intent intent = new Intent(StatsGlobalActivity.this, StatsDetailActivity.class);
                 intent.putExtra("partition_id", (long) partition_id);
                 startActivity(intent);
             }

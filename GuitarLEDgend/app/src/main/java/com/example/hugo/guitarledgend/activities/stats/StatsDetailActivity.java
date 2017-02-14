@@ -1,4 +1,4 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.stats;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,26 +6,24 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hugo.guitarledgend.R;
-import com.example.hugo.guitarledgend.databases.users.Stats;
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
-import java.util.List;
 
-
-public class StatsShownActivity extends AppCompatActivity{
+public class StatsDetailActivity extends AppCompatActivity{
 
     private UserDAO database_user;
 
     public static int nbStats ;
 
-    private static StatsAdapter mFragmentPagerAdapter;
+    private static StatsDetailAdapter mFragmentPagerAdapter;
     private static ViewPager mViewPager;
 
     public static ViewPager getmViewPager() {
         return mViewPager;
     }
 
-    public static StatsAdapter getmFragmentPagerAdapter() {
+    public static StatsDetailAdapter getmFragmentPagerAdapter() {
         return mFragmentPagerAdapter;
     }
     private long partition_id;
@@ -35,9 +33,9 @@ public class StatsShownActivity extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats_shown);
+        setContentView(R.layout.activity_stats_detail);
 
-        database_user = new UserDAO(StatsShownActivity.this);
+        database_user = new UserDAO(StatsDetailActivity.this);
         database_user.open();
 
         Intent intent =getIntent();
@@ -52,7 +50,7 @@ public class StatsShownActivity extends AppCompatActivity{
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mFragmentPagerAdapter = new StatsAdapter(getSupportFragmentManager(),this,partition_id);
+        mFragmentPagerAdapter = new StatsDetailAdapter(getSupportFragmentManager(),this,partition_id);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager_stats);

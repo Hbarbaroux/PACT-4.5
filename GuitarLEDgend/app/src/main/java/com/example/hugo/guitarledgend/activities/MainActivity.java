@@ -9,11 +9,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
+import com.example.hugo.guitarledgend.activities.stats.ChoosePartitionInStatsActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button startPlayButton = (Button) findViewById(R.id.startPlay_button);
         startPlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StartPlayActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddChooseActivity.class);
                 startActivity(intent);
             }
         });

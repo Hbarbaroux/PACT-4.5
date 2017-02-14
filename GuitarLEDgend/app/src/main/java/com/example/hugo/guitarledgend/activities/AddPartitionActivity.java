@@ -78,7 +78,7 @@ public class AddPartitionActivity extends AppCompatActivity {
 
                     database.close();
 
-                    Intent intent = new Intent(AddPartitionActivity.this, PlayPartitionActivity.class);
+                    Intent intent = new Intent(AddPartitionActivity.this, AskingPlayActivity.class);
                     intent.putExtra("partition_id", (long) values.size());
                     startActivity(intent);
                     finish();

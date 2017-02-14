@@ -8,12 +8,12 @@ import android.widget.Button;
 
 import com.example.hugo.guitarledgend.R;
 
-public class PlayPartitionActivity extends AppCompatActivity {
+public class AskingPlayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_partition);
+        setContentView(R.layout.activity_asking_play);
 
         Intent intent =getIntent();
         final long partition_id=intent.getLongExtra("partition_id",1L);
@@ -21,7 +21,7 @@ public class PlayPartitionActivity extends AppCompatActivity {
         Button oui = (Button) findViewById(R.id.oui_button);
         oui.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(PlayPartitionActivity.this, ChooseSpeedActivity.class);
+                Intent intent = new Intent(AskingPlayActivity.this, ChooseSpeedActivity.class);
                 intent.putExtra("partition_id", partition_id);
                 startActivity(intent);
                 finish();
@@ -31,7 +31,7 @@ public class PlayPartitionActivity extends AppCompatActivity {
         Button non = (Button) findViewById(R.id.non_button);
         non.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(PlayPartitionActivity.this, StartPlayActivity.class);
+                Intent intent = new Intent(AskingPlayActivity.this, AddChooseActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,10 +1,7 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.profiles;
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;

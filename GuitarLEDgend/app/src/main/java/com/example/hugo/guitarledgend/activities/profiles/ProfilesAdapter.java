@@ -1,9 +1,8 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.profiles;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.hugo.guitarledgend.databases.users.UserDAO;

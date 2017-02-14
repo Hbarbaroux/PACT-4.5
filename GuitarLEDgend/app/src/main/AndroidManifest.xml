@@ -23,17 +23,17 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SettingsActivity" />
-        <activity android:name=".activities.StatsActivity" />
-        <activity android:name=".activities.StartPlayActivity" />
+        <activity android:name=".activities.stats.StatsGlobalActivity" />
+        <activity android:name=".activities.AddChooseActivity" />
         <activity android:name=".activities.ChooseSpeedActivity" />
         <activity android:name=".activities.ChoosePartitionActivity" />
         <activity android:name=".activities.AddPartitionActivity" />
-        <activity android:name=".activities.PlayPartitionActivity" />
-        <activity android:name=".activities.ChoosePartitionInStatsActivity" />
-        <activity android:name=".activities.StatsShownActivity" />
+        <activity android:name=".activities.AskingPlayActivity" />
+        <activity android:name=".activities.stats.ChoosePartitionInStatsActivity" />
+        <activity android:name=".activities.stats.StatsDetailActivity" />
         <activity android:name=".activities.PartitionPlayingActivity" />
         <activity
-            android:name=".activities.ProfilesActivity"
+            android:name=".activities.profiles.ProfilesActivity"
             android:label="@string/title_activity_profils"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.PostPlayingActivity"></activity>

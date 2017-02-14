@@ -1,15 +1,16 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.stats;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.PartitionsAdapter;
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
@@ -51,7 +52,7 @@ public class ChoosePartitionInStatsActivity extends AppCompatActivity {
                     Toast.makeText(ChoosePartitionInStatsActivity.this,"Pas de stats pour cette partition",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Intent intent = new Intent(ChoosePartitionInStatsActivity.this, StatsActivity.class);
+                    Intent intent = new Intent(ChoosePartitionInStatsActivity.this, StatsGlobalActivity.class);
                     intent.putExtra("partition_id", (long) position+1);
                     startActivity(intent);
                 }

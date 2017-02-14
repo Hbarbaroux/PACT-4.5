@@ -22,7 +22,7 @@ public class PartitionsAdapter extends ArrayAdapter<Partition> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.partitions_layout,parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.partitions_choose_layout,parent, false);
         }
 
         PartitionViewHolder viewHolder = (PartitionViewHolder) convertView.getTag();

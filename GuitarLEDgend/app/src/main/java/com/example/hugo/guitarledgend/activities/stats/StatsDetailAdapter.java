@@ -1,18 +1,15 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.stats;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
-
-public class StatsAdapter extends FragmentStatePagerAdapter {
+public class StatsDetailAdapter extends FragmentStatePagerAdapter {
 
     private Context mContext;
     int mNumOfTabs;
@@ -20,7 +17,7 @@ public class StatsAdapter extends FragmentStatePagerAdapter {
     private String TAG = "DEBUG";
 
 
-    public StatsAdapter(FragmentManager fm, Context context, long partition) {
+    public StatsDetailAdapter(FragmentManager fm, Context context, long partition) {
         super(fm);
         this.mContext=context;
         database = new UserDAO(mContext);
@@ -33,7 +30,7 @@ public class StatsAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        return StatsFragment.newInstance();
+        return StatsDetailFragment.newInstance();
     }
 
     @Override

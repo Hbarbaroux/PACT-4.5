@@ -8,18 +8,18 @@ import android.widget.Button;
 
 import com.example.hugo.guitarledgend.R;
 
-public class StartPlayActivity extends AppCompatActivity {
+public class AddChooseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_play);
+        setContentView(R.layout.activity_add_choose);
 
 
         Button choisirPartitionButton = (Button) findViewById(R.id.choisirPartition_button);
         choisirPartitionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(StartPlayActivity.this, ChoosePartitionActivity.class);
+                Intent intent = new Intent(AddChooseActivity.this, ChoosePartitionActivity.class);
                 startActivity(intent);
             }
         });
@@ -27,7 +27,7 @@ public class StartPlayActivity extends AppCompatActivity {
         Button ajouterPartitionButton = (Button) findViewById(R.id.ajouterPartition_button);
         ajouterPartitionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(StartPlayActivity.this, AddPartitionActivity.class);
+                Intent intent = new Intent(AddChooseActivity.this, AddPartitionActivity.class);
                 startActivity(intent);
             }
         });

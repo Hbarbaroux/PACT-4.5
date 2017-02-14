@@ -1,13 +1,9 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.stats;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
@@ -22,7 +19,6 @@ import com.example.hugo.guitarledgend.databases.users.UserDAO;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.List;
 
@@ -30,28 +26,28 @@ import java.util.List;
  * Created by jesusbm on 6/02/17.
  */
 
-public class StatsFragment extends Fragment {
+public class StatsDetailFragment extends Fragment {
 
     Button ok_button;
     private int position;
     private UserDAO database;
     private PartitionDAO database_partition;
 
-    private ViewPager mViewPager = StatsShownActivity.getmViewPager();
+    private ViewPager mViewPager = StatsDetailActivity.getmViewPager();
 
-    private StatsAdapter mFragmentPagerAdapter = StatsShownActivity.getmFragmentPagerAdapter();
+    private StatsDetailAdapter mFragmentPagerAdapter = StatsDetailActivity.getmFragmentPagerAdapter();
 
-    public StatsFragment() {
+    public StatsDetailFragment() {
     }
 
-    public static StatsFragment newInstance() {
-        StatsFragment fragment = new StatsFragment();
+    public static StatsDetailFragment newInstance() {
+        StatsDetailFragment fragment = new StatsDetailFragment();
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_stats, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_stats_detail, container, false);
 
 
 
@@ -61,7 +57,7 @@ public class StatsFragment extends Fragment {
         database = new UserDAO(getActivity());
         database.open();
 
-        List<Stats > stats  = database.getAllStats(ProfilesActivity.getUser().getId(), ((StatsShownActivity) getActivity()).getPartitionId());
+        List<Stats > stats  = database.getAllStats(ProfilesActivity.getUser().getId(), ((StatsDetailActivity) getActivity()).getPartitionId());
         Stats s = stats.get(position-1);
         List<Integer> tab=s.tabFromFile(getContext());
 
@@ -92,7 +88,7 @@ public class StatsFragment extends Fragment {
 
         database_partition = new PartitionDAO(getActivity());
         database_partition.open();
-        Partition p=database_partition.selectionner(((StatsShownActivity) getActivity()).getPartitionId());
+        Partition p=database_partition.selectionner(((StatsDetailActivity) getActivity()).getPartitionId());
 
         graph.setTitle(s.getDate() + " / " + p.getNom());
         graph.setTitleColor(Color.BLACK);

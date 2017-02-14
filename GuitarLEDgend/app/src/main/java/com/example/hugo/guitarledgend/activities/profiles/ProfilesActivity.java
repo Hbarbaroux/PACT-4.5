@@ -1,10 +1,8 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.activities.profiles;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,8 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.SettingsActivity;
 import com.example.hugo.guitarledgend.databases.users.Profile;
-import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
 public class ProfilesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static Profile user;

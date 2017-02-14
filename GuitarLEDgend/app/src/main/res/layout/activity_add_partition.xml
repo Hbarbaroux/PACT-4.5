@@ -5,34 +5,54 @@
 
     <EditText
         android:id="@+id/fichier_addPartition"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/fichier" />
-
-    <EditText
-        android:id="@+id/nom_addPartition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/fichier_addPartition"
-        android:hint="@string/nom" />
-
-    <EditText
-        android:id="@+id/auteur_addPartition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/nom_addPartition"
-        android:hint="@string/auteur" />
+        android:hint="@string/fichier"
+        android:layout_marginTop="66dp"
+        android:background="@drawable/edit_background"
+        android:textCursorDrawable="@null"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/nom_addPartition"
+        android:layout_alignStart="@+id/nom_addPartition" />
 
     <EditText
         android:id="@+id/genre_addPartition"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:hint="@string/genre"
+        android:background="@drawable/edit_background"
+        android:textCursorDrawable="@null"
+        android:gravity="center"
+        android:layout_marginTop="39dp"
         android:layout_below="@+id/auteur_addPartition"
-        android:hint="@string/genre" />
+        android:layout_alignLeft="@+id/auteur_addPartition"
+        android:layout_alignStart="@+id/auteur_addPartition" />
+
+    <EditText
+        android:id="@+id/auteur_addPartition"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/auteur"
+        android:background="@drawable/edit_background"
+        android:textCursorDrawable="@null"
+        android:gravity="center"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/nom_addPartition"
+        android:layout_alignLeft="@+id/nom_addPartition"
+        android:layout_alignStart="@+id/nom_addPartition" />
+
+    <EditText
+        android:id="@+id/nom_addPartition"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/nom"
+        android:background="@drawable/edit_background"
+        android:textCursorDrawable="@null"
+        android:gravity="center"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/fichier_addPartition"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="@style/button"
@@ -41,9 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ok_button_AddPartitionActivity"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="62dp" />
+        android:layout_marginTop="83dp"
+        android:layout_below="@+id/genre_addPartition"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

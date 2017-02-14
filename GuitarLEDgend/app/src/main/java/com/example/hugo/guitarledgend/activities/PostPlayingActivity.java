@@ -1,15 +1,14 @@
 package com.example.hugo.guitarledgend.activities;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
@@ -18,23 +17,14 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class PostPlayingActivity extends AppCompatActivity {
 
