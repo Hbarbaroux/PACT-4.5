@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.HelpActivity;
 import com.example.hugo.guitarledgend.activities.SettingsActivity;
 import com.example.hugo.guitarledgend.databases.users.Profile;
 
@@ -89,6 +90,10 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
 
         if (id == R.id.nav_settings) {
             Intent intent = new Intent(ProfilesActivity.this, SettingsActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_help) {
+            Intent intent = new Intent(ProfilesActivity.this, HelpActivity.class);
             startActivity(intent);
         }
 

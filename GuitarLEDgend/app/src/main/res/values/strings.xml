@@ -43,6 +43,7 @@
     <string name="femme">Femme</string>
 
     <string name="vitesse">Vitesse ?</string>
+    <string name="title_activity_help">HelpActivity</string>
 
 
 </resources>

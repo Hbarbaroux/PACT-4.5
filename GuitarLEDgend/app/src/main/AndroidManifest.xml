@@ -36,7 +36,8 @@
             android:name=".activities.profiles.ProfilesActivity"
             android:label="@string/title_activity_profils"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.PostPlayingActivity"></activity>
+        <activity android:name=".activities.PostPlayingActivity" />
+        <activity android:name=".activities.HelpActivity"></activity>
     </application>
 
 </manifest>
