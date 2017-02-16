@@ -1,10 +1,16 @@
 package com.example.hugo.guitarledgend.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
@@ -34,14 +40,11 @@ public class PostPlayingActivity extends AppCompatActivity {
     private long user_id = ProfilesActivity.getUser().getId();
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_playing);
-
-
+        
         Intent intent = getIntent();
         final long partition_id = intent.getLongExtra("partition_id", 1L);
 
