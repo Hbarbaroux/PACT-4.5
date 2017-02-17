@@ -81,6 +81,7 @@ public abstract class Attaque {
 	
 	public float[] attaque (float[] signal, float fech, float a){
 		//prend en entrée un signal et sa fréquence d'échantillonage et renvoie son attaque 
+		//A FAIRE !!!!! FILTRER LE SIGNAL
 		float[] env = enveloppe(signal, a);
 		env = decfreq(env,fech,400);
 		//on estime qu'une enveloppe n'a pas beaucoup de fréquences >200 Hz, donc on se permet
