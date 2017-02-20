@@ -1,17 +1,12 @@
 package comparaison;
 
-import exceptions.InvalidSheetException;
-
 public class Tabnotes {
 	
 	private final float[] temps;
 	
 	private final float[] freq;
 	
-	public Tabnotes (float[] temps, float[] freq) throws InvalidSheetException{
-		if (temps.length!=freq.length){
-			throw new InvalidSheetException();
-		}
+	public Tabnotes (float[] temps, float[] freq){
 		this.temps=temps;
 		this.freq=freq;
 	}
