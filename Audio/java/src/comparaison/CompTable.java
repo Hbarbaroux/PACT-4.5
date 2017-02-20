@@ -1,3 +1,4 @@
+package comparaison;
 
 public class CompTable {
 	

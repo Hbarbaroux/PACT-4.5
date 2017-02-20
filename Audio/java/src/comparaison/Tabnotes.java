@@ -1,3 +1,5 @@
+package comparaison;
+
 import exceptions.InvalidSheetException;
 
 public class Tabnotes {
