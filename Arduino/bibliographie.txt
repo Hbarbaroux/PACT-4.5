@@ -1,0 +1,2 @@
+Librairie Arduino : https://learn.adafruit.com/adafruit-neopixel-uberguide/arduino-library
+Communication Arduino/Android : https://bellcode.wordpress.com/2012/01/02/android-and-arduino-bluetooth-communication/
