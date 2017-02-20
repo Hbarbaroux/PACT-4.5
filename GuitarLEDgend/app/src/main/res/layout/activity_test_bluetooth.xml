@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/versvitesse"
-            android:onClick="onClick_Next (TestBluetoothActivity)" />
+            android:onClick="onClick_Next" />
 
     </LinearLayout>
 
