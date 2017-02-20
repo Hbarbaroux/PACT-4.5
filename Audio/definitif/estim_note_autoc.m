@@ -1,12 +1,13 @@
 function freq = estim_note_autoc(signal)
 freq=0;
+U = [];
 j = 82.5;
-T = [];
+T = autocorrel(signal);
 while j < 2000
-    T = [T, autocor(signal, 1/j)]; %#ok<AGROW>
+    U = [U, T(floor(44100/j))]; 
     j = j*2^(1/12);
 end
-z = findmax(T);
-freq = 82.5*2^(z/12); 
+z = findmax(U);
+freq = 82.5*2^((z+7)/12); 
 end
 
