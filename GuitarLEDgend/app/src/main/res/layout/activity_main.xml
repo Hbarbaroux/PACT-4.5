@@ -71,7 +71,7 @@
                 android:id="@+id/stats_button"
                 android:layout_marginTop="92dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/start_button" />
+                android:layout_below="@id/startPlay_button" />
 
         </RelativeLayout>
 
