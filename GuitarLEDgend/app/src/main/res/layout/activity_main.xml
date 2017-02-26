@@ -54,24 +54,24 @@
 
             <Button
                 style="@style/button"
-                android:text="@string/stats"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/stats_button"
-                android:layout_marginTop="92dp"
-                android:layout_centerHorizontal="true" />
-
-            <Button
-                style="@style/button"
                 android:text="@string/startPlay"
                 android:textSize="30sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/startPlay_button"
                 android:layout_marginTop="92dp"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                style="@style/button"
+                android:text="@string/stats"
+                android:textSize="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stats_button"
+                android:layout_marginTop="92dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/stats_button" />
+                android:layout_below="@id/start_button" />
 
         </RelativeLayout>
 

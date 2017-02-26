@@ -18,25 +18,63 @@
     <TextView
         android:background="@drawable/ic_star"
         android:textSize="30sp"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:id="@+id/score"
-        android:layout_marginTop="86dp"
         android:minHeight="50dip"
         android:minWidth="120dip"
         android:gravity="center"
+        android:layout_marginTop="26dp"
+        android:layout_width="100dp"
         android:layout_below="@+id/graph_PostPlayingActivity"
         android:layout_centerHorizontal="true" />
 
     <Button
         style="@style/button"
+        android:text="Rejouer zone"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/replay_area_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="@style/button"
+        android:text="Menu"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_button"
+        android:layout_alignBaseline="@+id/replay_button"
+        android:layout_alignBottom="@+id/replay_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp" />
+
+    <Button
+        style="@style/button"
+        android:text="Rejouer"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/replay_button"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_above="@+id/replay_area_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="17dp" />
+
+    <Button
         android:text="play"
         android:textSize="30sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/playButton" />
-
+        android:id="@+id/playButton"
+        android:layout_alignBottom="@+id/score"
+        android:layout_toLeftOf="@+id/score"
+        android:layout_toStartOf="@+id/score" />
 
 
 </RelativeLayout>

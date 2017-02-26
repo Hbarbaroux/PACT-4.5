@@ -77,6 +77,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_playing);
 
 
+
         File sdcard = Environment.getExternalStorageDirectory();
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
         if (!dir.exists()) {
@@ -99,6 +100,24 @@ public class PostPlayingActivity extends AppCompatActivity {
         });
 
 
+
+
+        Button replayButton = (Button) findViewById(R.id.replay_button);
+        replayButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(PostPlayingActivity.this, ChooseSpeedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button menuButton = (Button) findViewById(R.id.menu_button);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(PostPlayingActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        
 
         Intent intent = getIntent();
         final long partition_id = intent.getLongExtra("partition_id", 1L);
