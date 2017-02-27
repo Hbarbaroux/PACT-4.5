@@ -26,7 +26,6 @@ public class PartitionPlayingActivity extends AppCompatActivity {
     private final int TEMPS = 5000;
 
     private Handler mHandler = new Handler();
-    private static String mFileName = null;
 
     private long  partition_id=0;
     @Override
@@ -43,7 +42,7 @@ public class PartitionPlayingActivity extends AppCompatActivity {
             dir.mkdirs();
         }
         File f = new File(dir,"audiorecordtest.3gp");
-        mFileName=f.getPath();
+        String mFileName=f.getPath();
 
         final MediaRecorder recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);

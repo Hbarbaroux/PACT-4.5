@@ -39,12 +39,67 @@ public class PostPlayingActivity extends AppCompatActivity {
     private PartitionDAO database_partition;
     private long user_id = ProfilesActivity.getUser().getId();
 
+    private MediaPlayer mPlayer = null;
+    private String mFileName = null;
+    boolean mStartPlaying = true;
+
+
+
+    private void onPlay(boolean start) {
+        if (start) {
+            startPlaying();
+        } else {
+            stopPlaying();
+        }
+    }
+
+    private void startPlaying() {
+        mPlayer = new MediaPlayer();
+        try {
+            mPlayer.setDataSource(mFileName);
+            mPlayer.prepare();
+            mPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void stopPlaying() {
+        mPlayer.stop();
+        mPlayer.release();
+        mPlayer = null;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_playing);
-        
+
+
+        File sdcard = Environment.getExternalStorageDirectory();
+        File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File f = new File(dir,"audiorecordtest.3gp");
+        mFileName=f.getPath();
+
+        final Button play = (Button) findViewById(R.id.playButton);
+        play.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onPlay(mStartPlaying);
+                if (mStartPlaying) {
+                    play.setText("stop");
+                } else {
+                    play.setText("play");
+                }
+                mStartPlaying = !mStartPlaying;
+            }
+        });
+
+
+
         Intent intent = getIntent();
         final long partition_id = intent.getLongExtra("partition_id", 1L);
 

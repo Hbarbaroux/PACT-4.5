@@ -28,5 +28,15 @@
         android:layout_below="@+id/graph_PostPlayingActivity"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        style="@style/button"
+        android:text="play"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/playButton" />
+
+
 
 </RelativeLayout>
