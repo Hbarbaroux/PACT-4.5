@@ -25,7 +25,7 @@ for j=1:length(Y)
         q=signal(L(2*j-1)*100:L(2*j)*100);
         est=estim_note_autoc(q);
         if est<2000 && est>50
-            tabnotes=[tabnotes,est,Y(j)/441];
+            tabnotes=[tabnotes,est,Y(j)/44100];
         end
     end
 end
