@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class StatsGlobalActivity extends AppCompatActivity {
-    public static final int DISPLAYED_STATS=10;
+    private static final int DISPLAYED_STATS=10;
 
 
     public static Activity sa;
@@ -91,16 +91,18 @@ public class StatsGlobalActivity extends AppCompatActivity {
         series.setDrawDataPoints(false);
         series.setDataPointsRadius(30);
 
+        graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(1);
         graph.getViewport().setMaxX(Math.min(DISPLAYED_STATS,values.size())+1);
-        graph.getViewport().setXAxisBoundsManual(true);
-
-        graph.addSeries(series);
-
 
         graph.setTitle("DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom());
         graph.setTitleColor(Color.BLACK);
         graph.setTitleTextSize(100);
+
+        graph.addSeries(series);
+
+
+
 
 
 

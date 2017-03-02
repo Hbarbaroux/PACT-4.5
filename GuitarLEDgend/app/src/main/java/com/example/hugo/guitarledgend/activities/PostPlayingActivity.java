@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
@@ -22,6 +24,10 @@ import com.example.hugo.guitarledgend.databases.users.UserDAO;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.Series;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,6 +48,11 @@ public class PostPlayingActivity extends AppCompatActivity {
     private MediaPlayer mPlayer = null;
     private String mFileName = null;
     boolean mStartPlaying = true;
+
+
+    private DataPoint[] d1= new DataPoint[2];
+    private PointsGraphSeries<DataPoint> series2 = null;
+    private int i =0;
 
 
 
@@ -83,7 +94,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File f = new File(dir,"audiorecordtest.3gp");
+        File f = new File(dir,"audiorecordtest.wav");
         mFileName=f.getPath();
 
         final Button play = (Button) findViewById(R.id.playButton);
@@ -144,11 +155,10 @@ public class PostPlayingActivity extends AppCompatActivity {
 
         DataPoint[] d = new DataPoint[tab.size()];
         for (int i = 0; i < tab.size(); i++) {
-
             d[i] = new DataPoint(i, tab.get(i));
         }
 
-        GraphView graph = (GraphView) findViewById(R.id.graph_PostPlayingActivity);
+        final GraphView graph = (GraphView) findViewById(R.id.graph_PostPlayingActivity);
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(d);
 
@@ -157,15 +167,42 @@ public class PostPlayingActivity extends AppCompatActivity {
         series.setSpacing(0);
         series.setAnimated(true);
 
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(tab.size());
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(1.5);
 
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setXAxisBoundsManual(true);
-
         graph.addSeries(series);
+
+        for (int i = 0; i < d1.length; i++) {
+            d1[i] = new DataPoint(-1, 0);
+        }
+
+        series2 = new PointsGraphSeries<>(d1);
+        graph.addSeries(series2);
+
+        series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                d1[i%2]=(DataPoint) dataPoint;
+                i++;
+
+                
+
+
+
+
+
+
+                series2.resetData(d1);
+
+
+            }
+        });
+
+
 
         database_partition = new PartitionDAO(PostPlayingActivity.this);
         database_partition.open();

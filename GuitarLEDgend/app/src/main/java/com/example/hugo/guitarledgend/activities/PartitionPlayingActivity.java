@@ -41,12 +41,12 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File f = new File(dir,"audiorecordtest.3gp");
+        File f = new File(dir,"audiorecordtest.wav");
         String mFileName=f.getPath();
 
         final MediaRecorder recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         recorder.setOutputFile(mFileName);
         try{

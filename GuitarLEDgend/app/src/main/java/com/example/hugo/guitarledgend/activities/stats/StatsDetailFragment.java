@@ -27,8 +27,9 @@ import java.util.List;
  */
 
 public class StatsDetailFragment extends Fragment {
+    private static final int DISPLAYED_STATS=10;
 
-    Button ok_button;
+
     private int position;
     private UserDAO database;
     private PartitionDAO database_partition;
@@ -76,13 +77,17 @@ public class StatsDetailFragment extends Fragment {
         series.setSpacing(0);
         series.setAnimated(true);
 
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(tab.size());
+        graph.getViewport().setMaxX(Math.min(DISPLAYED_STATS,tab.size()));
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(1.5);
 
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setXAxisBoundsManual(true);
+
+
+        graph.getViewport().setScalable(true);
+
 
         graph.addSeries(series);
 
