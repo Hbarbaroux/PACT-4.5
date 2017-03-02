@@ -5,8 +5,6 @@ import java.util.Arrays;
 
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,15 +12,17 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.Menu;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.R;
 
-public class BluetoothActivity extends Activity {
+public class BluetoothActivity extends AppCompatActivity {
 
     private TextView mTextView;
     private TextView mTextViewState;
@@ -118,8 +118,10 @@ public class BluetoothActivity extends Activity {
     public void onClick_Connect(View v) {
         try {
             myDevice.connect();
+            Toast.makeText(BluetoothActivity.this,"Connecté à l'Arduino",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            e.printStackTrace();
+            DialogFragment newFragment = new ErrorConnectFragment();
+            newFragment.show(getSupportFragmentManager(), "delete");
         }
     }
 
@@ -138,8 +140,10 @@ public class BluetoothActivity extends Activity {
     public void onClick_Test(View v) {
         try {
             myDevice.send(0,0,1);
+            Toast.makeText(BluetoothActivity.this,"L'affichage des LEDs fonctionne",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            e.printStackTrace();
+            DialogFragment newFragment = new ErrorLedFragment();
+            newFragment.show(getSupportFragmentManager(), "delete");;
         }
     }
 }

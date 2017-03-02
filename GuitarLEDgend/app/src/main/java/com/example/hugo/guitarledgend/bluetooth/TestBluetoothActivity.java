@@ -1,12 +1,10 @@
-package com.example.hugo.guitarledgend.activities;
+package com.example.hugo.guitarledgend.bluetooth;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,16 +12,20 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.Menu;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+
 
 import com.example.hugo.guitarledgend.R;
-import com.example.hugo.guitarledgend.bluetooth.BluetoothModule;
+import com.example.hugo.guitarledgend.activities.ChooseSpeedActivity;
 
-public class TestBluetoothActivity extends Activity {
+public class TestBluetoothActivity extends AppCompatActivity {
 
     private TextView mTextView;
     private TextView mTextViewState;
@@ -35,6 +37,9 @@ public class TestBluetoothActivity extends Activity {
     private BluetoothModule myDevice;
     private Button versVitesse;
 
+    private static final int REQ_CODE = 1;
+
+    private int[] resultatTests = new int[2];
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -109,47 +114,56 @@ public class TestBluetoothActivity extends Activity {
         unregisterReceiver(mReceiver);
     }
 
- /*   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
-
-    public void onClick_Search(View v) {
-        myDevice.search();
-    }
 
     public void onClick_Connect(View v) {
         try {
             myDevice.connect();
+            Toast.makeText(TestBluetoothActivity.this,"Connecté à l'Arduino",Toast.LENGTH_SHORT).show();
+            resultatTests[0] = 1;
         } catch (Exception e) {
-            e.printStackTrace();
+            DialogFragment newFragment = new ErrorConnectFragment();
+            newFragment.show(getSupportFragmentManager(), null);
         }
     }
 
     public void onClick_Next(View v) {
-        Intent intent = new Intent(TestBluetoothActivity.this, ChooseSpeedActivity.class);
-        startActivity(intent);
-    }
-
-    public void onClick_Disconnect(View v) {
-        myDevice.disconnect();
-    }
-
-    public void onClick_Play(View v) {
-        try {
-            myDevice.send(Integer.parseInt(mEditTextCorde.getText().toString()), Integer.parseInt(mEditTextFrette.getText().toString()), Integer.parseInt(mEditTextDoigt.getText().toString()));
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (testContinue()) {
+            Intent intent = new Intent(TestBluetoothActivity.this, ChooseSpeedActivity.class);
+            startActivity(intent);
+        }
+        else {
+            DialogFragment newFragment = new ErrorContinueFragment();
+            newFragment.show(getSupportFragmentManager(), null);
         }
     }
+
 
     public void onClick_Test(View v) {
         try {
             myDevice.send(0,0,1);
+            DialogFragment newFragment = new AskingLedFragment();
+            newFragment.show(getSupportFragmentManager(), null);
         } catch (Exception e) {
-            e.printStackTrace();
+            DialogFragment newFragment = new ErrorLedFragment();
+            newFragment.show(getSupportFragmentManager(), null);
         }
     }
+
+    public void onUserSelectValue(int selectedValue) {
+        resultatTests[1] = selectedValue;
+        Log.d("Resultat 0: ", String.valueOf(resultatTests[0]));
+        Log.d("Resultat 1: ", String.valueOf(resultatTests[1]));
+    }
+
+/*    public boolean testContinue () {
+        if ((resultatTests[0] == 1) && (resultatTests[1] == 1)) {
+            return true;
+        }
+        return false;
+    }
+*/
+    public boolean testContinue () {
+        return true;
+    }
+
 }
