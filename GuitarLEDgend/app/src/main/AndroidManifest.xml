@@ -42,7 +42,8 @@
         <activity android:name=".activities.PostPlayingActivity" />
         <activity android:name=".activities.HelpActivity" />
         <activity android:name=".bluetooth.BluetoothActivity" />
-        <activity android:name=".activities.TestBluetoothActivity"></activity>
+        <activity android:name=".activities.TestBluetoothActivity" />
+        <activity android:name=".activities.ReplayAreaActivity"></activity>
     </application>
 
 </manifest>

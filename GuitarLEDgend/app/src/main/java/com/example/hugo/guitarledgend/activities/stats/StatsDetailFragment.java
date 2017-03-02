@@ -84,10 +84,7 @@ public class StatsDetailFragment extends Fragment {
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(1.5);
 
-
-
         graph.getViewport().setScalable(true);
-
 
         graph.addSeries(series);
 

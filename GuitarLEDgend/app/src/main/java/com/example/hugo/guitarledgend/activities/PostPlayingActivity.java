@@ -49,10 +49,10 @@ public class PostPlayingActivity extends AppCompatActivity {
     private String mFileName = null;
     boolean mStartPlaying = true;
 
-
+    private static final int DISPLAYED_STATS=20;
     private DataPoint[] d1= new DataPoint[2];
     private PointsGraphSeries<DataPoint> series2 = null;
-    private int i =0;
+    private int i;
 
 
 
@@ -111,7 +111,15 @@ public class PostPlayingActivity extends AppCompatActivity {
         });
 
 
-
+        Button replayAreaButton = (Button) findViewById(R.id.replay_area_button);
+        replayAreaButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(PostPlayingActivity.this, ReplayAreaActivity.class);
+                intent.putExtra("X1", (int) d1[0].getX());
+                intent.putExtra("X2", (int) d1[1].getX());
+                startActivity(intent);
+            }
+        });
 
         Button replayButton = (Button) findViewById(R.id.replay_button);
         replayButton.setOnClickListener(new View.OnClickListener() {
@@ -170,18 +178,20 @@ public class PostPlayingActivity extends AppCompatActivity {
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(tab.size());
+        graph.getViewport().setMaxX(Math.min(DISPLAYED_STATS,tab.size()));
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(1.5);
+
+        graph.getViewport().setScalable(true);
 
         graph.addSeries(series);
 
         for (int i = 0; i < d1.length; i++) {
             d1[i] = new DataPoint(-1, 0);
         }
-
         series2 = new PointsGraphSeries<>(d1);
         graph.addSeries(series2);
+        i=0;
 
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
@@ -189,16 +199,15 @@ public class PostPlayingActivity extends AppCompatActivity {
                 d1[i%2]=(DataPoint) dataPoint;
                 i++;
 
-                
-
-
-
-
-
+                DataPoint c;
+                if (d1[0].getX()>d1[1].getX()){
+                    i++;
+                    c=d1[0];
+                    d1[0]=d1[1];
+                    d1[1]=c;
+                }
 
                 series2.resetData(d1);
-
-
             }
         });
 
