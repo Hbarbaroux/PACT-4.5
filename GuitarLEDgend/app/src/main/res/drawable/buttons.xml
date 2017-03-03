@@ -7,13 +7,18 @@
             <item>
                 <shape xmlns:android="http://schemas.android.com/apk/res/android">
                     <solid android:color="#000000"/>
-                    <corners android:radius="3sp"/>
+                    <corners android:radius="30sp"/>
                 </shape>
             </item>
             <item>
                 <shape>
-                    <solid android:color="@color/colorButtonPressed"/>
-                    <corners android:radius="3sp" />
+                    <gradient
+                        android:angle="90"
+                        android:centerColor="@color/colorButtonPressed"
+                        android:endColor="#edce7d"
+                        android:startColor="@color/colorButtonPressed"
+                        android:type="linear" />
+                    <corners android:radius="30sp" />
                     <padding
                         android:left="20dp"
                         android:right="20dp"
@@ -29,13 +34,18 @@
             <item>
                 <shape xmlns:android="http://schemas.android.com/apk/res/android">
                     <solid android:color="#000000"/>
-                    <corners android:radius="3sp"/>
+                    <corners android:radius="30sp"/>
                 </shape>
             </item>
             <item>
                 <shape>
-                    <solid android:color="@color/colorButton"/>
-                    <corners android:radius="3sp" />
+                    <gradient
+                        android:angle="90"
+                        android:centerColor="@color/colorButton"
+                        android:endColor="#edce7d"
+                        android:startColor="@color/colorButton"
+                        android:type="linear" />
+                    <corners android:radius="30sp" />
                     <padding
                         android:left="20dp"
                         android:right="20dp"

@@ -44,6 +44,10 @@
         <activity android:name=".bluetooth.BluetoothActivity" />
         <activity android:name=".activities.ReplayAreaActivity"></activity>
         <activity android:name=".bluetooth.TestBluetoothActivity"></activity>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     </application>
 
 </manifest>
