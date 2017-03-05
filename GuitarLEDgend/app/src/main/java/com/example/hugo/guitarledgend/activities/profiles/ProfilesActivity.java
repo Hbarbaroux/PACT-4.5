@@ -88,14 +88,14 @@ public class ProfilesActivity extends AppCompatActivity implements NavigationVie
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-/*        if (id == R.id.nav_settings) {
+        if (id == R.id.nav_settings) {
             Intent intent = new Intent(ProfilesActivity.this, SettingsActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_help) {
             Intent intent = new Intent(ProfilesActivity.this, HelpActivity.class);
             startActivity(intent);
-        }*/
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
