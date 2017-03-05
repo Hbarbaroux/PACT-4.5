@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.bluetooth.TestBluetoothActivity;
 
 public class AskingPlayActivity extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class AskingPlayActivity extends AppCompatActivity {
         Button oui = (Button) findViewById(R.id.oui_button);
         oui.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(AskingPlayActivity.this, ChooseSpeedActivity.class);
+                Intent intent = new Intent(AskingPlayActivity.this, TestBluetoothActivity.class);
                 intent.putExtra("partition_id", partition_id);
                 startActivity(intent);
                 finish();
