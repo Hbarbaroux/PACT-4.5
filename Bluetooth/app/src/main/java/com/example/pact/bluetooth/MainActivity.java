@@ -1,16 +1,12 @@
 package com.example.pact.bluetooth;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-
-import android.content.IntentFilter;
-import android.os.Bundle;
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -19,6 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.midisheetmusic.MidiFile;
+import com.midisheetmusic.MidiNote;
+import com.midisheetmusic.MidiTrack;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends Activity {
 
@@ -92,6 +96,15 @@ public class MainActivity extends Activity {
         catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
+        // MIDI TEST
+        byte[] rawdata = new byte[200]; //length ok?
+        String filename = "test.mdi";
+        MidiFile myFile = new MidiFile(rawdata, filename);
+        ArrayList<MidiTrack> list = myFile.getTracks();
+        ArrayList<MidiNote> notes = list.get(0).getNotes();
     }
 
     @Override
