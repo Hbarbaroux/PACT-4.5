@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -219,9 +220,14 @@ public class PostPlayingActivity extends AppCompatActivity {
         database_partition.open();
         Partition p = database_partition.selectionner(partition_id);
 
-        graph.setTitle(s.getDate() + " / " + p.getNom());
-        graph.setTitleColor(Color.BLACK);
-        graph.setTitleTextSize(100);
+        String title=s.getDate() + " / " + p.getNom();
+        TextView titleView = (TextView) findViewById(R.id.graph_title_postplayingactivity);
+        titleView.setText(title);
+        titleView.setTextSize(25);
+        titleView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        titleView.setSingleLine(true);
+        titleView.setMarqueeRepeatLimit(5);
+        titleView.setSelected(true);
 
         TextView score_view = (TextView) findViewById(R.id.score);
         score_view.setText(String.valueOf(score)+"%");

@@ -3,10 +3,14 @@ package com.example.hugo.guitarledgend.activities.stats;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.example.hugo.guitarledgend.R;
@@ -23,6 +27,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.List;
 
 
+
 public class StatsGlobalActivity extends AppCompatActivity {
     private static final int DISPLAYED_STATS=10;
 
@@ -31,6 +36,8 @@ public class StatsGlobalActivity extends AppCompatActivity {
 
     private UserDAO database_user;
     private PartitionDAO database_partition;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,16 +102,24 @@ public class StatsGlobalActivity extends AppCompatActivity {
         graph.getViewport().setMinX(1);
         graph.getViewport().setMaxX(Math.min(DISPLAYED_STATS,values.size())+1);
 
-        graph.setTitle("DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom());
-        graph.setTitleColor(Color.BLACK);
-        graph.setTitleTextSize(100);
+        String title = "DERNIERS SCORES : " + profil.getNom() + "/" + partition.getNom();
+
+
+        TextView titleView = (TextView) findViewById(R.id.graph_title);
+        titleView.setText(title);
+        titleView.setTextSize(25);
+        titleView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        titleView.setSingleLine(true);
+        titleView.setMarqueeRepeatLimit(5);
+        titleView.setSelected(true);
+
 
         graph.addSeries(series);
 
 
 
-
-
-
     }
+
+
+
 }

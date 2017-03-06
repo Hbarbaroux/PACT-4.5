@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,9 +93,15 @@ public class StatsDetailFragment extends Fragment {
         database_partition.open();
         Partition p=database_partition.selectionner(((StatsDetailActivity) getActivity()).getPartitionId());
 
-        graph.setTitle(s.getDate() + " / " + p.getNom());
-        graph.setTitleColor(Color.BLACK);
-        graph.setTitleTextSize(100);
+        String title=s.getDate() + " / " + p.getNom();
+        TextView titleView = (TextView) rootView.findViewById(R.id.graph_title_statsdetailfragment);
+        titleView.setText(title);
+        titleView.setTextSize(25);
+        titleView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        titleView.setSingleLine(true);
+        titleView.setMarqueeRepeatLimit(5);
+        titleView.setSelected(true);
+
 
         //GRAPHE
 

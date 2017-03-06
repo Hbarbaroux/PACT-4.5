@@ -10,10 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hugo.guitarledgend.activities.PostPlayingActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/graph_title_postplayingactivity"/>
+
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
-        android:id="@+id/graph_PostPlayingActivity" />
+        android:id="@+id/graph_PostPlayingActivity"
+        android:layout_below="@+id/graph_title_postplayingactivity"/>
 
     <TextView
         android:background="@drawable/ic_star"
