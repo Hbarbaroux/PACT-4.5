@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
+import com.sembozdemir.viewpagerarrowindicator.library.ViewPagerArrowIndicator;
 
 
 public class StatsDetailActivity extends AppCompatActivity{
@@ -55,6 +56,14 @@ public class StatsDetailActivity extends AppCompatActivity{
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager_stats);
         mViewPager.setAdapter(mFragmentPagerAdapter);
+
+        mViewPager.beginFakeDrag();
+
+        ViewPagerArrowIndicator viewPagerArrowIndicator = (ViewPagerArrowIndicator) findViewById(R.id.viewPagerArrowIndicator);
+
+        viewPagerArrowIndicator.bind(mViewPager);
+
+        viewPagerArrowIndicator.setArrowIndicatorRes(R.drawable.ic_keyboard_arrow_left_black_24dp, R.drawable.ic_keyboard_arrow_right_black_24dp);
 
     }
 }

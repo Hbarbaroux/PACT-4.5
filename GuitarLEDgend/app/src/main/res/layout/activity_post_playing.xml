@@ -22,7 +22,6 @@
         android:layout_below="@+id/graph_title_postplayingactivity"/>
 
     <TextView
-        android:background="@drawable/ic_star"
         android:textSize="30sp"
         android:layout_height="100dp"
         android:id="@+id/score"

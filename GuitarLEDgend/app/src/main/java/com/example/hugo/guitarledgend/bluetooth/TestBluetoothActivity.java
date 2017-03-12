@@ -39,6 +39,8 @@ public class TestBluetoothActivity extends AppCompatActivity {
 
     private static final int REQ_CODE = 1;
 
+    private long partition_id;
+
     private int[] resultatTests = new int[2];
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -78,6 +80,9 @@ public class TestBluetoothActivity extends AppCompatActivity {
         registerReceiver(mReceiver, mFilter);
         mFilter = new IntentFilter(BluetoothModule.ACTION_BATTERY_LOW);
         registerReceiver(mReceiver, mFilter);
+
+        Intent intent =getIntent();
+        partition_id=intent.getLongExtra("partition_id",1L);
 
 
 
@@ -129,6 +134,7 @@ public class TestBluetoothActivity extends AppCompatActivity {
     public void onClick_Next(View v) {
         if (testContinue()) {
             Intent intent = new Intent(TestBluetoothActivity.this, ChooseSpeedActivity.class);
+            intent.putExtra("partition_id", partition_id);
             startActivity(intent);
         }
         else {
