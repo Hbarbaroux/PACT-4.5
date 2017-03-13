@@ -23,6 +23,7 @@ import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -36,6 +37,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +58,9 @@ public class PostPlayingActivity extends AppCompatActivity {
     private DataPoint[] d1= new DataPoint[2];
     private PointsGraphSeries<DataPoint> series2 = null;
     private int i;
+
+    private int X1;
+    private int X2;
 
 
 
@@ -124,8 +129,12 @@ public class PostPlayingActivity extends AppCompatActivity {
 
                 else{
                     Intent intent = new Intent(PostPlayingActivity.this, ChooseSpeedActivity.class);
-                    intent.putExtra("X1", (int) d1[0].getX());
-                    intent.putExtra("X2", (int) d1[1].getX());
+                    int x1=(int) d1[0].getX();
+                    x1+=X1;
+                    int x2=(int) d1[1].getX();
+                    x2+=X1;
+                    intent.putExtra("X1", x1);
+                    intent.putExtra("X2", x2);
                     intent.putExtra("replay",1);
                     startActivity(intent);
                     finish();
@@ -156,14 +165,13 @@ public class PostPlayingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final long partition_id = intent.getLongExtra("partition_id", 1L);
-        final int X1=intent.getIntExtra("X1",0);
-        final int X2=intent.getIntExtra("X2",0);
+        X1=intent.getIntExtra("X1",0);
+        X2=intent.getIntExtra("X2",0);
         final int replay=intent.getIntExtra("replay",0);
 
-
-        int score=0;
-        Stats s=null;
-        String title=null;
+        List<Integer> tab;
+        int score;
+        String title;
         if (replay==0){
 
             Date now = new Date();
@@ -176,7 +184,9 @@ public class PostPlayingActivity extends AppCompatActivity {
 
             score = score(dataFile);
 
-            s = new Stats(0, nowAsString, dataFile, score, partition_id, user_id);
+            Stats s = new Stats(0, nowAsString, dataFile, score, partition_id, user_id);
+
+            tab = s.tabFromFile(this);
 
             database = new UserDAO(PostPlayingActivity.this);
             database.open();
@@ -188,19 +198,19 @@ public class PostPlayingActivity extends AppCompatActivity {
 
             title=s.getDate() + " / " + p.getNom();
 
-
-
         }
 
         else{
             Date now = new Date();
             String nowAsString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
 
-            replayFileCreation();
+            replayFileCreation(X1,X2);
 
             score = score(replayFile);
 
-            s = new Stats(0, nowAsString, replayFile, score, partition_id, user_id);
+            Stats s = new Stats(0, nowAsString, replayFile, score, partition_id, user_id);
+
+            tab = s.tabFromFile(this);
 
             database_partition = new PartitionDAO(PostPlayingActivity.this);
             database_partition.open();
@@ -213,7 +223,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
         //GRAPHE
 
-        List<Integer> tab = s.tabFromFile(this);
+
 
         DataPoint[] d = new DataPoint[tab.size()];
         for (int i = 0; i < tab.size(); i++) {
@@ -284,10 +294,10 @@ public class PostPlayingActivity extends AppCompatActivity {
     }
 
     //methode provisoire
-    public void replayFileCreation(){
-        File sdcard = Environment.getExternalStorageDirectory();
+    public void replayFileCreation(int X1, int X2){
+        File phone = this.getFilesDir();
 
-        File dir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/");
+        File dir = new File(phone.getPath()+"/statsData/");
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -301,8 +311,12 @@ public class PostPlayingActivity extends AppCompatActivity {
             f.createNewFile();
             pw = new PrintWriter(f);
 
-            for (int i=0;i<50;i++){
-                pw.println(1);
+            for (int i=X1;i<X2;i++){
+                double r = Math.random();
+                if (r<0.5)
+                    pw.println(0);
+                else
+                    pw.println(1);
             }
 
         }catch (IOException e){
@@ -320,9 +334,9 @@ public class PostPlayingActivity extends AppCompatActivity {
 
     //methode provisoire: cree un fichier faux des resultats aleatoirement dans le dossier reception
     public void fileCreation() {
-        File sdcard = Environment.getExternalStorageDirectory();
+        File phone = this.getFilesDir();
 
-        File dir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/reception/");
+        File dir = new File(phone.getPath()+"/statsData/reception/");
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -360,13 +374,13 @@ public class PostPlayingActivity extends AppCompatActivity {
 
     public void moveFile(String newFile) {
         //va chercher le file dans reception et le renomme et deplace en data.
-        File sdcard = Environment.getExternalStorageDirectory();
+        File phone = this.getFilesDir();
 
-        File fromDir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/reception/");
+        File fromDir = new File(phone.getPath()+"/statsData/reception/");
         if (!fromDir.exists()) {
             fromDir.mkdirs();
         }
-        File toDir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/");
+        File toDir = new File(phone.getPath()+"/statsData/");
         if (!toDir.exists()) {
             toDir.mkdirs();
         }
@@ -414,9 +428,9 @@ public class PostPlayingActivity extends AppCompatActivity {
     }
 
     public int score(String file) {
-        File sdcard = Environment.getExternalStorageDirectory();
+        File phone = this.getFilesDir();
 
-        File dir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/");
+        File dir = new File(phone.getPath()+"/statsData/");
         if (!dir.exists()) {
             dir.mkdirs();
         }

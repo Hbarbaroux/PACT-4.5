@@ -118,8 +118,8 @@ public class Stats {
             }
         }
         */
-        File sdcard = Environment.getExternalStorageDirectory();
-        File file = new File(sdcard,"/GuitarLEDgend/statsData/" + fichier);
+        File phone = context.getFilesDir();
+        File file = new File(phone,"/statsData/" + fichier);
         if (file.exists()){
             try {
                 bf = new BufferedReader(new FileReader(file));

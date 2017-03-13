@@ -57,8 +57,6 @@ public class StatsDetailActivity extends AppCompatActivity{
         mViewPager = (ViewPager) findViewById(R.id.pager_stats);
         mViewPager.setAdapter(mFragmentPagerAdapter);
 
-        mViewPager.beginFakeDrag();
-
         ViewPagerArrowIndicator viewPagerArrowIndicator = (ViewPagerArrowIndicator) findViewById(R.id.viewPagerArrowIndicator);
 
         viewPagerArrowIndicator.bind(mViewPager);

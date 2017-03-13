@@ -81,7 +81,7 @@ public class StatsDetailFragment extends Fragment {
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(Math.min(DISPLAYED_STATS,tab.size()));
+        graph.getViewport().setMaxX(tab.size());
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(1.5);
 
