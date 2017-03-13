@@ -1,14 +1,14 @@
 package attaque;
-public abstract class Attaque {
+public class Attaque {
 	
-	public float[] filter(float[] b, float[] a, float[] x){
+	public Float[] filter(Float[] b, Float[] a, Float[] x){
 		//la fonction filter de matlab
 		int la = a.length;
 		int lb = b.length;
 		int lx = x.length;
 		int minb = 0;
 		int mina = 0;
-		float[] y = new float[lx];
+		Float[] y = new Float[lx];
 		for (int i=0 ; i<lx ; i++) {
 			minb = Math.min(i+1,lb);
 			mina = Math.min(i+1,la);
@@ -24,43 +24,43 @@ public abstract class Attaque {
 		}
 		return y;
 	}
-	public float[] enveloppe (float[] signal, float a){
-		//prend un signal en entrée et renvoie son enveloppe de paramètre a
+	public Float[] enveloppe (Float[] signal, float a){
+		//prend un signal en entrï¿½e et renvoie son enveloppe de paramï¿½tre a
 		
 		for (int i=0; i<signal.length; i++){
 			signal[i]=signal[i]*signal[i];
 			}
-		float[] B = {1};
-		float[] A = {1,-a};
-		float[] enveloppe= filter(B,A,signal);
+		Float[] B = {(float) 1};
+		Float[] A = {(float) 1,-a};
+		Float[] enveloppe= filter(B,A,signal);
 		return enveloppe;
 		}
 	
-	public float sum(float[] list, int lowerindex, int higherindex){
-		//oui, il faut implémenter ça...
-		float sum = 0;
+	public Float sum(Float[] list, int lowerindex, int higherindex){
+		//oui, il faut implï¿½menter ï¿½a...
+		Float sum = (float) 0;
 		for (int i=lowerindex;i<=higherindex;i++){
 			sum+=list[i];
 		}
 		return sum;
 	}
 	
-	public float[] derivLarge (float[] signal, int N){
-		//prend un signal en entrée et renvoie sa dérivée large (de paramètre N)
-		//faite sans appel à filter car cela revient au même (et c'est compliqué 
-		//d'implémenter ones dans java...
-		float[] deriv= new float[signal.length-2*N+1];
+	public Float[] derivLarge (Float[] signal, int N){
+		//prend un signal en entrï¿½e et renvoie sa dï¿½rivï¿½e large (de paramï¿½tre N)
+		//faite sans appel ï¿½ filter car cela revient au mï¿½me (et c'est compliquï¿½ 
+		//d'implï¿½menter ones dans java...
+		Float[] deriv= new Float[signal.length-2*N+1];
 		for (int i=0; i<signal.length-2*N+1 ; i++){
 			deriv[i]=sum(signal,i,i+N-1)-sum(signal,i+N,i+2*N-1);
 		}
 		return deriv;
 	}
 	
-	public float[] decfreq(float[] signal, float fech, float newfreq){
-		//diminue la fréquence d'échatillonage de signal à environ newfreq en supprimant des valeurs
+	public Float[] decfreq(Float[] signal, float fech, float newfreq){
+		//diminue la frï¿½quence d'ï¿½chatillonage de signal ï¿½ environ newfreq en supprimant des valeurs
 		int step = (int)Math.floor(fech/newfreq);
 		int newlength = (int)Math.ceil(signal.length/step);
-		float[] newsignal = new float[newlength];
+		Float[] newsignal = new Float[newlength];
 		int i = 0;
 		int j = 0;
 		while (i<newlength){
@@ -71,28 +71,28 @@ public abstract class Attaque {
 		return newsignal;
 	}
 	
-	public float[] dB (float[] signal){
-		float[] signaldb = new float[signal.length];
+	public Float[] dB (Float[] signal){
+		Float[] signaldb = new Float[signal.length];
 		for (int i=0; i<signal.length; i++){
 			signaldb[i]=(10*(float)Math.log10(signal[i]));
 		}
 		return signaldb;
 	}
 	
-	public float[] attaque (float[] signal, float fech, float a){
-		//prend en entrée un signal et sa fréquence d'échantillonage et renvoie son attaque 
-		float[] B = {(float)0.3370 , (float)-0.6740, (float)0.3370};
-		float[] A = {(float)1, (float)-0.1712, (float)0.1768};
+	public Float[] attaque (Float[] signal, float fech, float a){
+		//prend en entrï¿½e un signal et sa frï¿½quence d'ï¿½chantillonage et renvoie son attaque 
+		Float[] B = {(float)0.3370 , (float)-0.6740, (float)0.3370};
+		Float[] A = {(float)1, (float)-0.1712, (float)0.1768};
 		signal = filter(B,A,signal);
-		//on applique un filtre passe-haut au signal, avec comme fréquence de coupure fech/2
-		float[] env = enveloppe(signal, a);
+		//on applique un filtre passe-haut au signal, avec comme frï¿½quence de coupure fech/2
+		Float[] env = enveloppe(signal, a);
 		env = decfreq(env,fech,400);
-		//on estime qu'une enveloppe n'a pas beaucoup de fréquences >200 Hz, donc on se permet
-		//de diminuer sa fréquence d'échantillonage à 400 Hz
+		//on estime qu'une enveloppe n'a pas beaucoup de frï¿½quences >200 Hz, donc on se permet
+		//de diminuer sa frï¿½quence d'ï¿½chantillonage ï¿½ 400 Hz
 		env = dB(env);
 		//on passe en log
-		float[] derenv = derivLarge(env, 40);
-		float[] aderenv = new float[derenv.length];
+		Float[] derenv = derivLarge(env, 40);
+		Float[] aderenv = new Float[derenv.length];
 		for (int i = 0; i<derenv.length; i++){
 			aderenv[i]=Math.max(0,derenv[i]);
 		}
