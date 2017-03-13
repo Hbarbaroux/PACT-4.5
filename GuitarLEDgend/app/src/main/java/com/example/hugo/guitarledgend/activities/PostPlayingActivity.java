@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
+import com.example.hugo.guitarledgend.activities.stats.ChoosePartitionInStatsActivity;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
@@ -42,6 +43,7 @@ import java.util.List;
 public class PostPlayingActivity extends AppCompatActivity {
 
     private final String receptionFile = "receptionFile.txt";
+    private final String replayFile="replayFile.txt";
     private UserDAO database;
     private PartitionDAO database_partition;
     private long user_id = ProfilesActivity.getUser().getId();
@@ -115,10 +117,20 @@ public class PostPlayingActivity extends AppCompatActivity {
         Button replayAreaButton = (Button) findViewById(R.id.replay_area_button);
         replayAreaButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(PostPlayingActivity.this, ReplayAreaActivity.class);
-                intent.putExtra("X1", (int) d1[0].getX());
-                intent.putExtra("X2", (int) d1[1].getX());
-                startActivity(intent);
+                if(d1[0].getX()==-1 || d1[1].getX()==-1){
+                    Toast.makeText(PostPlayingActivity.this,"Placez deux points dans le graphe",Toast.LENGTH_SHORT).show();
+                }
+
+
+                else{
+                    Intent intent = new Intent(PostPlayingActivity.this, ChooseSpeedActivity.class);
+                    intent.putExtra("X1", (int) d1[0].getX());
+                    intent.putExtra("X2", (int) d1[1].getX());
+                    intent.putExtra("replay",1);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
 
@@ -139,26 +151,65 @@ public class PostPlayingActivity extends AppCompatActivity {
                 finish();
             }
         });
-        
+
+
 
         Intent intent = getIntent();
         final long partition_id = intent.getLongExtra("partition_id", 1L);
+        final int X1=intent.getIntExtra("X1",0);
+        final int X2=intent.getIntExtra("X2",0);
+        final int replay=intent.getIntExtra("replay",0);
 
-        Date now = new Date();
-        String nowAsString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
 
-        String dataFile = "User_" + user_id + "-Part_" + partition_id + "-Date_" + nowAsString + ".txt";
+        int score=0;
+        Stats s=null;
+        String title=null;
+        if (replay==0){
 
-        fileCreation();
-        moveFile(dataFile);
+            Date now = new Date();
+            String nowAsString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
 
-        int score = score(dataFile);
+            String dataFile = "User_" + user_id + "-Part_" + partition_id + "-Date_" + nowAsString + ".txt";
 
-        Stats s = new Stats(0, nowAsString, dataFile, score, partition_id, user_id);
+            fileCreation();
+            moveFile(dataFile);
 
-        database = new UserDAO(PostPlayingActivity.this);
-        database.open();
-        database.ajouter(s);
+            score = score(dataFile);
+
+            s = new Stats(0, nowAsString, dataFile, score, partition_id, user_id);
+
+            database = new UserDAO(PostPlayingActivity.this);
+            database.open();
+            database.ajouter(s);
+
+            database_partition = new PartitionDAO(PostPlayingActivity.this);
+            database_partition.open();
+            Partition p = database_partition.selectionner(partition_id);
+
+            title=s.getDate() + " / " + p.getNom();
+
+
+
+        }
+
+        else{
+            Date now = new Date();
+            String nowAsString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
+
+            replayFileCreation();
+
+            score = score(replayFile);
+
+            s = new Stats(0, nowAsString, replayFile, score, partition_id, user_id);
+
+            database_partition = new PartitionDAO(PostPlayingActivity.this);
+            database_partition.open();
+            Partition p = database_partition.selectionner(partition_id);
+
+            title=nowAsString + " / " + p.getNom();
+
+
+        }
 
         //GRAPHE
 
@@ -216,11 +267,6 @@ public class PostPlayingActivity extends AppCompatActivity {
 
 
 
-        database_partition = new PartitionDAO(PostPlayingActivity.this);
-        database_partition.open();
-        Partition p = database_partition.selectionner(partition_id);
-
-        String title=s.getDate() + " / " + p.getNom();
         TextView titleView = (TextView) findViewById(R.id.graph_title_postplayingactivity);
         titleView.setText(title);
         titleView.setTextSize(25);
@@ -233,6 +279,43 @@ public class PostPlayingActivity extends AppCompatActivity {
         score_view.setText(String.valueOf(score)+"%");
 
 
+
+
+    }
+
+    //methode provisoire
+    public void replayFileCreation(){
+        File sdcard = Environment.getExternalStorageDirectory();
+
+        File dir = new File(sdcard.getPath()+"/GuitarLEDgend/statsData/");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        PrintWriter pw = null;
+        try {
+            File f=new File (dir,replayFile);
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
+            pw = new PrintWriter(f);
+
+            for (int i=0;i<50;i++){
+                pw.println(1);
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if(pw!=null){
+                try{
+                    pw.close();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     //methode provisoire: cree un fichier faux des resultats aleatoirement dans le dossier reception

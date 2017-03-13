@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.R;
 
@@ -22,6 +23,10 @@ public class ChooseSpeedActivity extends AppCompatActivity {
 
         Intent intent =getIntent();
         final long partition_id=intent.getLongExtra("partition_id",1L);
+
+        final int X1=intent.getIntExtra("X1",0);
+        final int X2=intent.getIntExtra("X2",0);
+        final int replay=intent.getIntExtra("replay",0);
 
         final EditText etSpeed = (EditText) findViewById(R.id.speed_text);
 
@@ -44,6 +49,12 @@ public class ChooseSpeedActivity extends AppCompatActivity {
                 else{
                     Intent intent = new Intent(ChooseSpeedActivity.this, PartitionPlayingActivity.class);
                     intent.putExtra("partition_id", partition_id);
+                    if (replay==1){
+                        intent.putExtra("X1", X1);
+                        intent.putExtra("X2", X2);
+                        intent.putExtra("replay",1);
+
+                    }
                     startActivity(intent);
                     finish();
                 }

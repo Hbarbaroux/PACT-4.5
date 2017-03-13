@@ -35,6 +35,9 @@ public class PartitionPlayingActivity extends AppCompatActivity {
 
         Intent intent =getIntent();
         partition_id=intent.getLongExtra("partition_id",1L);
+        final int X1=intent.getIntExtra("X1",0);
+        final int X2=intent.getIntExtra("X2",0);
+        final int replay=intent.getIntExtra("replay",0);
 
         File sdcard = Environment.getExternalStorageDirectory();
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
@@ -64,6 +67,12 @@ public class PartitionPlayingActivity extends AppCompatActivity {
                 recorder.release();
                 Intent intent = new Intent(PartitionPlayingActivity.this, PostPlayingActivity.class);
                 intent.putExtra("partition_id", partition_id);
+                if (replay==1){
+                    intent.putExtra("X1", X1);
+                    intent.putExtra("X2", X2);
+                    intent.putExtra("replay",1);
+
+                }
                 startActivity(intent);
                 finish();            }
         },TEMPS);
