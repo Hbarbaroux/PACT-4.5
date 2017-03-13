@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -114,25 +115,14 @@ public class BluetoothModule implements BluetoothModuleInterface {
     @Nullable
     private BluetoothDevice getDevice() {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        if(pairedDevices.size() > 0) {
-            for(BluetoothDevice device : pairedDevices) {
-                if(device.getName().equals("PACT45")) { // Needs to be changed according to module's actual name
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                if (device.getName().equals("PACT45")) { // Needs to be changed according to module's actual name
                     return device;
                 }
             }
         }
         return null;
-    }
-
-    private void sendByte(String msg) {
-        if (mOutputStream != null) {
-            try {
-                mOutputStream.write(msg.getBytes());
-            }
-            catch (java.io.IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void search() {
@@ -162,13 +152,41 @@ public class BluetoothModule implements BluetoothModuleInterface {
     }
 
     public void send(int corde, int frette, int doigt) throws Exception {
-        if (corde < 0 || corde > 255 || frette < 0 || frette > 255 || doigt < 0 || doigt > 255) {
+        /* if (corde < 0 || corde > 255 || frette < 0 || frette > 255 || doigt < 0 || doigt > 255) {
             throw new Exception("Require int from 0 to 255");
         }
-        else {
-            sendByte(Integer.toString(corde) + Integer.toString(frette) + Integer.toString(doigt));
+        else { */
+        ArrayList<Integer> frettes = digits(frette);
+        sendByte(Integer.toString(corde) + Integer.toString(frettes.get(1)) + Integer.toString(frettes.get(0)) + Integer.toString(doigt));
+        //}
+    }
+
+    private void sendByte(String msg) {
+        if (mOutputStream != null) {
+            try {
+                mOutputStream.write(msg.getBytes());
+            }
+            catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    private ArrayList<Integer> digits(int i) {
+        ArrayList<Integer> digits = new ArrayList<Integer>();
+        int j = 0;
+        while(i > 0) {
+            digits.add(i % 10);
+            i /= 10;
+            j++;
+        }
+        if (j == 1) {
+            digits.add(0);
+        }
+        return digits;
+    }
+
+
 
     public void test() {
         try {

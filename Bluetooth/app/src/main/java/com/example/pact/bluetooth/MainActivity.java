@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.midisheetmusic.MidiFile;
 import com.midisheetmusic.MidiNote;
 import com.midisheetmusic.MidiTrack;
+import com.midisheetmusic.TimeSignature;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class MainActivity extends Activity {
         MidiFile myFile = new MidiFile(rawdata, filename);
         ArrayList<MidiTrack> list = myFile.getTracks();
         ArrayList<MidiNote> notes = list.get(0).getNotes();
+        TimeSignature myTimeSignature = myFile.getTime();
     }
 
     @Override
