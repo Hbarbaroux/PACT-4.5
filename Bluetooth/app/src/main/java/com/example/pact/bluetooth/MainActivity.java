@@ -15,12 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.midisheetmusic.MidiFile;
+import com.midisheetmusic.MidiFileException;
 import com.midisheetmusic.MidiNote;
 import com.midisheetmusic.MidiTrack;
 import com.midisheetmusic.TimeSignature;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,12 +106,52 @@ public class MainActivity extends Activity {
 
 
         // MIDI TEST
-        byte[] rawdata = new byte[200]; //length ok?
-        String filename = "test.mdi";
+        String filename = "test.mid";
+        byte[] rawdata = checkFile(filename);
         MidiFile myFile = new MidiFile(rawdata, filename);
         ArrayList<MidiTrack> list = myFile.getTracks();
         ArrayList<MidiNote> notes = list.get(0).getNotes();
         TimeSignature myTimeSignature = myFile.getTime();
+        for (int i=0;i<notes.size();i++) {
+            mTextView.append(Integer.toString(notes.get(i).getNumber()) + "\n");
+        }
+    }
+
+    private byte[] checkFile(String name) {
+        try {
+            // FileInputStream in = this.openFileInput(name);
+            InputStream in = getAssets().open(name);
+            byte[] data = new byte[4096];
+            int total = 0, len = 0;
+            while (true) {
+                len = in.read(data, 0, 4096);
+                if (len > 0)
+                    total += len;
+                else
+                    break;
+            }
+            in.close();
+            data = new byte[total];
+            // in = this.openFileInput(name);
+            in = getAssets().open(name);
+            int offset = 0;
+            while (offset < total) {
+                len = in.read(data, offset, total - offset);
+                if (len > 0)
+                    offset += len;
+            }
+            in.close();
+            return data;
+        }
+        catch (IOException e) {
+            Toast toast = Toast.makeText(this, "CheckFile: " + e.toString(), Toast.LENGTH_LONG);
+            toast.show();
+        }
+        catch (MidiFileException e) {
+            Toast toast = Toast.makeText(this, "CheckFile midi: " + e.toString(), Toast.LENGTH_LONG);
+            toast.show();
+        }
+        return new byte[0];
     }
 
     @Override
