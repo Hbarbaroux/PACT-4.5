@@ -11,4 +11,14 @@
         android:singleLine="true"
         android:title="Nom" />
 
+    <ListPreference
+        android:capitalize="words"
+        android:inputType="textCapWords"
+        android:key="age"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Age"
+        />
+
 </PreferenceScreen>

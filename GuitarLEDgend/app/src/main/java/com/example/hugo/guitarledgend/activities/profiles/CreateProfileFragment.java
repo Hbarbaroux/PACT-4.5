@@ -26,6 +26,7 @@ public class CreateProfileFragment extends Fragment {
     RadioGroup sexe_check;
     Button create_button;
     String sexe = "homme";
+    EditText age_edit;
 
     public CreateProfileFragment() {
     }
@@ -42,9 +43,8 @@ public class CreateProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile_create, container, false);
 
         nom_edit = (EditText) rootView.findViewById(R.id.nom);
-        TextView nom_text_wiew = (TextView) rootView.findViewById(R.id.nom);
-        Typeface insomnia = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Century Gothic.ttf");
-        nom_text_wiew.setTypeface(insomnia);
+
+        age_edit = (EditText) rootView.findViewById(R.id.age);
 
         sexe_check = (RadioGroup) rootView.findViewById(R.id.sexe);
 
@@ -56,24 +56,29 @@ public class CreateProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 String nom = nom_edit.getText().toString();
+                String age = age_edit.getText().toString();
 
                 if(TextUtils.isEmpty(nom)) {
                     nom_edit.setError("Veuillez rentrer un nom");
                 }
 
                 else {
-                    if (sexe_check.getCheckedRadioButtonId() == R.id.femme) sexe = "femme";
+                    if (TextUtils.isEmpty(age)) {
+                        age_edit.setError("Veuillez rentrer un âge");
+                    } else {
+                        if (sexe_check.getCheckedRadioButtonId() == R.id.femme) sexe = "femme";
 
-                    Profile profile = new Profile(0, nom, sexe);
-                    database = new UserDAO(getActivity());
-                    database.open();
-                    database.ajouter(profile);
-                    database.close();
+                        Profile profile = new Profile(0, nom, sexe, (Integer.parseInt(age)));
+                        database = new UserDAO(getActivity());
+                        database.open();
+                        database.ajouter(profile);
+                        database.close();
 
-                    mFragmentPagerAdapter.addTabPage("profile");
+                        mFragmentPagerAdapter.addTabPage("profile");
 
-                    getActivity().finish();
-                    startActivity(getActivity().getIntent());
+                        getActivity().finish();
+                        startActivity(getActivity().getIntent());
+                    }
                 }
             }
         });

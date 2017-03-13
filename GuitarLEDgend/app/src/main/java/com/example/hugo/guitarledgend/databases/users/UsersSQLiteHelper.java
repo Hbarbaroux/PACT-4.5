@@ -13,9 +13,10 @@ public class UsersSQLiteHelper extends SQLiteOpenHelper {
     public static final String PROFILE_KEY = "id";
     public static final String PROFILE_NAME = "nom";
     public static final String PROFILE_SEX = "sexe";
+    public static final String PROFILE_AGE = "age";
 
     public static final String PROFILE_TABLE_NAME = "PROFILS";
-    public static final String PROFILE_TABLE_CREATE = "CREATE TABLE " + PROFILE_TABLE_NAME + " (" + PROFILE_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PROFILE_NAME + " TEXT, " + PROFILE_SEX + " TEXT);";
+    public static final String PROFILE_TABLE_CREATE = "CREATE TABLE " + PROFILE_TABLE_NAME + " (" + PROFILE_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PROFILE_NAME + " TEXT, " + PROFILE_SEX + " TEXT, " + PROFILE_AGE + " INTEGER);";
     public static final String PROFILE_TABLE_DROP = "DROP TABLE IF EXISTS " + PROFILE_TABLE_NAME + ";";
 
     public static final String STATS_KEY = "id";

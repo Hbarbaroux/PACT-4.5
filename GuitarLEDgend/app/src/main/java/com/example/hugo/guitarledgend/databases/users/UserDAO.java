@@ -22,7 +22,7 @@ public class UserDAO {
 
     private UsersSQLiteHelper mHandler = null;
     private SQLiteDatabase mDb = null ;
-    private String[] allProfileColumns = { UsersSQLiteHelper.PROFILE_KEY, UsersSQLiteHelper.PROFILE_NAME, UsersSQLiteHelper.PROFILE_SEX };
+    private String[] allProfileColumns = { UsersSQLiteHelper.PROFILE_KEY, UsersSQLiteHelper.PROFILE_NAME, UsersSQLiteHelper.PROFILE_SEX, UsersSQLiteHelper.PROFILE_AGE };
 
 
     public UserDAO(Context Context) {
@@ -47,6 +47,7 @@ public class UserDAO {
         ContentValues values = new ContentValues();
         values.put(UsersSQLiteHelper.PROFILE_NAME,p.getNom());
         values.put(UsersSQLiteHelper.PROFILE_SEX,p.getSexe());
+        values.put(UsersSQLiteHelper.PROFILE_AGE,p.getAge());
         mDb.insert(UsersSQLiteHelper.PROFILE_TABLE_NAME, null, values);
     }
 
@@ -146,10 +147,11 @@ public class UserDAO {
     }
 
     private Profile cursorToProfile(Cursor cursor) {
-        Profile profile = new Profile(0, null, null);
+        Profile profile = new Profile(0, null, null, 0);
         profile.setId(cursor.getLong(0));
         profile.setNom(cursor.getString(1));
         profile.setSexe(cursor.getString(2));
+        profile.setAge(cursor.getInt(3));
         return profile;
     }
 

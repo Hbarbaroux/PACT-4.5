@@ -5,7 +5,7 @@
     <header
         android:fragment="com.example.hugo.guitarledgend.activities.SettingsActivity$ProfilPreferenceFragment"
         android:icon="@drawable/ic_menu_profils"
-        android:title="@string/pref_header_general" />
+        android:title="@string/pref_header_profiles" />
 
     <header
         android:fragment="com.example.hugo.guitarledgend.activities.SettingsActivity$PartitionPreferenceFragment"

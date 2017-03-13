@@ -23,6 +23,8 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
+import com.example.hugo.guitarledgend.databases.users.Profile;
 
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
+
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
@@ -177,8 +180,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_profil);
             setHasOptionsMenu(true);
 
+            Profile user = ProfilesActivity.getUser();
+
             EditTextPreference nom = (EditTextPreference) findPreference("nom");
-            nom.setDefaultValue("Default_name");
+            ListPreference age = (ListPreference) findPreference("age");
+            nom.setText(user.getNom());
+
+            String[] listAge = new String[150];
+            for (int i = 0 ; i < listAge.length ; i++) {
+                listAge[i] = String.valueOf(i+1);
+            }
+            age.setEntries(listAge);
+            age.setEntryValues(listAge);
+            age.setValue(String.valueOf(user.getAge()));
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
