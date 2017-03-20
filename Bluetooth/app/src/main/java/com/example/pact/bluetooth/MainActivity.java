@@ -117,6 +117,19 @@ public class MainActivity extends Activity {
         }
     }
 
+    public int[] findStringAndFretFromNote(MidiNote note) {
+        // int frettes = 12; // ?
+        // int cordes = 5;
+        
+        // int tuning = 40 + 5*corde + frette;
+
+        int noteNumber = note.getNumber();
+        int corde = (noteNumber-40)/5;
+        int frette = noteNumber-40-corde*5;
+
+        return new int[] {corde, frette};
+    }
+
     private byte[] checkFile(String name) {
         try {
             // FileInputStream in = this.openFileInput(name);
