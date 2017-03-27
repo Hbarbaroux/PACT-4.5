@@ -1,4 +1,7 @@
 package attaque;
+
+import java.util.Arrays;
+
 public class Attaque {
 	
 	public static Float[] filter(Float[] b, Float[] a, Float[] x){
@@ -9,9 +12,10 @@ public class Attaque {
 		int minb = 0;
 		int mina = 0;
 		Float[] y = new Float[lx];
+		Arrays.fill(y,new Float(0.0));
 		for (int i=0 ; i<lx ; i++) {
-			minb = Math.min(i+1,lb);
-			mina = Math.min(i+1,la);
+			minb = Math.min(i,lb);
+			mina = Math.min(i,la);
 			int j = 0;
 			while (j<minb){
 				y[i]+=x[i-j]*b[j];
@@ -59,11 +63,11 @@ public class Attaque {
 	public static Float[] decfreq(Float[] signal, float fech, float newfreq){
 		//diminue la fr�quence d'�chatillonage de signal � environ newfreq en supprimant des valeurs
 		int step = (int)Math.floor(fech/newfreq);
-		int newlength = (int)Math.ceil(signal.length/step);
+		int newlength = (int)Math.ceil((float)signal.length/step);
 		Float[] newsignal = new Float[newlength];
 		int i = 0;
 		int j = 0;
-		while (i<newlength){
+		while (j<newlength){
 			newsignal[j]=signal[i];
 			j++;
 			i+=step;
@@ -73,6 +77,7 @@ public class Attaque {
 	
 	public static Float[] dB (Float[] signal){
 		Float[] signaldb = new Float[signal.length];
+		Arrays.fill(signaldb, new Float(0.0));
 		for (int i=0; i<signal.length; i++){
 			signaldb[i]=(10*(float)Math.log10(signal[i]));
 		}
