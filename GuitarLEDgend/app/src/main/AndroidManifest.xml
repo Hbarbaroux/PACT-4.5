@@ -49,6 +49,7 @@
             android:name=".activities.TestPlayingActivity"
             android:label="@string/title_activity_test_playing"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.PreferencesModifyPartitionActivity"></activity>
     </application>
 
 </manifest>
