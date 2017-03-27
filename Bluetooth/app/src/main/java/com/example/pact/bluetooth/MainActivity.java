@@ -135,9 +135,6 @@ public class MainActivity extends Activity {
         mTimeSignature = myTimeSignature;
         playNotes play = new playNotes();
         play.start();
-
-        mTextView.append("Quarter : " + Integer.toString(myTimeSignature.getQuarter()) + "\n");
-        mTextView.append("Tempo : " + Integer.toString(myTimeSignature.getTempo()) + "\n");
     }
 
     private class playNotes implements Runnable {
@@ -145,6 +142,8 @@ public class MainActivity extends Activity {
         private Future<?> publisher = null;
         private ArrayList<MidiNote> noteArray;
         private TimeSignature myTimeSignature;
+        private float facteur;
+        // TODO : initilaiser facteur
 
         @Override
         public void run() {
@@ -153,8 +152,8 @@ public class MainActivity extends Activity {
 
             for (int i = 1;i<noteArray.size();i++){
 
-                double t1 = (double) noteArray.get(i-1).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000);
-                double t2 = (double) noteArray.get(i).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000);
+                double t1 = (double) noteArray.get(i-1).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
+                double t2 = (double) noteArray.get(i).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
                 try {
                     long delta = (long) (t2 - t1);
                     synchronized (this) {
