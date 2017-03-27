@@ -1,15 +1,19 @@
 package com.example.pact.bluetooth;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +27,10 @@ import com.midisheetmusic.MidiNote;
 import com.midisheetmusic.MidiTrack;
 import com.midisheetmusic.TimeSignature;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -112,8 +119,14 @@ public class MainActivity extends Activity {
 
 
         // MIDI TEST
-        String filename = "test.mid";
-        byte[] rawdata = checkFile(filename);
+
+        verifyStoragePermissions(this);
+
+        String filename = "test.mid"; // Ask user?
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard, "GuitarLEDgend/midiFiles/" + filename);
+
+        byte[] rawdata = checkFile(file);
         MidiFile myFile = new MidiFile(rawdata, filename);
         ArrayList<MidiTrack> list = myFile.getTracks();
         ArrayList<MidiNote> notes = list.get(0).getNotes();
@@ -195,11 +208,22 @@ public class MainActivity extends Activity {
         return new int[] {corde, frette};
     }
 
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+    }
+
     // create an array of parsed data from raw midi file
-    private byte[] checkFile(String name) {
+    private byte[] checkFile(File file) {
         try {
             // FileInputStream in = this.openFileInput(name);
-            InputStream in = getAssets().open(name);
+            // InputStream in = getAssets().open(name);
+            FileInputStream in = new FileInputStream(file);
             byte[] data = new byte[4096];
             int total = 0, len = 0;
             while (true) {
@@ -212,7 +236,8 @@ public class MainActivity extends Activity {
             in.close();
             data = new byte[total];
             // in = this.openFileInput(name);
-            in = getAssets().open(name);
+            // in = getAssets().open(name);
+            in = new FileInputStream(file);
             int offset = 0;
             while (offset < total) {
                 len = in.read(data, offset, total - offset);

@@ -174,6 +174,11 @@ public class BluetoothModule implements BluetoothModuleInterface {
 
     private ArrayList<Integer> digits(int i) {
         ArrayList<Integer> digits = new ArrayList<Integer>();
+        if (i == 0) {
+            digits.add(0);
+            digits.add(0);
+            return digits;
+        }
         int j = 0;
         while(i > 0) {
             digits.add(i % 10);
