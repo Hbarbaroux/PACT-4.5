@@ -207,9 +207,9 @@ public class Note {
 		float j = (float) 82.5;
 		float q = 0;
 		float z = 0;
-		while (j<2000 && (int)(Math.floor(44100/j))<correl.size())
+		while (j<2000)
 		{
-			z = (float) correl.get((int)(Math.floor(44100/j))).getReal();
+			z = (float) (correl.get((int)(Math.floor(44100/j)))).getReal();
 			frequencies.add(z);
 			j *= Math.pow(2,(float)1/12);
 		}
