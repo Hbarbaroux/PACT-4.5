@@ -47,7 +47,16 @@ public class PartitionDAO {
         mDb.insert(PartitionsSQLiteHelper.PARTITION_TABLE_NAME, null, values);
     }
 
-    public void modifier (Partition p){
+    public void modifier (long id, String nom, String auteur, String genre){
+        ContentValues values=new ContentValues();
+        values.put(PartitionsSQLiteHelper.PARTITION_NAME,nom);
+        values.put(PartitionsSQLiteHelper.PARTITION_AUTHOR,auteur);
+        values.put(PartitionsSQLiteHelper.PARTITION_GENRE,genre);
+
+        String[] args = new String[] {String.valueOf(id)};
+        String whereClause = PartitionsSQLiteHelper.PARTITION_KEY + " = ?";
+
+        mDb.update(PartitionsSQLiteHelper.PARTITION_TABLE_NAME,values,whereClause,args) ;
 
     }
 

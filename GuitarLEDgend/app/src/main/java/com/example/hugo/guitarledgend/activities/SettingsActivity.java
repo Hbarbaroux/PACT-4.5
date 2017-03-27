@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -21,11 +22,18 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
+import com.example.hugo.guitarledgend.bluetooth.TestBluetoothActivity;
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Profile;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -44,6 +52,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
+
 
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
@@ -208,17 +217,62 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class PartitionPreferenceFragment extends PreferenceFragment {
+        private PartitionDAO database;
+
+
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);;
             addPreferencesFromResource(R.xml.pref_partition);
             setHasOptionsMenu(true);
+
+            final ListPreference partitions = (ListPreference) findPreference("partitions");
+
+            database = new PartitionDAO(getActivity());
+            database.open();
+            List<Partition> values = database.getAllPartitions();
+            String[] listPartitions = new String[values.size()];
+            for(int i=0;i<values.size();i++){
+                listPartitions[i]=values.get(i).getNom();
+            }
+            String[] listValues= new String[values.size()];
+            for(int i=0;i<values.size();i++){
+                listValues[i]=String.valueOf(i+1);
+            }
+            partitions.setEntries(listPartitions);
+            partitions.setEntryValues(listValues);
+
+            Preference modifierButton = findPreference("modifier_button");
+            modifierButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(getActivity(), PreferencesModifyPartitionActivity.class);
+                    intent.putExtra("partition_id", (long) Integer.parseInt(partitions.getValue()));
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
+            Preference supprimerButton = findPreference("supprimer_button");
+            supprimerButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    //code for what you want it to do
+                    return true;
+                }
+            });
+
+
+
+
+
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+            bindPreferenceSummaryToValue(findPreference("partitions"));
         }
 
     }
