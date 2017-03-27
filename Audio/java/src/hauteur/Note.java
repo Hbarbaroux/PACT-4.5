@@ -159,7 +159,7 @@ public class Note {
 	{
 		int k = 4;
 		Complex a = new Complex(0,0); // construction of a zero cof type complex
-		while ((int)Math.pow(2,k) < 5*signal.size()) //finds first power of 2 higher then 5 times the size of the array
+		while ((int)Math.pow(2,k) < 11*signal.size()) //finds first power of 2 higher then 5 times the size of the array
 		{
 			k++;
 		} 
