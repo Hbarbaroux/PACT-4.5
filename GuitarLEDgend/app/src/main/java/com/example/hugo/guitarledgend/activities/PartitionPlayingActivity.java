@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.hugo.guitarledgend.R;
+import com.example.hugo.guitarledgend.audio.WavRecorder;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         File f = new File(dir,"audiorecordtest.wav");
         String mFileName=f.getPath();
 
-        final MediaRecorder recorder = new MediaRecorder();
+        /* final MediaRecorder recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
@@ -57,14 +58,19 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         }catch (IOException e){
             e.printStackTrace();
         }
-        recorder.start();
+        recorder.start(); */
 
+        final WavRecorder wavRecorder = new WavRecorder(mFileName);
+        wavRecorder.startRecording();
 
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                recorder.stop();
-                recorder.release();
+
+                /* recorder.stop();
+                recorder.release(); */
+
+                wavRecorder.stopRecording();
                 Intent intent = new Intent(PartitionPlayingActivity.this, PostPlayingActivity.class);
                 intent.putExtra("partition_id", partition_id);
                 if (replay==1){
