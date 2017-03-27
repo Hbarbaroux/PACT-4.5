@@ -211,7 +211,7 @@ public class Note {
 		float M = max(att);
 		while (i < att.size())
 		{
-			while (att.get(i) < 0.2*M && i < att.size())
+			while (att.get(i) < (float)0.2*M && i < att.size())
 			{
 				i++;
 			}
