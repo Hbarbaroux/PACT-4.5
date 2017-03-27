@@ -211,6 +211,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("nom"));
         }
+
     }
 
     /**
@@ -242,17 +243,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
             String[] listValues= new String[values.size()];
             for(int i=0;i<values.size();i++){
-                listValues[i]=String.valueOf(i+1);
+                listValues[i]=String.valueOf(values.get(i).getId());
             }
             partitions.setEntries(listPartitions);
             partitions.setEntryValues(listValues);
 
-            final long partition_id=(long) Integer.parseInt(partitions.getValue());
 
             Preference modifierButton = findPreference("modifier_button");
             modifierButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    long partition_id=(long) Integer.parseInt(partitions.getValue());
                     Intent intent = new Intent(getActivity(), PreferencesModifyPartitionActivity.class);
                     intent.putExtra("partition_id", partition_id);
                     startActivity(intent);
@@ -264,7 +265,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             supprimerButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-
+                    final long partition_id=(long) Integer.parseInt(partitions.getValue());
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
