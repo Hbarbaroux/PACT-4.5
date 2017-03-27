@@ -150,7 +150,7 @@ public class Note {
 			k++;
 		} 
 		Complex[] sig = new Complex[(int)Math.pow(2, k)];
-		sig = (Complex[]) signal.toArray();
+		sig = Note.toListComplex(signal);
 		for (int j = signal.size()+1; j<sig.length; j++)
 		{
 			sig[j] = a;
