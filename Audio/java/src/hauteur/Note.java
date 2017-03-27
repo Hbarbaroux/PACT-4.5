@@ -209,14 +209,14 @@ public class Note {
 		ArrayList<Float> sheet = new ArrayList<Float>();
 		int i = 0;
 		float M = max(att);
-		while (i < att.size())
+		while (i < (att.size()-1))
 		{
-			while (att.get(i) < (float)0.2*M && i < att.size())
+			while (att.get(i) < (float)0.2*M && i < (att.size()-1))
 			{
 				i++;
 			}
 			lim.add(i);
-			while (att.get(i) >= (float) 0.2*M && i < att.size())
+			while (att.get(i) >= (float) 0.2*M && i < (att.size()-1))
 			{
 				i++;
 			}
@@ -224,13 +224,13 @@ public class Note {
 		}
 		for (int k = 0; k < (lim.size()/2); k++)
 		{
-			mont.add(lim.get(2*k-1));
+			mont.add(lim.get(2*k));
 		}
 		for (int j = 0; j < mont.size(); j++)
 		{
-			if (lim.get(2*j) > lim.get(2*j-1))
+			if (lim.get(2*j+1) > lim.get(2*j))
 			{
-				ArrayList<Float> echantillon = subTab(signal, (lim.get(2*j-1)*100), (lim.get(2*j)*100));
+				ArrayList<Float> echantillon = subTab(signal, (lim.get(2*j)*100), (lim.get(2*j+1)*100));
 				float freq = findFreq(echantillon);
 				if (freq > 50 && freq < 2000)
 				{
