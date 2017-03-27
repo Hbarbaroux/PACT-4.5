@@ -21,4 +21,11 @@
         android:title="Age"
         />
 
+
+    <Preference android:title="Modifer"
+        android:key="modifier_button_2"/>
+
+    <Preference android:title="Supprimer"
+        android:key="supprimer_button_2" />
+
 </PreferenceScreen>

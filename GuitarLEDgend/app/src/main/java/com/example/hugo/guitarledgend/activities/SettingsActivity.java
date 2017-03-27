@@ -185,6 +185,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class ProfilPreferenceFragment extends PreferenceFragment {
+        private UserDAO database;
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -193,10 +194,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             Profile user = ProfilesActivity.getUser();
 
-            EditTextPreference nom = (EditTextPreference) findPreference("nom");
-            ListPreference age = (ListPreference) findPreference("age");
+            final EditTextPreference nom = (EditTextPreference) findPreference("nom");
             nom.setText(user.getNom());
 
+            final ListPreference age = (ListPreference) findPreference("age");
             String[] listAge = new String[150];
             for (int i = 0 ; i < listAge.length ; i++) {
                 listAge[i] = String.valueOf(i+1);
@@ -204,6 +205,61 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             age.setEntries(listAge);
             age.setEntryValues(listAge);
             age.setValue(String.valueOf(user.getAge()));
+
+            Preference modifierButton = findPreference("modifier_button_2");
+            modifierButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    database=new UserDAO(getActivity());
+                    database.open();
+                    database.modifier(ProfilesActivity.getUser().getId(),nom.getText(),Integer.parseInt(age.getEntry().toString()));
+
+                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                    return true;
+                }
+            });
+
+            Preference supprimerButton = findPreference("supprimer_button_2");
+            supprimerButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    long profil_id=ProfilesActivity.getUser().getId();
+                                    database=new UserDAO(getActivity());
+                                    database.open();
+                                    database.supprimerProfil(profil_id);
+                                    database.supprimerStats(profil_id);
+
+                                    Intent intent = new Intent(getActivity(), StartActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Êtes-vous sûr?").setPositiveButton("Oui", dialogClickListener)
+                            .setNegativeButton("Non", dialogClickListener).show();
+
+
+
+
+
+                    return true;
+                }
+            });
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are

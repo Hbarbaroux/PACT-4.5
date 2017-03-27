@@ -7,12 +7,10 @@
        android:title="Partitions"/>
 
     <Preference android:title="Modifer"
-        android:key="modifier_button"
-        android:summary="This is a cool button"/>
+        android:key="modifier_button"/>
 
     <Preference android:title="Supprimer"
-        android:key="supprimer_button"
-        android:summary="This is a cool button"/>
+        android:key="supprimer_button" />
 
 
 </PreferenceScreen>

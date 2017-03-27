@@ -62,7 +62,15 @@ public class UserDAO {
     }
 
 
-    public void modifier (Profile p){
+    public void modifier (long profil_id , String nom, int age){
+        ContentValues values=new ContentValues();
+        values.put(UsersSQLiteHelper.PROFILE_NAME,nom);
+        values.put(UsersSQLiteHelper.PROFILE_AGE,String.valueOf(age));
+
+        String[] args = new String[] {String.valueOf(profil_id)};
+        String whereClause = UsersSQLiteHelper.PROFILE_KEY + " = ?";
+
+        mDb.update(UsersSQLiteHelper.PROFILE_TABLE_NAME,values,whereClause,args) ;
 
     }
 
@@ -89,7 +97,14 @@ public class UserDAO {
         }
     }
     */
+    public void supprimerStats (long profile){
+        String[] args = new String[] {String.valueOf(profile)};
+        String whereClause = UsersSQLiteHelper.STATS_PROFILE + " = ?";
+        mDb.delete(UsersSQLiteHelper.STATS_TABLE_NAME, whereClause, args);
 
+        mDb.execSQL("VACUUM " + UsersSQLiteHelper.STATS_TABLE_NAME);
+
+    }
 
     public void supprimerStats (long partition, long profile){
 
