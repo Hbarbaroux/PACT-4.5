@@ -102,7 +102,7 @@ public class Note {
 	private static ArrayList<Complex> toComplex(ArrayList<Float> signal) // takes an ArrayList of Floats and give it with the complex type
 	{
 		ArrayList<Complex> res = new ArrayList<Complex>(signal.size());
-		for (int k=0; k<signal.length; k++ )
+		for (int k=0; k<signal.size(); k++ )
 		{
 			Complex a = new Complex (signal.get(k), 0);
 			res.add(a);
@@ -161,8 +161,11 @@ public class Note {
 			k++;
 		} 
 		Complex[] sig = new Complex[(int)Math.pow(2, k)];
-		sig = Note.toListComplex(Note.toComplex(signal));
-		for (int j = signal.size()+1; j<sig.length; j++)
+		Complex[] sigdeb = Note.toListComplex(Note.toComplex(signal));
+		for (int j = 0; j<signal.size();j++){
+			sig[j] = sigdeb[j];
+		}
+		for (int j = signal.size(); j<sig.length; j++)
 		{
 			sig[j] = a;
 		}
@@ -171,7 +174,6 @@ public class Note {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		ArrayList<Complex> res= new ArrayList(sig.length);
 		res = toArrayListComplex(sig) ;
-		
 		return res;
 	}
 	
@@ -206,7 +208,8 @@ public class Note {
 		{
 			z = (float) correl.get((int)(Math.floor(44100/j))).getReal();
 			frequencies.add(z);
-			j *= Math.pow(2,(1/12));	
+			j *= Math.pow(2,(float)1/12);
+			System.out.println(j);
 		}
 		q = maxIndex(frequencies);
 		return (float) Math.pow((82.5*2), ((q)/12));
