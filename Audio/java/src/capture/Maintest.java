@@ -1,14 +1,14 @@
 package capture;
 
+import attaque.*;
+
 public class Maintest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Float[] audio = Capture.wavcapture("data/testla.wav");
+		Float[] audio = Capture.wavcapture("data/melodie.wav");
 		System.out.println(audio.length);
-		for (int i=0;i<audio.length; i=i+1000){
-			System.out.println(audio[i].floatValue());
-		}
+		Float[] sheet = sheet(audio);
 	}
 
 }

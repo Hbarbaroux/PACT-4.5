@@ -39,7 +39,7 @@ public class Note {
 		this.freq = freq;
 	}
 	
-	private int maxIndex(ArrayList<Float> signal) // finds index of max
+	private static int maxIndex(ArrayList<Float> signal) // finds index of max
 	{
 		float a = signal.get(0);
 		int res = 0;
@@ -54,7 +54,7 @@ public class Note {
 		return res;
 	}
 	
-	private float max(ArrayList<Float> signal) // finds max
+	private static float max(ArrayList<Float> signal) // finds max
 	{
 		float a = signal.get(0);
 		for (int k = 0; k<signal.size(); k++)
@@ -67,7 +67,7 @@ public class Note {
 		return a;
 	}
 	
-	private Complex[] toListComplex(ArrayList<Complex> signal) //takes an ArrayList<Complex> and gives the equivalent list of Complex
+	private static Complex[] toListComplex(ArrayList<Complex> signal) //takes an ArrayList<Complex> and gives the equivalent list of Complex
 
 	{
 		Complex[] res = new Complex[signal.size()];
@@ -78,7 +78,7 @@ public class Note {
 		return res;
 	}
 	
-	private Float[] toList(ArrayList<Float> signal) //takes an ArrayList<Complex> and gives the equivalent list of Complex
+	private static Float[] toList(ArrayList<Float> signal) //takes an ArrayList<Complex> and gives the equivalent list of Complex
 
 	{
 		Float[] res = new Float[signal.size()];
@@ -89,7 +89,7 @@ public class Note {
 		return res;
 	}
 	
-	private ArrayList<Complex> toArrayListComplex(Complex[] signal) //takes a list if Complex and qives the equivalent ArrayList
+	private static ArrayList<Complex> toArrayListComplex(Complex[] signal) //takes a list if Complex and qives the equivalent ArrayList
 	{
 		ArrayList<Complex> res = new ArrayList<Complex>(signal.length);
 		for (int k=0; k<signal.length; k++ )
@@ -99,7 +99,7 @@ public class Note {
 		return res;
 	}
 	
-	private ArrayList<Float> toArrayList(Float[] signal) //takes a list if Complex and gives the equivalent ArrayList
+	private static ArrayList<Float> toArrayList(Float[] signal) //takes a list if Complex and gives the equivalent ArrayList
 	{
 		ArrayList<Float> res = new ArrayList<Float>(signal.length);
 		for (int k=0; k<signal.length; k++ )
@@ -109,7 +109,7 @@ public class Note {
 		return res;
 	}
 	
-	private ArrayList<Float> subTab(Float[] signal, int startIndex, int endIndex) //takes a portion of a list and turns it into an ArrayList
+	private static ArrayList<Float> subTab(Float[] signal, int startIndex, int endIndex) //takes a portion of a list and turns it into an ArrayList
 	{
 		ArrayList<Float> subTab = new ArrayList<Float>();
 		for (int k = startIndex; k < (endIndex + 1) ; k++)
@@ -120,7 +120,7 @@ public class Note {
 		return subTab;
 	}
 	
-	private ArrayList<Float> oppose(ArrayList<Float> echantillon) // Multiplies ArrayList by -1
+	private static ArrayList<Float> oppose(ArrayList<Float> echantillon) // Multiplies ArrayList by -1
 	{
 		for (int k=0; k<echantillon.size(); k++) 
 		{
@@ -131,7 +131,7 @@ public class Note {
 		return echantillon;
 	}
 	
-	private ArrayList<Complex> multTaT(ArrayList<Complex> signal, ArrayList<Complex> signalb) // Multiplies term by term two ArrayLists
+	private static ArrayList<Complex> multTaT(ArrayList<Complex> signal, ArrayList<Complex> signalb) // Multiplies term by term two ArrayLists
 	{
 		ArrayList<Complex> multTat = new ArrayList<Complex>();	
 			for (int k=0; k<signal.size(); k++)
@@ -141,7 +141,7 @@ public class Note {
 		return multTat;
 	}
 	
-	private ArrayList<Complex> fft(ArrayList<Float> signal) 	// fft adjusted to power of two (zero-padding)
+	private static ArrayList<Complex> fft(ArrayList<Float> signal) 	// fft adjusted to power of two (zero-padding)
 	{
 		int k = 4;
 		Complex a = new Complex(0,0); // construction of a zero cof type complex
@@ -164,7 +164,7 @@ public class Note {
 		return res;
 	}
 	
-	private ArrayList<Complex> ifft(ArrayList<Complex> signal) // reversed fft
+	private static ArrayList<Complex> ifft(ArrayList<Complex> signal) // reversed fft
 	{
 		int k = 4;
 		Complex a = new Complex(0,0); // construction of a zero cof type complex
@@ -184,7 +184,7 @@ public class Note {
 		
 	}
 	 
-	private float findFreq(ArrayList<Float> signal) //finds frequency by auto-corelation method
+	private static float findFreq(ArrayList<Float> signal) //finds frequency by auto-corelation method
 	{
 		ArrayList<Float> frequencies = new ArrayList<Float>();
 		ArrayList<Complex> correl = ifft(multTaT(fft(signal),fft(oppose(signal))));
@@ -201,10 +201,9 @@ public class Note {
 		return (float) Math.pow((82.5*2), ((q)/12));
 	}
 
-	public Float[] sheet(Float[] signal) // takes a played song and writes the sheet
+	public static Float[] sheet(Float[] signal) // takes a played song and writes the sheet
 	{
-		Attaque attaque = new Attaque();
-		ArrayList<Float> att = toArrayList(attaque.attaque(signal, (float)44100, (float)0.999));
+		ArrayList<Float> att = toArrayList(Attaque.attaque(signal, (float)44100, (float)0.999));
 		ArrayList<Integer> mont = new ArrayList<Integer>();
 		ArrayList<Integer> lim = new ArrayList<Integer>();
 		ArrayList<Float> sheet = new ArrayList<Float>();

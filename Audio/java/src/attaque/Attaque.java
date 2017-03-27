@@ -1,7 +1,7 @@
 package attaque;
 public class Attaque {
 	
-	public Float[] filter(Float[] b, Float[] a, Float[] x){
+	public static Float[] filter(Float[] b, Float[] a, Float[] x){
 		//la fonction filter de matlab
 		int la = a.length;
 		int lb = b.length;
@@ -24,7 +24,7 @@ public class Attaque {
 		}
 		return y;
 	}
-	public Float[] enveloppe (Float[] signal, float a){
+	public static Float[] enveloppe (Float[] signal, float a){
 		//prend un signal en entr�e et renvoie son enveloppe de param�tre a
 		
 		for (int i=0; i<signal.length; i++){
@@ -36,7 +36,7 @@ public class Attaque {
 		return enveloppe;
 		}
 	
-	public Float sum(Float[] list, int lowerindex, int higherindex){
+	public static Float sum(Float[] list, int lowerindex, int higherindex){
 		//oui, il faut impl�menter �a...
 		Float sum = (float) 0;
 		for (int i=lowerindex;i<=higherindex;i++){
@@ -45,7 +45,7 @@ public class Attaque {
 		return sum;
 	}
 	
-	public Float[] derivLarge (Float[] signal, int N){
+	public static Float[] derivLarge (Float[] signal, int N){
 		//prend un signal en entr�e et renvoie sa d�riv�e large (de param�tre N)
 		//faite sans appel � filter car cela revient au m�me (et c'est compliqu� 
 		//d'impl�menter ones dans java...
@@ -56,7 +56,7 @@ public class Attaque {
 		return deriv;
 	}
 	
-	public Float[] decfreq(Float[] signal, float fech, float newfreq){
+	public static Float[] decfreq(Float[] signal, float fech, float newfreq){
 		//diminue la fr�quence d'�chatillonage de signal � environ newfreq en supprimant des valeurs
 		int step = (int)Math.floor(fech/newfreq);
 		int newlength = (int)Math.ceil(signal.length/step);
@@ -71,7 +71,7 @@ public class Attaque {
 		return newsignal;
 	}
 	
-	public Float[] dB (Float[] signal){
+	public static Float[] dB (Float[] signal){
 		Float[] signaldb = new Float[signal.length];
 		for (int i=0; i<signal.length; i++){
 			signaldb[i]=(10*(float)Math.log10(signal[i]));
@@ -79,7 +79,7 @@ public class Attaque {
 		return signaldb;
 	}
 	
-	public Float[] attaque (Float[] signal, float fech, float a){
+	public static Float[] attaque (Float[] signal, float fech, float a){
 		//prend en entr�e un signal et sa fr�quence d'�chantillonage et renvoie son attaque 
 		Float[] B = {(float)0.3370 , (float)-0.6740, (float)0.3370};
 		Float[] A = {(float)1, (float)-0.1712, (float)0.1768};
