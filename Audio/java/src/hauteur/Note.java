@@ -41,6 +41,9 @@ public class Note {
 	
 	private static int maxIndex(ArrayList<Float> signal) // finds index of max
 	{
+		if (signal.size()==0){
+			return 0;
+		}
 		float a = signal.get(0);
 		int res = 0;
 		for (int k = 0; k<signal.size(); k++)
@@ -204,12 +207,11 @@ public class Note {
 		float j = (float) 82.5;
 		float q = 0;
 		float z = 0;
-		while (j<2000)
+		while (j<2000 && (int)(Math.floor(44100/j))<correl.size())
 		{
 			z = (float) correl.get((int)(Math.floor(44100/j))).getReal();
 			frequencies.add(z);
 			j *= Math.pow(2,(float)1/12);
-			System.out.println(j);
 		}
 		q = maxIndex(frequencies);
 		return (float) Math.pow((82.5*2), ((q)/12));
