@@ -204,7 +204,7 @@ public class BluetoothModule implements BluetoothModuleInterface {
         }
     }
 
-    public void setBrightness (int brightness) {
+    public void setBrightness (int brightness) { // brightness from 0 to 9
         try {
             send(0,1,brightness);
         } catch (Exception e) {
