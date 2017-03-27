@@ -71,12 +71,15 @@ public class UserDAO {
     }
 
     public void supprimerProfil (long id){
-        mDb.execSQL("DELETE FROM " + UsersSQLiteHelper.PROFILE_TABLE_NAME + " WHERE id = " + String.valueOf(id));
-        mDb.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + UsersSQLiteHelper.PROFILE_TABLE_NAME + "'");
+        String[] args = new String[] {String.valueOf(id)};
+        String whereClause = UsersSQLiteHelper.PROFILE_KEY + " = ?";
+        mDb.delete(UsersSQLiteHelper.PROFILE_TABLE_NAME, whereClause, args);
+
         mDb.execSQL("VACUUM " + UsersSQLiteHelper.PROFILE_TABLE_NAME);
-        updateProfileID();
+
     }
 
+    /*
     public void updateProfileID () {
         int i = 1;
         List<Long> ids = getAllProfilesIds();
@@ -85,11 +88,23 @@ public class UserDAO {
             i++;
         }
     }
+    */
 
-    /*
-    public void supprimerStats (long id){
+
+    public void supprimerStats (long partition, long profile){
+
+        String p1= String.valueOf(profile);
+        String p2= String.valueOf(partition);
+
+        String[] args = new String[] {p1,p2};
+        String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = ? AND "+UsersSQLiteHelper.STATS_PARTITION+" = ?";
+        mDb.delete(UsersSQLiteHelper.STATS_TABLE_NAME, whereClause, args);
+
+        mDb.execSQL("VACUUM " + UsersSQLiteHelper.STATS_TABLE_NAME);
+
     }
 
+/*
     public Stats selectionnerStats (long id){
 
     }

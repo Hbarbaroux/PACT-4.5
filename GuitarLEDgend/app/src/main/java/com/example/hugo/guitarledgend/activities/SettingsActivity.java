@@ -4,6 +4,7 @@ package com.example.hugo.guitarledgend.activities;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -20,6 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.example.hugo.guitarledgend.bluetooth.TestBluetoothActivity;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Profile;
+import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
 import java.io.File;
 import java.util.List;
@@ -217,6 +220,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class PartitionPreferenceFragment extends PreferenceFragment {
         private PartitionDAO database;
+        private UserDAO database2;
 
 
 
@@ -230,6 +234,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             database = new PartitionDAO(getActivity());
             database.open();
+
             List<Partition> values = database.getAllPartitions();
             String[] listPartitions = new String[values.size()];
             for(int i=0;i<values.size();i++){
@@ -242,12 +247,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             partitions.setEntries(listPartitions);
             partitions.setEntryValues(listValues);
 
+            final long partition_id=(long) Integer.parseInt(partitions.getValue());
+
             Preference modifierButton = findPreference("modifier_button");
             modifierButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(getActivity(), PreferencesModifyPartitionActivity.class);
-                    intent.putExtra("partition_id", (long) Integer.parseInt(partitions.getValue()));
+                    intent.putExtra("partition_id", partition_id);
                     startActivity(intent);
                     return true;
                 }
@@ -257,7 +264,38 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             supprimerButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    //code for what you want it to do
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+
+                                    database2=new UserDAO(getActivity());
+                                    database2.open();
+                                    database2.supprimerStats(partition_id,ProfilesActivity.getUser().getId());
+                                    database.supprimer(partition_id);
+
+                                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                                    startActivity(intent);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Êtes-vous sûr?").setPositiveButton("Oui", dialogClickListener)
+                            .setNegativeButton("Non", dialogClickListener).show();
+
+
+
+
+
                     return true;
                 }
             });

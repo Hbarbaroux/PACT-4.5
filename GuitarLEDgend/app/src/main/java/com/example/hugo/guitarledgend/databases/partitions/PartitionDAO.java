@@ -61,12 +61,14 @@ public class PartitionDAO {
     }
 
     public void supprimer (long id){
-        mDb.execSQL("DELETE FROM " + PartitionsSQLiteHelper.PARTITION_TABLE_NAME + " WHERE id = " + String.valueOf(id));
-        mDb.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + PartitionsSQLiteHelper.PARTITION_TABLE_NAME + "'");
+        String[] args = new String[] {String.valueOf(id)};
+        String whereClause = PartitionsSQLiteHelper.PARTITION_KEY + " = ?";
+        mDb.delete(PartitionsSQLiteHelper.PARTITION_TABLE_NAME, whereClause, args);
+
         mDb.execSQL("VACUUM " + PartitionsSQLiteHelper.PARTITION_TABLE_NAME);
-        updatePartitionID();
     }
 
+    /*
     public void updatePartitionID () {
         int i = 1;
         List<Long> ids = getAllPartitionsIds();
@@ -75,6 +77,7 @@ public class PartitionDAO {
             i++;
         }
     }
+    */
 
     public List<Long> getAllPartitionsIds() {
         List<Long> ids = new ArrayList<Long>();

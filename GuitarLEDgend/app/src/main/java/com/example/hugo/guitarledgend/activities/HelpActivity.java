@@ -24,6 +24,7 @@ public class HelpActivity extends AppCompatActivity {
                 "puis vous pouvez voir les détails de chacune des fois où vous avez joué un morceau. \n \n" +
                 "PARTITIONS : \n" +
                 "Pour ajouter une partiton, allez dans Start -> Ajouter." +
+                "Pour cela il faut que le fichier MIDI de la partition soit dans le dossier GuitarLEDgend de votre carte SD" +
                 "Vous pouvez supprimer à tout moment une partition dans le menu Préférences. \n \n" +
                 "JOUER : \n" +
                 "Choisissez un morceau à jouer (Start -> Choisir)." +

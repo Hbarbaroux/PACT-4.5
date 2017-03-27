@@ -38,6 +38,11 @@ public class ChoosePartitionInStatsActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(android.R.id.list);
 
         List<Partition> values = database.getAllPartitions();
+        final long[] ids = new long[values.size()];
+        for (int i=0;i<values.size();i++){
+            ids[i]=values.get(i).getId();
+        }
+
 
         PartitionsAdapter adapter = new PartitionsAdapter(ChoosePartitionInStatsActivity.this, values);
         mListView.setAdapter(adapter);
@@ -46,14 +51,16 @@ public class ChoosePartitionInStatsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
 
+                long partition_id=ids[position];
+
                 database_user = new UserDAO(ChoosePartitionInStatsActivity.this);
                 database_user.open();
-                if( database_user.nombreStats(ProfilesActivity.getUser().getId(),(long) position+1) == 0){
+                if( database_user.nombreStats(ProfilesActivity.getUser().getId(),partition_id) == 0){
                     Toast.makeText(ChoosePartitionInStatsActivity.this,"Pas de stats pour cette partition",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Intent intent = new Intent(ChoosePartitionInStatsActivity.this, StatsGlobalActivity.class);
-                    intent.putExtra("partition_id", (long) position+1);
+                    intent.putExtra("partition_id", partition_id);
                     startActivity(intent);
                 }
 

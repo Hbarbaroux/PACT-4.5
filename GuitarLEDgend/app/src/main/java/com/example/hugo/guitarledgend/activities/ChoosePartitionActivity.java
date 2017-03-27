@@ -16,6 +16,7 @@ import com.example.hugo.guitarledgend.R;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 public class ChoosePartitionActivity extends AppCompatActivity {
 
@@ -38,6 +39,10 @@ public class ChoosePartitionActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(android.R.id.list);
 
         List<Partition> values = database.getAllPartitions();
+        final long[] ids = new long[values.size()];
+        for (int i=0;i<values.size();i++){
+            ids[i]=values.get(i).getId();
+        }
 
         PartitionsAdapter adapter = new PartitionsAdapter(ChoosePartitionActivity.this, values);
         mListView.setAdapter(adapter);
@@ -45,7 +50,10 @@ public class ChoosePartitionActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                String fichier = database.selectionner(position + 1).getFichier();
+
+                long partition_id=ids[position];
+
+                String fichier = database.selectionner(partition_id).getFichier();
                 File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "GuitarLEDgend" + File.separator + fichier);
 
                 ChoosePartitionActivity.this.position = position;
@@ -53,7 +61,7 @@ public class ChoosePartitionActivity extends AppCompatActivity {
                     askingForDeletion();
                 } else {
                     Intent intent = new Intent(ChoosePartitionActivity.this, TestBluetoothActivity.class);
-                    intent.putExtra("partition_id", (long) position + 1);
+                    intent.putExtra("partition_id", partition_id);
                     startActivity(intent);
                 }
             }
