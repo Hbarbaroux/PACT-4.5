@@ -27,8 +27,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class MainActivity extends Activity {
 
@@ -40,6 +44,8 @@ public class MainActivity extends Activity {
     private Button mButtonSearch;
     private Handler mHandler;
     private BluetoothModule myDevice;
+    private ArrayList<MidiNote> mNotes;
+    private TimeSignature mTimeSignature;
 
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -111,25 +117,127 @@ public class MainActivity extends Activity {
         MidiFile myFile = new MidiFile(rawdata, filename);
         ArrayList<MidiTrack> list = myFile.getTracks();
         ArrayList<MidiNote> notes = list.get(0).getNotes();
+        mNotes = notes;
         TimeSignature myTimeSignature = myFile.getTime();
+        mTimeSignature = myTimeSignature;
+        playNotes play = new playNotes();
+        play.start();
+
+        /*
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO : make the time work
+                for (int i = 1;i<mNotes.size();i++){
+                    // mTextView.append(Integer.toString(noteArray.get(i-1).getStartTime()) + "\n");
+
+                    double t1 = (double) mNotes.get(i-1).getStartTime()*mTimeSignature.getTempo()/(mTimeSignature.getQuarter()*1000);
+                    double t2 = (double) mNotes.get(i).getStartTime()*mTimeSignature.getTempo()/(mTimeSignature.getQuarter()*1000);
+                    try {
+                        mTextView.append(Integer.toString((int) (t2 - t1)) + " ");
+                        long delta = (long) (t2 - t1);
+                        // Thread.sleep(delta);
+                        synchronized (this) {
+                            Thread.sleep(1000);
+                        }
+                        // mTextView.append(Integer.toString(noteArray.get(i).getNumber()) + "\n");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        */
+
+        /*
         for (int i=0;i<notes.size();i++) {
-            mTextView.append(Integer.toString(notes.get(i).getNumber()) + "\n");
+            // mTextView.append(Integer.toString(notes.get(i).getNumber()) + "\n");
+            mTextView.append(Integer.toString(notes.get(i).getNumber()) + " / " + Integer.toString(findStringAndFretFromNote(notes.get(i))[0]) + " " + Integer.toString(findStringAndFretFromNote(notes.get(i))[1]) + "\n");
+        }
+        */
+
+        mTextView.append("Quarter : " + Integer.toString(myTimeSignature.getQuarter()) + "\n");
+        mTextView.append("Tempo : " + Integer.toString(myTimeSignature.getTempo()) + "\n");
+    }
+
+    private class playNotes implements Runnable {
+        private ExecutorService executor = Executors.newSingleThreadExecutor();
+        private Future<?> publisher = null;
+        private ArrayList<MidiNote> noteArray;
+        private TimeSignature myTimeSignature;
+
+        @Override
+        public void run() {
+            noteArray = mNotes;
+            myTimeSignature = mTimeSignature;
+
+            // TODO : make the time work
+            for (int i = 1;i<noteArray.size();i++){
+                // mTextView.append(Integer.toString(noteArray.get(i-1).getStartTime()) + "\n");
+
+                double t1 = (double) noteArray.get(i-1).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000);
+                double t2 = (double) noteArray.get(i).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000);
+                try {
+                    // mTextView.append(Integer.toString((int) (t2 - t1)) + " ");
+                    long delta = (long) (t2 - t1);
+                    synchronized (this) {
+                        this.wait(delta);
+                    }
+                    int[] stringAndFret = findStringAndFretFromNote(noteArray.get(i));
+                    myDevice.send(stringAndFret[0], stringAndFret[1], 1); // doigt inutile pour l'instant
+                    // mTextView.append(Integer.toString(noteArray.get(i).getNumber()) + "\n");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public void start(){
+            publisher = executor.submit(this);
+        }
+
+        public void pause() {
+            publisher.cancel(true);
+        }
+
+        public void resume() {
+            start();
+        }
+
+        public void stop() {
+            executor.shutdownNow();
+        }
+
+        public boolean isStarted() {
+            if (publisher == null) {
+                return false;
+            }
+            return true;
         }
     }
 
+    // convert a note to a string and fret
     public int[] findStringAndFretFromNote(MidiNote note) {
         // int frettes = 12; // ?
         // int cordes = 5;
-        
+
         // int tuning = 40 + 5*corde + frette;
 
+        // TODO : tenir compte de l'increment de 4 et non 5 entre la 4eme et 5eme corde
+
         int noteNumber = note.getNumber();
-        int corde = (noteNumber-40)/5;
-        int frette = noteNumber-40-corde*5;
+        int corde = (noteNumber-40)/5; // numerote a partir de 0
+        if (corde > 5) { // Guitar limited to 5 strings
+            corde = 5;
+        }
+        int frette = noteNumber-40-corde*5; // numerote a partir de 0
 
         return new int[] {corde, frette};
     }
 
+    // create an array of parsed data from raw midi file
     private byte[] checkFile(String name) {
         try {
             // FileInputStream in = this.openFileInput(name);
