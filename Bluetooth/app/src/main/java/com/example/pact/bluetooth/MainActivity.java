@@ -123,40 +123,6 @@ public class MainActivity extends Activity {
         playNotes play = new playNotes();
         play.start();
 
-        /*
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                // TODO : make the time work
-                for (int i = 1;i<mNotes.size();i++){
-                    // mTextView.append(Integer.toString(noteArray.get(i-1).getStartTime()) + "\n");
-
-                    double t1 = (double) mNotes.get(i-1).getStartTime()*mTimeSignature.getTempo()/(mTimeSignature.getQuarter()*1000);
-                    double t2 = (double) mNotes.get(i).getStartTime()*mTimeSignature.getTempo()/(mTimeSignature.getQuarter()*1000);
-                    try {
-                        mTextView.append(Integer.toString((int) (t2 - t1)) + " ");
-                        long delta = (long) (t2 - t1);
-                        // Thread.sleep(delta);
-                        synchronized (this) {
-                            Thread.sleep(1000);
-                        }
-                        // mTextView.append(Integer.toString(noteArray.get(i).getNumber()) + "\n");
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        */
-
-        /*
-        for (int i=0;i<notes.size();i++) {
-            // mTextView.append(Integer.toString(notes.get(i).getNumber()) + "\n");
-            mTextView.append(Integer.toString(notes.get(i).getNumber()) + " / " + Integer.toString(findStringAndFretFromNote(notes.get(i))[0]) + " " + Integer.toString(findStringAndFretFromNote(notes.get(i))[1]) + "\n");
-        }
-        */
-
         mTextView.append("Quarter : " + Integer.toString(myTimeSignature.getQuarter()) + "\n");
         mTextView.append("Tempo : " + Integer.toString(myTimeSignature.getTempo()) + "\n");
     }
@@ -171,21 +137,18 @@ public class MainActivity extends Activity {
         public void run() {
             noteArray = mNotes;
             myTimeSignature = mTimeSignature;
-            
+
             for (int i = 1;i<noteArray.size();i++){
-                // mTextView.append(Integer.toString(noteArray.get(i-1).getStartTime()) + "\n");
 
                 double t1 = (double) noteArray.get(i-1).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000);
                 double t2 = (double) noteArray.get(i).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000);
                 try {
-                    // mTextView.append(Integer.toString((int) (t2 - t1)) + " ");
                     long delta = (long) (t2 - t1);
                     synchronized (this) {
                         this.wait(delta);
                     }
                     int[] stringAndFret = findStringAndFretFromNote(noteArray.get(i));
                     myDevice.send(stringAndFret[0], stringAndFret[1], 1); // doigt inutile pour l'instant
-                    // mTextView.append(Integer.toString(noteArray.get(i).getNumber()) + "\n");
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -219,11 +182,6 @@ public class MainActivity extends Activity {
 
     // convert a note to a string and fret
     public int[] findStringAndFretFromNote(MidiNote note) {
-        // int frettes = 12; // ?
-        // int cordes = 5;
-
-        // int tuning = 40 + 5*corde + frette;
-
         int noteNumber = note.getNumber();
         int corde = (noteNumber-40)/5; // numerote a partir de 0
         if (corde > 5) { // Guitar limited to 5 strings
