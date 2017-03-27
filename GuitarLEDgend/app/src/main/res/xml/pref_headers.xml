@@ -10,7 +10,7 @@
     <header
         android:fragment="com.example.hugo.guitarledgend.activities.SettingsActivity$PartitionPreferenceFragment"
         android:icon="@drawable/ic_music"
-        android:title="@string/pref_header_notifications" />
+        android:title="@string/pref_header_partitions" />
 
     <header
         android:fragment="com.example.hugo.guitarledgend.activities.SettingsActivity$DataSyncPreferenceFragment"

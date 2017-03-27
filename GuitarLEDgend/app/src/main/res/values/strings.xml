@@ -122,6 +122,7 @@
     <string name="Autre">Autre</string>
     <string name="age">Age</string>
     <string name="pref_header_profiles">Profils</string>
+    <string name="pref_header_partitions">Partitions</string>
 
 
 </resources>
