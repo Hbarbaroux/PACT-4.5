@@ -99,6 +99,17 @@ public class Note {
 		return res;
 	}
 	
+	private static ArrayList<Complex> toComplex(ArrayList<Float> signal) // takes an ArrayList of Floats and give it with the complex type
+	{
+		ArrayList<Complex> res = new ArrayList<Complex>(signal.size());
+		for (int k=0; k<signal.length; k++ )
+		{
+			Complex a = new Complex (signal.get(k), 0);
+			res.add(a);
+		}
+		return res;
+	}
+
 	private static ArrayList<Float> toArrayList(Float[] signal) //takes a list if Complex and gives the equivalent ArrayList
 	{
 		ArrayList<Float> res = new ArrayList<Float>(signal.length);
@@ -150,7 +161,7 @@ public class Note {
 			k++;
 		} 
 		Complex[] sig = new Complex[(int)Math.pow(2, k)];
-		sig = Note.toListComplex(signal);
+		sig = Note.toListComplex(Note.toComplex(signal));
 		for (int j = signal.size()+1; j<sig.length; j++)
 		{
 			sig[j] = a;
