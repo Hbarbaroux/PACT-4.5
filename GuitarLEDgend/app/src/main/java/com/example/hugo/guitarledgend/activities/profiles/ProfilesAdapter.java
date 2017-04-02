@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.hugo.guitarledgend.databases.users.Profile;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfilesAdapter extends FragmentStatePagerAdapter {
 
@@ -29,8 +31,15 @@ public class ProfilesAdapter extends FragmentStatePagerAdapter {
     private void initiateItems () {
         database = new UserDAO(mContext);
         database.open();
+
+        List<Profile> values = database.getAllProfiles();
+        final long[] ids = new long[values.size()];
+        for (int i=0;i<values.size();i++){
+            ids[i]=values.get(i).getId();
+        }
+
         for (int i = 0 ; i < mNumOfTabs - 1; i++) {
-            tabItems.add(database.selectionnerProfile(i+1).getNom());
+            tabItems.add(database.selectionnerProfile(ids[i]).getNom());
         }
         database.close();
     }
@@ -43,7 +52,14 @@ public class ProfilesAdapter extends FragmentStatePagerAdapter {
             return CreateProfileFragment.newInstance();
         }
         else if (position <= database.nombreProfils()){
-            String nom = database.selectionnerProfile(position).getNom();
+
+            List<Profile> values = database.getAllProfiles();
+            final long[] ids = new long[values.size()];
+            for (int i=0;i<values.size();i++){
+                ids[i]=values.get(i).getId();
+            }
+
+            String nom = database.selectionnerProfile(ids[position-1]).getNom();
             return ChooseProfileFragment.newInstance(nom);
         }
         database.close();

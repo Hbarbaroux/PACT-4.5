@@ -15,6 +15,8 @@ import com.example.hugo.guitarledgend.activities.MainActivity;
 import com.example.hugo.guitarledgend.databases.users.Profile;
 import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
+import java.util.List;
+
 public class ChooseProfileFragment extends Fragment {
 
     TextView textView;
@@ -46,12 +48,18 @@ public class ChooseProfileFragment extends Fragment {
 
         position = mViewPager.getCurrentItem() + 1;
 
+        List<Profile> values = database.getAllProfiles();
+        final long[] ids = new long[values.size()];
+        for (int i=0;i<values.size();i++){
+            ids[i]=values.get(i).getId();
+        }
+
         next_button = (Button) rootView.findViewById(R.id.next_button);
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 database = new UserDAO(getActivity());
                 database.open();
-                Profile profil = database.selectionnerProfile(position);
+                Profile profil = database.selectionnerProfile(ids[position-1]);
                 ProfilesActivity.setUser(profil);
                 database.close();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -65,7 +73,7 @@ public class ChooseProfileFragment extends Fragment {
 
                 database = new UserDAO(getActivity());
                 database.open();
-                database.supprimerProfil(position);
+                database.supprimerProfil(ids[position-1]);
                 database.close();
 
                 mFragmentPagerAdapter.removeTabPage(position - 1);
