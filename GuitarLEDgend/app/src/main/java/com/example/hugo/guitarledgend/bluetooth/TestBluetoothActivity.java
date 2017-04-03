@@ -136,6 +136,7 @@ public class TestBluetoothActivity extends AppCompatActivity {
             Intent intent = new Intent(TestBluetoothActivity.this, ChooseSpeedActivity.class);
             intent.putExtra("partition_id", partition_id);
             startActivity(intent);
+            finish();
         }
         else {
             DialogFragment newFragment = new ErrorContinueFragment();

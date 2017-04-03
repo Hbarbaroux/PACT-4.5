@@ -62,7 +62,8 @@ public class ChooseProfileFragment extends Fragment {
         next_button = (Button) rootView.findViewById(R.id.next_button);
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                database = new UserDAO(getActivity());
+                database.open();
                 Profile profil = database.selectionnerProfile(ids[position-1]);
                 ProfilesActivity.setUser(profil);
                 database.close();
@@ -74,6 +75,8 @@ public class ChooseProfileFragment extends Fragment {
         delete_button = (Button) rootView.findViewById(R.id.delete_button);
         delete_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                database = new UserDAO(getActivity());
+                database.open();
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

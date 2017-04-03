@@ -214,8 +214,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     database.open();
                     database.modifier(ProfilesActivity.getUser().getId(),nom.getText(),Integer.parseInt(age.getEntry().toString()));
 
-                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                    startActivity(intent);
+
                     getActivity().finish();
                     return true;
                 }
@@ -275,6 +274,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     Intent intent = new Intent(getActivity(), PreferencesModifyPartitionActivity.class);
                     intent.putExtra("partition_id", partition_id);
                     startActivity(intent);
+                    getActivity().finish();
                     return true;
                 }
             });
@@ -296,8 +296,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                     database2.supprimerStats(partition_id,ProfilesActivity.getUser().getId());
                                     database.supprimer(partition_id);
 
-                                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                                    startActivity(intent);
+                                    getActivity().finish();
+
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:

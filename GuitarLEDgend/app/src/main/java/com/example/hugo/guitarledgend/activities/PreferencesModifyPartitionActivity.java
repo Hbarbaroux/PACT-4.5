@@ -44,8 +44,6 @@ public class PreferencesModifyPartitionActivity extends AppCompatActivity {
         database = new PartitionDAO(PreferencesModifyPartitionActivity.this);
         database.open();
         database.modifier(partition_id,nom.getText().toString(),auteur.getText().toString(),genre.getText().toString());
-        Intent intent = new Intent(PreferencesModifyPartitionActivity.this,SettingsActivity.class);
-        startActivity(intent);
 
         finish();
     }

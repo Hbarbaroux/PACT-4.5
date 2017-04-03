@@ -32,8 +32,6 @@ public class AskingPlayActivity extends AppCompatActivity {
         Button non = (Button) findViewById(R.id.non_button);
         non.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(AskingPlayActivity.this, AddChooseActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
