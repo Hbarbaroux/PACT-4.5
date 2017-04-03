@@ -1,9 +1,11 @@
 package com.example.hugo.guitarledgend.activities.profiles;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,18 +74,35 @@ public class ChooseProfileFragment extends Fragment {
         delete_button = (Button) rootView.findViewById(R.id.delete_button);
         delete_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                database.supprimerProfil(ids[position-1]);
+                                database.close();
 
-                database = new UserDAO(getActivity());
-                database.open();
-                database.supprimerProfil(ids[position-1]);
-                database.close();
+                                mFragmentPagerAdapter.removeTabPage(position - 1);
 
-                mFragmentPagerAdapter.removeTabPage(position - 1);
+                                getActivity().finish();
+                                startActivity(getActivity().getIntent());
+                                break;
 
-                getActivity().finish();
-                startActivity(getActivity().getIntent());
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Êtes-vous sûr?").setPositiveButton("Oui", dialogClickListener)
+                        .setNegativeButton("Non", dialogClickListener).show();
+
             }
         });
+
 
         return rootView;
     }

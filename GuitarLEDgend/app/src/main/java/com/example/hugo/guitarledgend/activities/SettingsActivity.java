@@ -221,45 +221,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 }
             });
 
-            Preference supprimerButton = findPreference("supprimer_button_2");
-            supprimerButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    //Yes button clicked
-                                    long profil_id=ProfilesActivity.getUser().getId();
-                                    database=new UserDAO(getActivity());
-                                    database.open();
-                                    database.supprimerProfil(profil_id);
-                                    database.supprimerStats(profil_id);
 
-                                    Intent intent = new Intent(getActivity(), StartActivity.class);
-                                    startActivity(intent);
-                                    getActivity().finish();
-                                    break;
-
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    //No button clicked
-                                    break;
-                            }
-                        }
-                    };
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Êtes-vous sûr?").setPositiveButton("Oui", dialogClickListener)
-                            .setNegativeButton("Non", dialogClickListener).show();
-
-
-
-
-
-                    return true;
-                }
-            });
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
