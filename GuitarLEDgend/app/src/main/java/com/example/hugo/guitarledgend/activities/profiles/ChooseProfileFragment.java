@@ -48,6 +48,9 @@ public class ChooseProfileFragment extends Fragment {
 
         position = mViewPager.getCurrentItem() + 1;
 
+        database = new UserDAO(getActivity());
+        database.open();
+
         List<Profile> values = database.getAllProfiles();
         final long[] ids = new long[values.size()];
         for (int i=0;i<values.size();i++){
@@ -57,8 +60,7 @@ public class ChooseProfileFragment extends Fragment {
         next_button = (Button) rootView.findViewById(R.id.next_button);
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                database = new UserDAO(getActivity());
-                database.open();
+
                 Profile profil = database.selectionnerProfile(ids[position-1]);
                 ProfilesActivity.setUser(profil);
                 database.close();
