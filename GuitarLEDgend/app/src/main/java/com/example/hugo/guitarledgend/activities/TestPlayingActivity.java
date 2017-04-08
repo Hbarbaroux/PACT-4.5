@@ -45,16 +45,11 @@ import java.util.concurrent.Future;
 
 public class TestPlayingActivity extends Activity {
 
-    private TextView mTextView;
-    private TextView mTextViewState;
-    private EditText mEditTextCorde;
-    private EditText mEditTextFrette;
-    private EditText mEditTextDoigt;
-    private Button mButtonSearch;
     private Handler mHandler;
     private BluetoothModule myDevice;
     private ArrayList<MidiNote> mNotes;
     private TimeSignature mTimeSignature;
+    private long  partition_id=0;
 
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -80,12 +75,8 @@ public class TestPlayingActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        mTextView = (TextView) findViewById(R.id.tvDevices);
-        mTextViewState = (TextView) findViewById(R.id.textViewState);
-        mEditTextCorde = (EditText) findViewById(R.id.editTextCorde);
-        mEditTextFrette = (EditText) findViewById(R.id.editTextFrette);
-        mEditTextDoigt = (EditText) findViewById(R.id.editTextDoigt);
-        mButtonSearch = (Button) findViewById(R.id.button_id);
+        Intent intent =getIntent();
+        partition_id=intent.getLongExtra("partition_id",1L);
 
         IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
         registerReceiver(mReceiver, mFilter);
@@ -258,15 +249,5 @@ public class TestPlayingActivity extends Activity {
         }
         return new byte[0];
     }
-
-
-    public void onClick_Play(View v) {
-        try {
-            myDevice.send(Integer.parseInt(mEditTextCorde.getText().toString()), Integer.parseInt(mEditTextFrette.getText().toString()), Integer.parseInt(mEditTextDoigt.getText().toString()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }
 
