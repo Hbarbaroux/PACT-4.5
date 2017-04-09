@@ -105,6 +105,14 @@ public class PostPlayingActivity extends AppCompatActivity {
         File f = new File(dir,"audiorecordtest.wav");
         mFileName=f.getPath();
 
+
+        Intent intent = getIntent();
+        final long partition_id = intent.getLongExtra("partition_id", 1L);
+        X1=intent.getIntExtra("X1",0);
+        X2=intent.getIntExtra("X2",0);
+        final int replay=intent.getIntExtra("replay",0);
+
+
         final Button play = (Button) findViewById(R.id.playButton);
         play.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -136,6 +144,7 @@ public class PostPlayingActivity extends AppCompatActivity {
                     intent.putExtra("X1", x1);
                     intent.putExtra("X2", x2);
                     intent.putExtra("replay",1);
+                    intent.putExtra("partition_id",partition_id);
                     startActivity(intent);
                     finish();
                 }
@@ -147,6 +156,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         replayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(PostPlayingActivity.this, ChooseSpeedActivity.class);
+                intent.putExtra("partition_id",partition_id);
                 startActivity(intent);
                 finish();
             }
@@ -163,11 +173,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
 
 
-        Intent intent = getIntent();
-        final long partition_id = intent.getLongExtra("partition_id", 1L);
-        X1=intent.getIntExtra("X1",0);
-        X2=intent.getIntExtra("X2",0);
-        final int replay=intent.getIntExtra("replay",0);
+
 
         List<Integer> tab;
         int score;
