@@ -165,9 +165,9 @@ public class PostPlayingActivity extends AppCompatActivity {
         Button menuButton = (Button) findViewById(R.id.menu_button);
         menuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(PostPlayingActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
+                ChoosePartitionActivity.apa.finish();
+                AddChooseActivity.apa.finish();
             }
         });
 

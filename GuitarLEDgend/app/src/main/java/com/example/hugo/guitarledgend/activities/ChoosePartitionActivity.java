@@ -1,5 +1,6 @@
 package com.example.hugo.guitarledgend.activities;
 
+import android.app.Activity;
 import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class ChoosePartitionActivity extends AppCompatActivity {
     private PartitionDAO database;
     ListView mListView;
     private int position;
+    public static Activity apa;
 
     public int getPosition() {
         return position;
@@ -32,6 +34,8 @@ public class ChoosePartitionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_partition);
+
+        apa=this;
 
         database = new PartitionDAO(ChoosePartitionActivity.this);
         database.open();
