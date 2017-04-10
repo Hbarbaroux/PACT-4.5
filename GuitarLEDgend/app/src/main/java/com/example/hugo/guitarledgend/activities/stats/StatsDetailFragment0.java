@@ -27,11 +27,10 @@ import java.util.List;
  * Created by jesusbm on 6/02/17.
  */
 
-public class StatsDetailFragment extends Fragment {
+public class StatsDetailFragment0 extends Fragment {
     private static final int DISPLAYED_STATS=10;
 
 
-    static int position;
     private UserDAO database;
     private PartitionDAO database_partition;
 
@@ -39,12 +38,11 @@ public class StatsDetailFragment extends Fragment {
 
     private StatsDetailAdapter mFragmentPagerAdapter = StatsDetailActivity.getmFragmentPagerAdapter();
 
-    public StatsDetailFragment() {
+    public StatsDetailFragment0() {
     }
 
-    public static StatsDetailFragment newInstance(int p) {
-        StatsDetailFragment fragment = new StatsDetailFragment();
-        position=p;
+    public static StatsDetailFragment0 newInstance() {
+        StatsDetailFragment0 fragment = new StatsDetailFragment0();
         return fragment;
     }
 
@@ -59,7 +57,7 @@ public class StatsDetailFragment extends Fragment {
         database.open();
 
         List<Stats > stats  = database.getAllStats(ProfilesActivity.getUser().getId(), ((StatsDetailActivity) getActivity()).getPartitionId());
-        Stats s = stats.get(position);
+        Stats s = stats.get(0);
         List<Integer> tab=s.tabFromFile(getContext());
 
         DataPoint[] d= new DataPoint[tab.size()];
@@ -83,7 +81,7 @@ public class StatsDetailFragment extends Fragment {
         graph.getViewport().setMaxX(tab.size());
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(1.5);
-        
+
         graph.addSeries(series);
 
         database_partition = new PartitionDAO(getActivity());

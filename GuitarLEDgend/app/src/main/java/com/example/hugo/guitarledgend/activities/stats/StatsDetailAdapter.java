@@ -29,8 +29,13 @@ public class StatsDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        if (position==0){
+            return StatsDetailFragment0.newInstance();
+        }
+        else{
+            return StatsDetailFragment.newInstance(position);
+        }
 
-        return StatsDetailFragment.newInstance();
     }
 
     @Override
