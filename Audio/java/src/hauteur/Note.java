@@ -217,12 +217,13 @@ public class Note {
 		return (float) Math.pow((82.5*2), ((q)/12));
 	}
 
-	public static Float[] sheet(Float[] signal) // takes a played song and writes the sheet
+	public static Tabnotes sheet(Float[] signal) // takes a played song and writes the sheet
 	{
 		ArrayList<Float> att = toArrayList(Attaque.attaque(signal, (float)44100, (float)0.999));
 		ArrayList<Integer> mont = new ArrayList<Integer>();
 		ArrayList<Integer> lim = new ArrayList<Integer>();
-		ArrayList<Float> sheet = new ArrayList<Float>();
+		ArrayList<Float> timetable = new ArrayList<Float>();
+		ArrayList<Float> freqtable = new ArrayList<Float>();
 		int i = 0;
 		float M = max(att);
 		while (i < (att.size()-1))
@@ -250,12 +251,15 @@ public class Note {
 				float freq = findFreq(echantillon);
 				if (freq > 50 && freq < 2000)
 				{
-					sheet.add(freq);
-					sheet.add((float) (mont.get(j)/44100));
+					freqtable.add(freq);
+					timetable.add((float) (mont.get(j)/44100));
 				}
 			}
 		}
-		return toList(sheet);
+		Float[] freqlist = toList (freqtable);
+		Float[] timelist = toList(timetable);
+		Tabnotes sheet = new Tabnotes (timelist, freqlist);
+		return sheet;
 	}
 
 }

@@ -2,31 +2,31 @@ package comparaison;
 
 public class Tabnotes {
 	
-	private final float[] temps;
+	private final Float[] temps;
 	
-	private final float[] freq;
+	private final Float[] freq;
 	
-	public Tabnotes (float[] temps, float[] freq){
+	public Tabnotes (Float[] temps, Float[] freq){
 		this.temps=temps;
 		this.freq=freq;
 	}
 	
-	public float[] gettemps(){
+	public Float[] gettemps(){
 		return temps;
 	}
 	
-	public float[] getfreq(){
+	public Float[] getfreq(){
 		return freq;
 	}
 	
 	public CompTable compare(Tabnotes tabnotes){
 		int na = tabnotes.gettemps().length;
 		int ns = temps.length;
-		float diff=this.minecart()/2;
-		boolean[] evalnotes = new boolean[ns];
+		Float diff=this.minecart()/2;
+		Boolean[] evalnotes = new Boolean[ns];
 		for (int i=0;i<na;i++){
-			float lb=tabnotes.gettemps()[i]-diff;
-			float lh=tabnotes.gettemps()[i]+diff;
+			Float lb=tabnotes.gettemps()[i]-diff;
+			Float lh=tabnotes.gettemps()[i]+diff;
 			for (int j=0;j<ns;j++){
 				if ((temps[j]<=lh) && (temps[j]>=lb) && (freq[j]==tabnotes.getfreq()[j]) && (evalnotes[j]==false)){
 					evalnotes[j]=true;
@@ -38,11 +38,11 @@ public class Tabnotes {
 		return comptable;
 	}
 	
-	public float minecart (){
+	public Float minecart (){
 		//calcule l'écart minimal entre deux notes du tableau Tabnotes
-		float min = temps[temps.length-1];
+		Float min = temps[temps.length-1];
 		for (int i=1;i<temps.length;i++){
-			float e = temps[i]-temps[i-1];
+			Float e = temps[i]-temps[i-1];
 			if (e<min){
 				min=e;
 			}

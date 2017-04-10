@@ -2,16 +2,16 @@ package comparaison;
 
 public class CompTable {
 	
-	private boolean[] evalnotes;
+	private Boolean[] evalnotes;
 	
 	private int entrop;
 	
-	public CompTable (boolean[] evalnotes, int entrop){
+	public CompTable (Boolean[] evalnotes, int entrop){
 		this.evalnotes=evalnotes;
 		this.entrop=entrop;
 	}
 	
-	public boolean[] getevalnotes(){
+	public Boolean[] getevalnotes(){
 		return evalnotes;
 	}
 	

@@ -1,6 +1,7 @@
 package capture;
 
 import hauteur.*;
+import comparaison.*;
 
 public class Maintest {
 
@@ -8,9 +9,9 @@ public class Maintest {
 		// TODO Auto-generated method stub
 		Float[] audio = Capture.wavcapture("data/melodie.wav");
 		System.out.println(audio.length);
-		Float[] sheet = Note.sheet(audio);
-		for (int i=0;i<sheet.length;i++){
-			System.out.println(sheet[i]);
+		Tabnotes sheet = Note.sheet(audio);
+		for (int i=0;i<sheet.gettemps().length;i++){
+			System.out.println(sheet.gettemps()[i] + ' ' + sheet.getfreq()[i]);
 		}
 	}
 

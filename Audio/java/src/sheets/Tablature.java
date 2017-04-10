@@ -10,9 +10,9 @@ public class Tablature {
 	
 	private int[] frette;
 	
-	private float[] temps;
+	private Float[] temps;
 	
-	public Tablature (int[] corde, int[] doigt, int[] frette, float[] temps) {
+	public Tablature (int[] corde, int[] doigt, int[] frette, Float[] temps) {
 		this.corde=corde;
 		this.doigt=doigt;
 		this.frette=frette;
@@ -31,13 +31,13 @@ public class Tablature {
 		return frette;
 	}
 	
-	public float[] gettemps(){
+	public Float[] gettemps(){
 		return temps;
 	}
 	
 	public Tabnotes translate(){
 		//traduction de la tablature en tableau de notes
-		float[] freq = new float[corde.length];
+		Float[] freq = new Float[corde.length];
 		for (int i=0;i<corde.length;i++){
 			//la fréquence de base : le mi grave de la première corde à 82.5 Hz
 			int demitons;
