@@ -21,12 +21,13 @@ import java.util.List;
 
 public class ChooseProfileFragment extends Fragment {
 
+    long id2;
     TextView textView;
     Button next_button;
     Button delete_button;
-    static String name;
     private UserDAO database;
-    private int position;
+    static long id;
+
 
     private ViewPager mViewPager = ProfilesActivity.getmViewPager();
 
@@ -35,9 +36,9 @@ public class ChooseProfileFragment extends Fragment {
     public ChooseProfileFragment() {
     }
 
-    public static ChooseProfileFragment newInstance(String nom) {
+    public static ChooseProfileFragment newInstance(long i) {
         ChooseProfileFragment fragment = new ChooseProfileFragment();
-        name = nom;
+        id=i;
         return fragment;
     }
 
@@ -46,25 +47,26 @@ public class ChooseProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile_choose, container, false);
 
         textView = (TextView) rootView.findViewById(R.id.nom_profile);
+        database = new UserDAO(getActivity());
+        database.open();
+        String name=database.selectionnerProfile(id).getNom();
         textView.setText(name);
 
-        position = mViewPager.getCurrentItem() + 1;
+        id2=id;
+
+
 
         database = new UserDAO(getActivity());
         database.open();
 
-        List<Profile> values = database.getAllProfiles();
-        final long[] ids = new long[values.size()];
-        for (int i=0;i<values.size();i++){
-            ids[i]=values.get(i).getId();
-        }
 
         next_button = (Button) rootView.findViewById(R.id.next_button);
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 database = new UserDAO(getActivity());
                 database.open();
-                Profile profil = database.selectionnerProfile(ids[position-1]);
+                long i=id2;
+                Profile profil = database.selectionnerProfile(i);
                 ProfilesActivity.setUser(profil);
                 database.close();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -83,13 +85,16 @@ public class ChooseProfileFragment extends Fragment {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
-                                database.supprimerProfil(ids[position-1]);
+                                long i=id2;
+                                database.supprimerProfil(i);
+                                database.supprimerStats(i);
                                 database.close();
 
-                                mFragmentPagerAdapter.removeTabPage(position - 1);
 
+
+                                Intent intent = new Intent(getActivity(), ProfilesActivity.class);
+                                startActivity(intent);
                                 getActivity().finish();
-                                startActivity(getActivity().getIntent());
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

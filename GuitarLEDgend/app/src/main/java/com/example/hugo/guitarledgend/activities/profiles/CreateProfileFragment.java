@@ -74,7 +74,6 @@ public class CreateProfileFragment extends Fragment {
                         database.ajouter(profile);
                         database.close();
 
-                        mFragmentPagerAdapter.addTabPage("profile");
 
                         getActivity().finish();
                         startActivity(getActivity().getIntent());
