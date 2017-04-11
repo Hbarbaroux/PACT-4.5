@@ -11,7 +11,8 @@ public class Maintest {
 		System.out.println(audio.length);
 		Tabnotes sheet = Note.sheet(audio);
 		for (int i=0;i<sheet.gettemps().length;i++){
-			System.out.println(sheet.gettemps()[i] + ' ' + sheet.getfreq()[i]);
+			System.out.print(sheet.gettemps()[i] + "   ");
+			System.out.println(sheet.getfreq()[i]);
 		}
 	}
 

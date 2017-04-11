@@ -228,12 +228,12 @@ public class Note {
 		float M = max(att);
 		while (i < (att.size()-1))
 		{
-			while (att.get(i) < (float)0.2*M && i < (att.size()-1))
+			while (att.get(i) < (float)0.1*M && i < (att.size()-1))
 			{
 				i++;
 			}
 			lim.add(i);
-			while (att.get(i) >= (float) 0.2*M && i < (att.size()-1))
+			while (att.get(i) >= (float)0.1*M && i < (att.size()-1))
 			{
 				i++;
 			}
@@ -252,7 +252,7 @@ public class Note {
 				if (freq > 50 && freq < 2000)
 				{
 					freqtable.add(freq);
-					timetable.add((float) (mont.get(j)/44100));
+					timetable.add((float)mont.get(j)/400);
 				}
 			}
 		}
