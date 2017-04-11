@@ -28,6 +28,9 @@ import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFileException;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiNote;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiTrack;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.TimeSignature;
+import com.example.hugo.guitarledgend.databases.partitions.Partition;
+import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
+import com.example.hugo.guitarledgend.databases.users.UserDAO;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,6 +53,8 @@ public class TestPlayingActivity extends Activity {
     private ArrayList<MidiNote> mNotes;
     private TimeSignature mTimeSignature;
     private long  partition_id=0;
+    private int vitesse; // vitesse normale : 10.
+    private PartitionDAO database;
 
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -77,6 +82,7 @@ public class TestPlayingActivity extends Activity {
 
         Intent intent =getIntent();
         partition_id=intent.getLongExtra("partition_id",1L);
+        vitesse=intent.getIntExtra("vitesse",10);
 
         IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
         registerReceiver(mReceiver, mFilter);
@@ -115,7 +121,10 @@ public class TestPlayingActivity extends Activity {
 
         verifyStoragePermissions(this);
 
-        String filename = "test.mid"; // Ask user?
+        database = new PartitionDAO(TestPlayingActivity.this);
+        database.open();
+
+        String filename = database.selectionner(partition_id).getFichier(); // Ask user?
         File sdcard = Environment.getExternalStorageDirectory();
         File file = new File(sdcard, "GuitarLEDgend/midiFiles/" + filename);
 
@@ -128,6 +137,11 @@ public class TestPlayingActivity extends Activity {
         mTimeSignature = myTimeSignature;
         playNotes play = new playNotes();
         play.start();
+
+        database.close();
+
+        Intent intent2 = new Intent(TestPlayingActivity.this, PostPlayingActivity.class);
+        intent.putExtra("partition_id", partition_id);
     }
 
     private class playNotes implements Runnable {
@@ -135,8 +149,7 @@ public class TestPlayingActivity extends Activity {
         private Future<?> publisher = null;
         private ArrayList<MidiNote> noteArray;
         private TimeSignature myTimeSignature;
-        private float facteur;
-        // TODO : initilaiser facteur
+        private float facteur = vitesse/10;
 
         @Override
         public void run() {

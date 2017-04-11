@@ -42,13 +42,14 @@ public class ChooseSpeedActivity extends AppCompatActivity {
                 else if(!TextUtils.isDigitsOnly(vitesse)){
                     etSpeed.setError("Veuillez rentrer une vitesse coherente");
                 }
-                else if(((int) Integer.parseInt(vitesse)) <= 0){
+                else if(Integer.parseInt(vitesse) <= 0){
                     etSpeed.setError("Veuillez rentrer une vitesse positive");
 
                 }
                 else{
                     Intent intent = new Intent(ChooseSpeedActivity.this, PartitionPlayingActivity.class);
                     intent.putExtra("partition_id", partition_id);
+                    intent.putExtra("vitesse", Integer.parseInt(vitesse));
                     if (replay==1){
                         intent.putExtra("X1", X1);
                         intent.putExtra("X2", X2);
