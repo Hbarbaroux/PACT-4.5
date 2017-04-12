@@ -50,7 +50,7 @@ public class AddPartitionActivity extends AppCompatActivity {
                 String auteur = editTextAuteur.getText().toString();
                 String genre = editTextGenre.getText().toString();
 
-                File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "GuitarLEDgend" + File.separator + fichier);
+                File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "GuitarLEDgend/midiFiles" + File.separator + fichier);
 
                 if(TextUtils.isEmpty(fichier)) {
                     editTextFichier.setError("Veuillez rentrer un fichier");

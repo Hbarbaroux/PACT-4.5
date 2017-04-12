@@ -58,7 +58,7 @@ public class ChoosePartitionActivity extends AppCompatActivity {
                 long partition_id=ids[position];
 
                 String fichier = database.selectionner(partition_id).getFichier();
-                File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "GuitarLEDgend" + File.separator + fichier);
+                File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "GuitarLEDgend/midiFiles/" + File.separator + fichier);
 
                 ChoosePartitionActivity.this.position = position;
                 if (!(file.exists())) {

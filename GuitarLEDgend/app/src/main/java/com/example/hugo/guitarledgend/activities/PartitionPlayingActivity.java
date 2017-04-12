@@ -73,7 +73,7 @@ public class PartitionPlayingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_partition_playing);
 
         Intent intent =getIntent();
         partition_id=intent.getLongExtra("partition_id",1L);

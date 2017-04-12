@@ -162,15 +162,16 @@ public class TestBluetoothActivity extends AppCompatActivity {
         Log.d("Resultat 1: ", String.valueOf(resultatTests[1]));
     }
 
-/*    public boolean testContinue () {
+    public boolean testContinue () {
         if ((resultatTests[0] == 1) && (resultatTests[1] == 1)) {
             return true;
         }
         return false;
     }
-*/
-    public boolean testContinue () {
+
+    /*   public boolean testContinue () {
         return true;
     }
+*/
 
 }
