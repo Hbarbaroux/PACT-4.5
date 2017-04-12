@@ -19,6 +19,13 @@ import android.widget.Toast;
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.activities.stats.ChoosePartitionInStatsActivity;
+import com.example.hugo.guitarledgend.audio.comparaison.CompTable;
+import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFile;
+import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFileException;
+import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiNote;
+import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiTrack;
+import com.example.hugo.guitarledgend.audio.midisheetmusic.TimeSignature;
+import com.example.hugo.guitarledgend.audio.sheets.Tablature;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
@@ -34,11 +41,13 @@ import com.jjoe64.graphview.series.Series;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -97,22 +106,32 @@ public class PostPlayingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_playing);
 
+        Intent intent = getIntent();
+        partition_id = intent.getLongExtra("partition_id", 1L);
+        X1=intent.getIntExtra("X1",0);
+        X2=intent.getIntExtra("X2",0);
+        final int replay=intent.getIntExtra("replay",0);
+        final int facteur=intent.getIntExtra("facteur", 1);
 
+        database_partition = new PartitionDAO(PostPlayingActivity.this);
+        database_partition.open();
 
+        String filename = database_partition.selectionner(partition_id).getFichier();
+        database_partition.close();
         File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard, "GuitarLEDgend/midiFiles/" + filename);
+
+        Tablature maTablature = createTablature(filename, facteur);
+
+        CompTable compTable = new CompTable(null, 0);
+        compTable.evaluate(Environment.getExternalStorageState()+"GuitarLEDgend/audio/audiorecordtest.wav",maTablature);
+
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
         if (!dir.exists()) {
             dir.mkdirs();
         }
         File f = new File(dir,"audiorecordtest.wav");
         mFileName=f.getPath();
-
-
-        Intent intent = getIntent();
-        partition_id = intent.getLongExtra("partition_id", 1L);
-        X1=intent.getIntExtra("X1",0);
-        X2=intent.getIntExtra("X2",0);
-        final int replay=intent.getIntExtra("replay",0);
 
 
         final Button play = (Button) findViewById(R.id.playButton);
@@ -187,7 +206,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
             String dataFile = "User_" + user_id + "-Part_" + partition_id + "-Date_" + nowAsString + ".txt";
 
-            fileCreation();
+            fileCreation(compTable.getevalnotes());
             moveFile(dataFile);
 
             score = score(dataFile);
@@ -212,7 +231,7 @@ public class PostPlayingActivity extends AppCompatActivity {
             Date now = new Date();
             String nowAsString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
 
-            replayFileCreation(X1,X2);
+            replayFileCreation(compTable.getevalnotes());
 
             score = score(replayFile);
 
@@ -301,6 +320,43 @@ public class PostPlayingActivity extends AppCompatActivity {
 
     }
 
+    public void replayFileCreation(Boolean[] bolTab){
+        File phone = this.getFilesDir();
+
+        File dir = new File(phone.getPath()+"/statsData/reception/");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        PrintWriter pw = null;
+        try {
+            File f=new File (dir,replayFile);
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
+            pw = new PrintWriter(f);
+
+            for (int i = 0; i < bolTab.length; i++) {
+                if (bolTab[i]==false)
+                    pw.println(0);
+                else
+                    pw.println(1);
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if(pw!=null){
+                try{
+                    pw.close();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     //methode provisoire
     public void replayFileCreation(int X1, int X2){
         File phone = this.getFilesDir();
@@ -334,6 +390,43 @@ public class PostPlayingActivity extends AppCompatActivity {
                 try{
                     pw.close();
                 } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void fileCreation(Boolean[] bolTab) {
+        File phone = this.getFilesDir();
+
+        File dir = new File(phone.getPath() + "/statsData/reception/");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        PrintWriter pw = null;
+        try {
+            File f = new File(dir, receptionFile);
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
+            pw = new PrintWriter(f);
+
+            for (int i = 0; i < bolTab.length; i++) {
+                if (bolTab[i]==false)
+                    pw.println(0);
+                else
+                    pw.println(1);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (pw != null) {
+                try {
+                    pw.close();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -484,6 +577,88 @@ public class PostPlayingActivity extends AppCompatActivity {
         return -3;
 
 
+    }
+
+    // create an array of parsed data from raw midi file
+    private byte[] checkFile(File file) {
+        try {
+            // FileInputStream in = this.openFileInput(name);
+            // InputStream in = getAssets().open(name);
+            FileInputStream in = new FileInputStream(file);
+            byte[] data = new byte[4096];
+            int total = 0, len = 0;
+            while (true) {
+                len = in.read(data, 0, 4096);
+                if (len > 0)
+                    total += len;
+                else
+                    break;
+            }
+            in.close();
+            data = new byte[total];
+            // in = this.openFileInput(name);
+            // in = getAssets().open(name);
+            in = new FileInputStream(file);
+            int offset = 0;
+            while (offset < total) {
+                len = in.read(data, offset, total - offset);
+                if (len > 0)
+                    offset += len;
+            }
+            in.close();
+            return data;
+        }
+        catch (IOException e) {
+            Toast toast = Toast.makeText(this, "CheckFile: " + e.toString(), Toast.LENGTH_LONG);
+            toast.show();
+        }
+        catch (MidiFileException e) {
+            Toast toast = Toast.makeText(this, "CheckFile midi: " + e.toString(), Toast.LENGTH_LONG);
+            toast.show();
+        }
+        return new byte[0];
+    }
+
+    // convert a note to a string and fret
+    public int[] findStringAndFretFromNote(MidiNote note) {
+        int noteNumber = note.getNumber();
+        int corde = (noteNumber-41)/5; // from 0
+        if (corde > 5) { // guitar limited to 5 strings
+            corde = 5;
+        }
+        int frette = noteNumber-41-corde*5; // from 0
+        if (corde == 5) { // increment of 4 instead of 5 from the 4th to the 5th string
+            frette ++;
+        }
+
+        return new int[] {corde, frette};
+    }
+
+    public Tablature createTablature(String filename, float vitesse) {
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard, "GuitarLEDgend/midiFiles/" + filename);
+        byte[] rawdata = checkFile(file);
+        MidiFile myFile = new MidiFile(rawdata, filename);
+        ArrayList<MidiTrack> trackList = myFile.getTracks();
+        ArrayList<MidiNote> notes = trackList.get(0).getNotes();
+        TimeSignature timeSignature = myFile.getTime();
+        int tempo = timeSignature.getTempo();
+        int quarternote = timeSignature.getQuarter();
+
+        int[] cordes = new int[notes.size()];
+        int[] doigts = new int[notes.size()];
+        int[] frettes = new int[notes.size()];
+        Float[] temps = new Float[notes.size()];
+
+        for (int i=0;i<notes.size();i++) {
+            temps[i] = (float) notes.get(i).getStartTime()*tempo/(quarternote*1000000*vitesse); // in seconds
+            int[] tab = findStringAndFretFromNote(notes.get(i));
+            cordes[i] = tab[0];
+            frettes[i] = tab[1];
+            doigts[i] = 0; // unused
+        }
+
+        return new Tablature(cordes, doigts, frettes, temps);
     }
 
 

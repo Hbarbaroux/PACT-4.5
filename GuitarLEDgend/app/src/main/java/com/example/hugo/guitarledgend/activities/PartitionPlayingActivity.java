@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.audio.WavRecorder;
+import com.example.hugo.guitarledgend.audio.sheets.Tablature;
 import com.example.hugo.guitarledgend.bluetooth.BluetoothModule;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFile;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFileException;
@@ -181,6 +182,7 @@ public class PartitionPlayingActivity extends Activity {
             wavRecorder.stopRecording();
             Intent intent2 = new Intent(PartitionPlayingActivity.this, PostPlayingActivity.class);
             intent2.putExtra("partition_id", partition_id);
+            intent2.putExtra("facteur", facteur);
             if (mreplay==1){
                 intent2.putExtra("X1", mx1);
                 intent2.putExtra("X2", mx2);
@@ -212,21 +214,6 @@ public class PartitionPlayingActivity extends Activity {
             }
             return true;
         }
-    }
-
-    // convert a note to a string and fret
-    public int[] findStringAndFretFromNote(MidiNote note) {
-        int noteNumber = note.getNumber();
-        int corde = (noteNumber-40)/5; // numerote a partir de 0
-        if (corde > 5) { // Guitar limited to 5 strings
-            corde = 5;
-        }
-        int frette = noteNumber-40-corde*5; // numerote a partir de 0
-        if (corde == 5) { // Increment of 4 instead of 5 from the 4th to the 5th string
-            frette ++;
-        }
-
-        return new int[] {corde, frette};
     }
 
     public static void verifyStoragePermissions(Activity activity) {
@@ -277,6 +264,21 @@ public class PartitionPlayingActivity extends Activity {
             toast.show();
         }
         return new byte[0];
+    }
+
+    // convert a note to a string and fret
+    public int[] findStringAndFretFromNote(MidiNote note) {
+        int noteNumber = note.getNumber();
+        int corde = (noteNumber-41)/5; // from 0
+        if (corde > 5) { // guitar limited to 5 strings
+            corde = 5;
+        }
+        int frette = noteNumber-41-corde*5; // from 0
+        if (corde == 5) { // increment of 4 instead of 5 from the 4th to the 5th string
+            frette ++;
+        }
+
+        return new int[] {corde, frette};
     }
 }
 
