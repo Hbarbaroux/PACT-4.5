@@ -24,10 +24,12 @@ void setup() {
       FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
       leds[0] = CRGB::White;
       FastLED.show();
-      bluetooth.begin(9600);  // The Bluetooth Mate defaults to 115200bps
-}
+      bluetooth.begin(9600);  // Start bluetooth serial at 9600
+      Serial.begin(9600);
+  }
 
 void loop() {
+  /*
   for (int i=0;i<4;i++) {
     if(bluetooth.available())  // If the bluetooth sent any characters
       {
@@ -47,5 +49,17 @@ void loop() {
     // Back to white
     leds[0] = CRGB::White;
     FastLED.show();
+  }
+  */
+
+  if(bluetooth.available())  // If the bluetooth sent any characters
+  {
+    // Send any characters the bluetooth prints to the serial monitor
+    Serial.print((char)bluetooth.read());  
+  }
+  if(Serial.available())  // If stuff was typed in the serial monitor
+  {
+    // Send any characters the Serial monitor prints to the bluetooth
+    bluetooth.print((char)Serial.read());
   }
 }
