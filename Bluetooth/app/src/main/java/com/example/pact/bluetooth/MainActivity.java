@@ -133,8 +133,9 @@ public class MainActivity extends Activity {
         mNotes = notes;
         TimeSignature myTimeSignature = myFile.getTime();
         mTimeSignature = myTimeSignature;
-        playNotes play = new playNotes();
-        play.start();
+        Tablature maTablature = createTablature(myFile, 1);
+        // playNotes play = new playNotes();
+        // play.start();
     }
 
     private class playNotes implements Runnable {
@@ -195,16 +196,39 @@ public class MainActivity extends Activity {
     // convert a note to a string and fret
     public int[] findStringAndFretFromNote(MidiNote note) {
         int noteNumber = note.getNumber();
-        int corde = (noteNumber-40)/5; // numerote a partir de 0
-        if (corde > 5) { // Guitar limited to 5 strings
+        int corde = (noteNumber-41)/5; // from 0
+        if (corde > 5) { // guitar limited to 5 strings
             corde = 5;
         }
-        int frette = noteNumber-40-corde*5; // numerote a partir de 0
-        if (corde == 5) { // Increment of 4 instead of 5 from the 4th to the 5th string
+        int frette = noteNumber-41-corde*5; // from 0
+        if (corde == 5) { // increment of 4 instead of 5 from the 4th to the 5th string
             frette ++;
         }
 
         return new int[] {corde, frette};
+    }
+
+    public Tablature createTablature(MidiFile myFile, float vitesse) {
+        ArrayList<MidiTrack> trackList = myFile.getTracks();
+        ArrayList<MidiNote> notes = trackList.get(0).getNotes();
+        TimeSignature timeSignature = myFile.getTime();
+        int tempo = timeSignature.getTempo();
+        int quarternote = timeSignature.getQuarter();
+
+        int[] cordes = new int[notes.size()];
+        int[] doigts = new int[notes.size()];
+        int[] frettes = new int[notes.size()];
+        float[] temps = new float[notes.size()];
+
+        for (int i=0;i<notes.size();i++) {
+            temps[i] = (float) notes.get(i).getStartTime()*tempo/(quarternote*1000000*vitesse); // in seconds
+            int[] tab = findStringAndFretFromNote(notes.get(i));
+            cordes[i] = tab[0];
+            frettes[i] = tab[1];
+            doigts[i] = 0; // unused
+        }
+
+        return new Tablature(cordes, doigts, frettes, temps);
     }
 
     public static void verifyStoragePermissions(Activity activity) {
