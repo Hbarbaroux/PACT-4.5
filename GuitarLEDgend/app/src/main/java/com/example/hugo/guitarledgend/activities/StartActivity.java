@@ -91,9 +91,14 @@ public class StartActivity extends AppCompatActivity {
 
         File sdcard = Environment.getExternalStorageDirectory();
 
-        File wallpaperDirectory = new File(sdcard,"GuitarLEDgend");
-        if (!wallpaperDirectory.exists()){
-            wallpaperDirectory.mkdirs();
+        File dir = new File(sdcard,"GuitarLEDgend");
+        if (!dir.exists()){
+            dir.mkdirs();
+        }
+
+        File dir2 = new File(sdcard,"GuitarLEDgend/midiFiles");
+        if (!dir2.exists()){
+            dir2.mkdirs();
         }
     }
 }

@@ -62,6 +62,8 @@ public class PostPlayingActivity extends AppCompatActivity {
     private int X1;
     private int X2;
 
+    private long partition_id;
+
 
 
     private void onPlay(boolean start) {
@@ -107,7 +109,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        final long partition_id = intent.getLongExtra("partition_id", 1L);
+        partition_id = intent.getLongExtra("partition_id", 1L);
         X1=intent.getIntExtra("X1",0);
         X2=intent.getIntExtra("X2",0);
         final int replay=intent.getIntExtra("replay",0);
