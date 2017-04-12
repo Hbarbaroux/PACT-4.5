@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
         mNotes = notes;
         TimeSignature myTimeSignature = myFile.getTime();
         mTimeSignature = myTimeSignature;
-        Tablature maTablature = createTablature(myFile, 1);
+        Tablature maTablature = createTablature("test.mid", 1);
         // playNotes play = new playNotes();
         // play.start();
     }
@@ -193,54 +193,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    // convert a note to a string and fret
-    public int[] findStringAndFretFromNote(MidiNote note) {
-        int noteNumber = note.getNumber();
-        int corde = (noteNumber-41)/5; // from 0
-        if (corde > 5) { // guitar limited to 5 strings
-            corde = 5;
-        }
-        int frette = noteNumber-41-corde*5; // from 0
-        if (corde == 5) { // increment of 4 instead of 5 from the 4th to the 5th string
-            frette ++;
-        }
-
-        return new int[] {corde, frette};
-    }
-
-    public Tablature createTablature(MidiFile myFile, float vitesse) {
-        ArrayList<MidiTrack> trackList = myFile.getTracks();
-        ArrayList<MidiNote> notes = trackList.get(0).getNotes();
-        TimeSignature timeSignature = myFile.getTime();
-        int tempo = timeSignature.getTempo();
-        int quarternote = timeSignature.getQuarter();
-
-        int[] cordes = new int[notes.size()];
-        int[] doigts = new int[notes.size()];
-        int[] frettes = new int[notes.size()];
-        float[] temps = new float[notes.size()];
-
-        for (int i=0;i<notes.size();i++) {
-            temps[i] = (float) notes.get(i).getStartTime()*tempo/(quarternote*1000000*vitesse); // in seconds
-            int[] tab = findStringAndFretFromNote(notes.get(i));
-            cordes[i] = tab[0];
-            frettes[i] = tab[1];
-            doigts[i] = 0; // unused
-        }
-
-        return new Tablature(cordes, doigts, frettes, temps);
-    }
-
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        }
-    }
-
     // create an array of parsed data from raw midi file
     private byte[] checkFile(File file) {
         try {
@@ -279,6 +231,58 @@ public class MainActivity extends Activity {
             toast.show();
         }
         return new byte[0];
+    }
+
+    // convert a note to a string and fret
+    public int[] findStringAndFretFromNote(MidiNote note) {
+        int noteNumber = note.getNumber();
+        int corde = (noteNumber-41)/5; // from 0
+        if (corde > 5) { // guitar limited to 5 strings
+            corde = 5;
+        }
+        int frette = noteNumber-41-corde*5; // from 0
+        if (corde == 5) { // increment of 4 instead of 5 from the 4th to the 5th string
+            frette ++;
+        }
+
+        return new int[] {corde, frette};
+    }
+
+    public Tablature createTablature(String filename, float vitesse) {
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard, "GuitarLEDgend/midiFiles/" + filename);
+        byte[] rawdata = checkFile(file);
+        MidiFile myFile = new MidiFile(rawdata, filename);
+        ArrayList<MidiTrack> trackList = myFile.getTracks();
+        ArrayList<MidiNote> notes = trackList.get(0).getNotes();
+        TimeSignature timeSignature = myFile.getTime();
+        int tempo = timeSignature.getTempo();
+        int quarternote = timeSignature.getQuarter();
+
+        int[] cordes = new int[notes.size()];
+        int[] doigts = new int[notes.size()];
+        int[] frettes = new int[notes.size()];
+        float[] temps = new float[notes.size()];
+
+        for (int i=0;i<notes.size();i++) {
+            temps[i] = (float) notes.get(i).getStartTime()*tempo/(quarternote*1000000*vitesse); // in seconds
+            int[] tab = findStringAndFretFromNote(notes.get(i));
+            cordes[i] = tab[0];
+            frettes[i] = tab[1];
+            doigts[i] = 0; // unused
+        }
+
+        return new Tablature(cordes, doigts, frettes, temps);
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
     }
 
     @Override
