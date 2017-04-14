@@ -111,7 +111,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         X1=intent.getIntExtra("X1",0);
         X2=intent.getIntExtra("X2",0);
         final int replay=intent.getIntExtra("replay",0);
-        final int facteur=intent.getIntExtra("facteur", 1);
+        final float facteur=intent.getFloatExtra("facteur", 1);
 
         database_partition = new PartitionDAO(PostPlayingActivity.this);
         database_partition.open();
@@ -124,7 +124,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         Tablature maTablature = createTablature(filename, facteur);
 
         CompTable compTable = new CompTable(null, 0);
-        compTable.evaluate(Environment.getExternalStorageState()+"GuitarLEDgend/audio/audiorecordtest.wav",maTablature);
+        compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/audiorecordtest.wav",maTablature);
 
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
         if (!dir.exists()) {
