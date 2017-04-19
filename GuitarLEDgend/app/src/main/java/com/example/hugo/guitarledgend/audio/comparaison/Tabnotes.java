@@ -24,6 +24,9 @@ public class Tabnotes {
         int ns = temps.length;
         Float diff=this.minecart()/2;
         Boolean[] evalnotes = new Boolean[ns];
+        for (int i=0;i<ns;i++){
+            evalnotes[i]=false;
+        }
         for (int i=0;i<na;i++){
             Float lb=tabnotes.gettemps()[i]-diff;
             Float lh=tabnotes.gettemps()[i]+diff;

@@ -172,7 +172,7 @@ public class PartitionPlayingActivity extends Activity {
                         this.wait(delta);
                     }
                     int[] stringAndFret = findStringAndFretFromNote(noteArray.get(i));
-                    myDevice.send(stringAndFret[0], stringAndFret[1], 1); // doigt inutile pour l'instant
+                    myDevice.send(stringAndFret[0]+1, stringAndFret[1]+1, 1); // doigt inutile pour l'instant
 
                 } catch (Exception e) {
                     e.printStackTrace();
