@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
+import com.example.hugo.guitarledgend.MyApp;
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.audio.WavRecorder;
 import com.example.hugo.guitarledgend.audio.sheets.Tablature;
@@ -39,7 +40,6 @@ import java.util.concurrent.Future;
 
 public class PartitionPlayingActivity extends Activity {
 
-    private Handler mHandler;
     private BluetoothModule myDevice;
     private ArrayList<MidiNote> mNotes;
     private TimeSignature mTimeSignature;
@@ -89,29 +89,10 @@ public class PartitionPlayingActivity extends Activity {
         mFilter = new IntentFilter(BluetoothModule.ACTION_BATTERY_LOW);
         registerReceiver(mReceiver, mFilter);
 
-        // Defines a Handler object that's attached to the UI thread
-        mHandler = new Handler(Looper.getMainLooper()) {
-            @Override
-            public void handleMessage(Message inputMessage) {
-                try {
-                    byte[] shortenedMessage = Arrays.copyOf((byte[]) inputMessage.obj, inputMessage.arg1);
-                    String value = new String(shortenedMessage, "UTF-8");
-                    if (value.equals("1")) {
-                        Intent intent = new Intent(BluetoothModule.ACTION_BATTERY_LOW);
-                        sendBroadcast(intent);
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
 
-        try {
-            myDevice = new BluetoothModule(this, mHandler);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Initialize and connect the BluetoothModule if none exists
+        myDevice = ((MyApp)getApplicationContext()).getDevice();
+
 
         // MIDI TEST
 

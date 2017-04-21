@@ -32,19 +32,16 @@ public class BluetoothModule implements BluetoothModuleInterface {
     private InputStream mInputStream;
     private Handler mHandler;
     private ConnectedThread mConnectedThread;
-    private Activity mActivity;
 
-    public BluetoothModule(Activity activity, Handler handler) throws Exception {
+    public BluetoothModule(Handler handler) throws Exception {
         mHandler = handler;
-        mActivity = activity;
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             throw new Exception("The device does not have bluetooth capabilities");
         }
         else if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            mActivity.startActivityForResult(enableBluetooth, 0);
+            throw new Exception("Bluetooth is not active");
         }
 
         mConnectedThread = new ConnectedThread();
@@ -161,7 +158,7 @@ public class BluetoothModule implements BluetoothModuleInterface {
         //}
     }
 
-    private void sendByte(String msg) {
+    private void sendByte(String msg) throws Exception{
         if (mOutputStream != null) {
             try {
                 mOutputStream.write(msg.getBytes());
@@ -169,6 +166,9 @@ public class BluetoothModule implements BluetoothModuleInterface {
             catch (java.io.IOException e) {
                 e.printStackTrace();
             }
+        }
+        else {
+            throw new Exception("Uninitialized Output Stream");
         }
     }
 

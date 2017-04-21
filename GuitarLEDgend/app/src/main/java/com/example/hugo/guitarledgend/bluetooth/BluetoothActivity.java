@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hugo.guitarledgend.MyApp;
 import com.example.hugo.guitarledgend.R;
 
 public class BluetoothActivity extends AppCompatActivity {
@@ -30,7 +31,6 @@ public class BluetoothActivity extends AppCompatActivity {
     private EditText mEditTextFrette;
     private EditText mEditTextDoigt;
     private Button mButtonSearch;
-    private Handler mHandler;
     private BluetoothModule myDevice;
 
 
@@ -71,29 +71,8 @@ public class BluetoothActivity extends AppCompatActivity {
         mFilter = new IntentFilter(BluetoothModule.ACTION_BATTERY_LOW);
         registerReceiver(mReceiver, mFilter);
 
-        // Defines a Handler object that's attached to the UI thread
-        mHandler = new Handler(Looper.getMainLooper()) {
-            @Override
-            public void handleMessage(Message inputMessage) {
-                try {
-                    byte[] shortenedMessage = Arrays.copyOf((byte[]) inputMessage.obj, inputMessage.arg1);
-                    String value = new String(shortenedMessage, "UTF-8");
-                    if (value.equals("1")) {
-                        Intent intent = new Intent(BluetoothModule.ACTION_BATTERY_LOW);
-                        sendBroadcast(intent);
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        try {
-            myDevice = new BluetoothModule(this, mHandler);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Initialize and connect the BluetoothModule if none exists
+        myDevice = ((MyApp)getApplicationContext()).getDevice();
     }
 
     @Override
@@ -116,6 +95,8 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void onClick_Connect(View v) {
+        /*
+        // Irrelevant
         try {
             myDevice.connect();
             Toast.makeText(BluetoothActivity.this,"Connecté à l'Arduino",Toast.LENGTH_SHORT).show();
@@ -123,6 +104,7 @@ public class BluetoothActivity extends AppCompatActivity {
             DialogFragment newFragment = new ErrorConnectFragment();
             newFragment.show(getSupportFragmentManager(), "delete");
         }
+        */
     }
 
     public void onClick_Disconnect(View v) {
