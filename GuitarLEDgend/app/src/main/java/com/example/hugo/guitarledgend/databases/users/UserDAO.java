@@ -150,6 +150,18 @@ public class UserDAO {
         return null;
     }
 
+    public Stats selectionnerStats (long id){
+        String[] args = new String[] {String.valueOf(id)};
+        String whereClause = UsersSQLiteHelper.STATS_KEY + " = ?";
+        Cursor c = mDb.query(UsersSQLiteHelper.STATS_TABLE_NAME, null, whereClause, args, null, null, null);
+        c.moveToFirst();
+        if (!c.isAfterLast()) {
+            Stats s = cursorToStats(c);
+            return s;
+        }
+        return null;
+    }
+
     public List<Profile> getAllProfiles() {
         List<Profile> profiles = new ArrayList<Profile>();
 

@@ -26,6 +26,7 @@ public class ChooseSpeedActivity extends AppCompatActivity {
 
         final int X1=intent.getIntExtra("X1",0);
         final int X2=intent.getIntExtra("X2",0);
+        final long statId=intent.getLongExtra("statId",0);
         final int replay=intent.getIntExtra("replay",0);
 
         final EditText etSpeed = (EditText) findViewById(R.id.speed_text);
@@ -53,6 +54,7 @@ public class ChooseSpeedActivity extends AppCompatActivity {
                     if (replay==1){
                         intent.putExtra("X1", X1);
                         intent.putExtra("X2", X2);
+                        intent.putExtra("statId",statId);
                         intent.putExtra("replay",1);
 
                     }

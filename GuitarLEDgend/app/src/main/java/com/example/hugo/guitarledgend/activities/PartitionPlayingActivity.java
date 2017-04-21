@@ -49,6 +49,7 @@ public class PartitionPlayingActivity extends Activity {
     private int x1;
     private int x2;
     private int replay;
+    private long statId;
 
 
 
@@ -81,6 +82,7 @@ public class PartitionPlayingActivity extends Activity {
         x1=intent.getIntExtra("X1",0);
         x2=intent.getIntExtra("X2",0);
         replay=intent.getIntExtra("replay",0);
+        statId=intent.getLongExtra("statId",0);
 
         IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
         registerReceiver(mReceiver, mFilter);
@@ -126,6 +128,7 @@ public class PartitionPlayingActivity extends Activity {
         private final int mx1 = x1;
         private final int mx2 = x2;
         private final int mreplay = replay;
+        private final long mstatId=statId;
 
         @Override
         public void run() {
@@ -167,6 +170,7 @@ public class PartitionPlayingActivity extends Activity {
             if (mreplay==1){
                 intent2.putExtra("X1", mx1);
                 intent2.putExtra("X2", mx2);
+                intent2.putExtra("statId",mstatId);
                 intent2.putExtra("replay",1);
             }
             startActivity(intent2);

@@ -54,7 +54,6 @@ import java.util.List;
 public class PostPlayingActivity extends AppCompatActivity {
 
     private final String receptionFile = "receptionFile.txt";
-    private final String replayFile="replayFile.txt";
     private UserDAO database;
     private PartitionDAO database_partition;
     private long user_id = ProfilesActivity.getUser().getId();
@@ -70,6 +69,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
     private int X1;
     private int X2;
+    private long statId;
 
     private long partition_id;
 
@@ -110,6 +110,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         partition_id = intent.getLongExtra("partition_id", 1L);
         X1=intent.getIntExtra("X1",0);
         X2=intent.getIntExtra("X2",0);
+        statId=intent.getLongExtra("statId",0);
         final int replay=intent.getIntExtra("replay",0);
         final float facteur=intent.getFloatExtra("facteur", 1);
 
@@ -164,6 +165,7 @@ public class PostPlayingActivity extends AppCompatActivity {
                     x2+=X1;
                     intent.putExtra("X1", x1);
                     intent.putExtra("X2", x2);
+                    intent.putExtra("statId",statId);
                     intent.putExtra("replay",1);
                     intent.putExtra("partition_id",partition_id);
                     startActivity(intent);
@@ -220,6 +222,10 @@ public class PostPlayingActivity extends AppCompatActivity {
             database.open();
             database.ajouter(s);
 
+            //guardar el id de la estadistica y transmitirlo en el intent si replay para reconstruir el grafico
+            List<Stats> values = database.getAllStats(user_id,partition_id);
+            statId= values.get(values.size()-1).getId()+1;
+
             database_partition = new PartitionDAO(PostPlayingActivity.this);
             database_partition.open();
             Partition p = database_partition.selectionner(partition_id);
@@ -230,23 +236,21 @@ public class PostPlayingActivity extends AppCompatActivity {
         }
 
         else{
-            Date now = new Date();
-            String nowAsString = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
 
-            replayFileCreation(compTable.getevalnotes());
-
-            score = score(replayFile);
-
-            Stats s = new Stats(0, nowAsString, replayFile, score, partition_id, user_id);
+            database = new UserDAO(PostPlayingActivity.this);
+            database.open();
+            Stats s = database.selectionnerStats(statId);
 
             tab = s.tabFromFile(this);
+
+            score= (int) s.getScore();
 
             database_partition = new PartitionDAO(PostPlayingActivity.this);
             database_partition.open();
             Partition p = database_partition.selectionner(partition_id);
 
-            title1=nowAsString + " / " + p.getNom();
-            title2=nowAsString + " / " + p.getNom();
+            title1=p.getNom();
+            title2=s.getDate();
 
 
         }
@@ -327,81 +331,9 @@ public class PostPlayingActivity extends AppCompatActivity {
 
     }
 
-    public void replayFileCreation(Boolean[] bolTab){
-        File phone = this.getFilesDir();
 
-        File dir = new File(phone.getPath()+"/statsData/reception/");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
 
-        PrintWriter pw = null;
-        try {
-            File f=new File (dir,replayFile);
-            if (f.exists()) {
-                f.delete();
-            }
-            f.createNewFile();
-            pw = new PrintWriter(f);
 
-            for (int i = 0; i < bolTab.length; i++) {
-                if (bolTab[i]==false)
-                    pw.println(0);
-                else
-                    pw.println(1);
-            }
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }finally {
-            if(pw!=null){
-                try{
-                    pw.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    //methode provisoire
-    public void replayFileCreation(int X1, int X2){
-        File phone = this.getFilesDir();
-
-        File dir = new File(phone.getPath()+"/statsData/");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        PrintWriter pw = null;
-        try {
-            File f=new File (dir,replayFile);
-            if (f.exists()) {
-                f.delete();
-            }
-            f.createNewFile();
-            pw = new PrintWriter(f);
-
-            for (int i=X1;i<X2;i++){
-                double r = Math.random();
-                if (r<0.5)
-                    pw.println(0);
-                else
-                    pw.println(1);
-            }
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }finally {
-            if(pw!=null){
-                try{
-                    pw.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     public void fileCreation(Boolean[] bolTab) {
         File phone = this.getFilesDir();
@@ -439,6 +371,47 @@ public class PostPlayingActivity extends AppCompatActivity {
             }
         }
     }
+
+    //methode provisoire
+    /*
+    public void replayFileCreation(int X1, int X2){
+        File phone = this.getFilesDir();
+
+        File dir = new File(phone.getPath()+"/statsData/");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        PrintWriter pw = null;
+        try {
+            File f=new File (dir,replayFile);
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
+            pw = new PrintWriter(f);
+
+            for (int i=X1;i<X2;i++){
+                double r = Math.random();
+                if (r<0.5)
+                    pw.println(0);
+                else
+                    pw.println(1);
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if(pw!=null){
+                try{
+                    pw.close();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    */
 
     //methode provisoire: cree un fichier faux des resultats aleatoirement dans le dossier reception
     public void fileCreation() {
