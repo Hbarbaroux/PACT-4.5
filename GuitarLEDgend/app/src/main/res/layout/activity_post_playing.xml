@@ -14,12 +14,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/graph_title_postplayingactivity"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/graph_title_postplayingactivity"
+        android:id="@+id/graph_title2_postplayingactivity"/>
+
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
         android:id="@+id/graph_PostPlayingActivity"
-        android:layout_below="@+id/graph_title_postplayingactivity"/>
+        android:layout_below="@+id/graph_title2_postplayingactivity"/>
 
     <TextView
         android:textSize="30sp"
@@ -77,9 +83,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/playButton"
-        android:layout_alignBottom="@+id/score"
+        android:layout_alignTop="@+id/score"
         android:layout_toLeftOf="@+id/score"
-        android:layout_toStartOf="@+id/score" />
+        android:layout_toStartOf="@+id/score"
+        android:layout_marginTop="11dp" />
 
 
 </RelativeLayout>

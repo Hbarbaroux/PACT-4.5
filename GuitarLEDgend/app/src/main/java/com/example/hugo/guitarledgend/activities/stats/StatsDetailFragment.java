@@ -90,14 +90,18 @@ public class StatsDetailFragment extends Fragment {
         database_partition.open();
         Partition p=database_partition.selectionner(((StatsDetailActivity) getActivity()).getPartitionId());
 
-        String title=s.getDate() + " / " + p.getNom();
-        TextView titleView = (TextView) rootView.findViewById(R.id.graph_title_statsdetailfragment);
-        titleView.setText(title);
-        titleView.setTextSize(25);
-        titleView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        titleView.setSingleLine(true);
-        titleView.setMarqueeRepeatLimit(5);
-        titleView.setSelected(true);
+        String title1=p.getNom();
+        String title2=s.getDate();
+        TextView titleView1 = (TextView) rootView.findViewById(R.id.graph_title_statsdetailfragment);
+        titleView1.setText(title1);
+        titleView1.setTextSize(25);
+        titleView1.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        titleView1.setSingleLine(true);
+        titleView1.setMarqueeRepeatLimit(5);
+        titleView1.setSelected(true);
+        TextView titleView2 = (TextView) rootView.findViewById(R.id.graph_title2_statsdetailfragment);
+        titleView2.setText(title2);
+        titleView2.setTextSize(25);
 
 
         //GRAPHE

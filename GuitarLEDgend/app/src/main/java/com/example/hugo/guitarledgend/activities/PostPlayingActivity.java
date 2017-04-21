@@ -198,7 +198,8 @@ public class PostPlayingActivity extends AppCompatActivity {
 
         List<Integer> tab;
         int score;
-        String title;
+        String title1;
+        String title2;
         if (replay==0){
 
             Date now = new Date();
@@ -223,7 +224,8 @@ public class PostPlayingActivity extends AppCompatActivity {
             database_partition.open();
             Partition p = database_partition.selectionner(partition_id);
 
-            title=s.getDate() + " / " + p.getNom();
+            title1=p.getNom();
+            title2=s.getDate();
 
         }
 
@@ -243,7 +245,8 @@ public class PostPlayingActivity extends AppCompatActivity {
             database_partition.open();
             Partition p = database_partition.selectionner(partition_id);
 
-            title=nowAsString + " / " + p.getNom();
+            title1=nowAsString + " / " + p.getNom();
+            title2=nowAsString + " / " + p.getNom();
 
 
         }
@@ -304,13 +307,17 @@ public class PostPlayingActivity extends AppCompatActivity {
 
 
 
-        TextView titleView = (TextView) findViewById(R.id.graph_title_postplayingactivity);
-        titleView.setText(title);
-        titleView.setTextSize(25);
-        titleView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        titleView.setSingleLine(true);
-        titleView.setMarqueeRepeatLimit(5);
-        titleView.setSelected(true);
+        TextView titleView1 = (TextView) findViewById(R.id.graph_title_postplayingactivity);
+        titleView1.setText(title1);
+        titleView1.setTextSize(25);
+        titleView1.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        titleView1.setSingleLine(true);
+        titleView1.setMarqueeRepeatLimit(5);
+        titleView1.setSelected(true);
+
+        TextView titleView2 = (TextView) findViewById(R.id.graph_title2_postplayingactivity);
+        titleView2.setText(title2);
+        titleView2.setTextSize(25);
 
         TextView score_view = (TextView) findViewById(R.id.score);
         score_view.setText(String.valueOf(score)+"%");

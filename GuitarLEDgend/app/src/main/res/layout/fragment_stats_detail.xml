@@ -10,11 +10,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/graph_title_statsdetailfragment"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/graph_title_statsdetailfragment"
+        android:id="@+id/graph_title2_statsdetailfragment"/>
+
+
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
         android:id="@+id/graph_stats_fragment"
-        android:layout_below="@+id/graph_title_statsdetailfragment"/>
+        android:layout_below="@+id/graph_title2_statsdetailfragment"/>
 
     <TextView
         android:textSize="30sp"
