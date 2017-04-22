@@ -12,7 +12,7 @@ public class Evaluate {
 		Float[] audio = Capture.wavcapture(audiofilename);
 		Tabnotes audiosheet = Note.sheet(audio);
 		Tabnotes sheet = tab.translate();
-		CompTable comp = audiosheet.compare(sheet);
+		CompTable comp = sheet.compare(audiosheet);
 		return comp;
 	}
 
