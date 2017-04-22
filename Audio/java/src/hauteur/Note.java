@@ -226,14 +226,15 @@ public class Note {
 		ArrayList<Float> freqtable = new ArrayList<Float>();
 		int i = 0;
 		float M = max(att);
+		System.out.println(M);
 		while (i < (att.size()-1))
 		{
-			while (att.get(i) < (float)0.1*M && i < (att.size()-1))
+			while (att.get(i) < (float)0.2*M && i < (att.size()-1))
 			{
 				i++;
 			}
 			lim.add(i);
-			while (att.get(i) >= (float)0.1*M && i < (att.size()-1))
+			while (att.get(i) >= (float)0.2*M && i < (att.size()-1))
 			{
 				i++;
 			}
@@ -249,10 +250,10 @@ public class Note {
 			{
 				ArrayList<Float> echantillon = subTab(signal, (lim.get(2*j)*100), (lim.get(2*j+1)*100));
 				float freq = findFreq(echantillon);
-				if (freq > 50 && freq < 2000)
+				//if (freq > 50 && freq < 2000)
 				{
 					freqtable.add(freq);
-					timetable.add((float)mont.get(j)/400);
+					timetable.add((float)mont.get(j)/441);
 				}
 			}
 		}
