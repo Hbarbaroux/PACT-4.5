@@ -37,7 +37,7 @@ public class PartitionsAdapter extends ArrayAdapter<Partition> {
         Partition partition = getItem(position);
 
         viewHolder.name.setText(partition.getNom());
-        viewHolder.name.setTextSize(18);
+        viewHolder.name.setTextSize(20);
         viewHolder.author.setText(partition.getAuteur());
         viewHolder.author.setTextSize(9);
         viewHolder.genre.setText(partition.getGenre());
