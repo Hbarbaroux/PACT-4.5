@@ -14,6 +14,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.MyApp;
@@ -26,6 +29,8 @@ import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFileException;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiNote;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiTrack;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.TimeSignature;
+import com.example.hugo.guitarledgend.bluetooth.ErrorConnectFragment;
+import com.example.hugo.guitarledgend.bluetooth.TestBluetoothActivity;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 
 import java.io.File;
@@ -38,7 +43,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class PartitionPlayingActivity extends Activity {
+public class PartitionPlayingActivity extends AppCompatActivity {
 
     private BluetoothModule myDevice;
     private ArrayList<MidiNote> mNotes;
@@ -50,7 +55,7 @@ public class PartitionPlayingActivity extends Activity {
     private int x2;
     private int replay;
     private long statId;
-
+    private playNotes play;
 
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -115,7 +120,7 @@ public class PartitionPlayingActivity extends Activity {
         mNotes = notes;
         TimeSignature myTimeSignature = myFile.getTime();
         mTimeSignature = myTimeSignature;
-        playNotes play = new playNotes();
+        play = new playNotes();
         play.start();
     }
 

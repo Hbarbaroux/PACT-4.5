@@ -28,14 +28,7 @@ import com.example.hugo.guitarledgend.activities.ChooseSpeedActivity;
 
 public class TestBluetoothActivity extends AppCompatActivity {
 
-    private TextView mTextView;
-    private TextView mTextViewState;
-    private EditText mEditTextCorde;
-    private EditText mEditTextFrette;
-    private EditText mEditTextDoigt;
-    private Button mButtonSearch;
     private BluetoothModule myDevice;
-    private Button versVitesse;
 
     private static final int REQ_CODE = 1;
 
@@ -66,14 +59,6 @@ public class TestBluetoothActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_test_bluetooth);
 
-        mTextView = (TextView) findViewById(R.id.tvDevices);
-        mTextViewState = (TextView) findViewById(R.id.textViewState);
-        mEditTextCorde = (EditText) findViewById(R.id.editTextCorde);
-        mEditTextFrette = (EditText) findViewById(R.id.editTextFrette);
-        mEditTextDoigt = (EditText) findViewById(R.id.editTextDoigt);
-        mButtonSearch = (Button) findViewById(R.id.button_id);
-        versVitesse = (Button) findViewById(R.id.versvitesse);
-
         IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
         registerReceiver(mReceiver, mFilter);
         mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
@@ -87,6 +72,7 @@ public class TestBluetoothActivity extends AppCompatActivity {
 
         // Initialize and connect the BluetoothModule if none exists
         myDevice = ((MyApp)getApplicationContext()).getDevice();
+
     }
 
     @Override
@@ -99,7 +85,7 @@ public class TestBluetoothActivity extends AppCompatActivity {
 
 
     public void onClick_Connect(View v) {
-        /*
+
         // Irrelevant
         try {
             myDevice.connect();
@@ -109,7 +95,7 @@ public class TestBluetoothActivity extends AppCompatActivity {
             DialogFragment newFragment = new ErrorConnectFragment();
             newFragment.show(getSupportFragmentManager(), null);
         }
-        */
+
     }
 
     public void onClick_Next(View v) {
@@ -150,9 +136,11 @@ public class TestBluetoothActivity extends AppCompatActivity {
         return false;
     }
 
-    /*   public boolean testContinue () {
+/*      public boolean testContinue () {
         return true;
     }
 */
+
+
 
 }

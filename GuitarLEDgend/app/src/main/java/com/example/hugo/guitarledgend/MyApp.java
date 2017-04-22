@@ -40,12 +40,6 @@ public class MyApp extends Application {
             catch (Exception e) {
                 e.printStackTrace();
             }
-
-            try {
-                mDevice.connect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         return mDevice;
     }
