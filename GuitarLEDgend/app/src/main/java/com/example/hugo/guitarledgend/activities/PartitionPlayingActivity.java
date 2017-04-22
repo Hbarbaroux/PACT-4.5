@@ -89,13 +89,13 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         replay=intent.getIntExtra("replay",0);
         statId=intent.getLongExtra("statId",0);
 
-        IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+/*        IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
         registerReceiver(mReceiver, mFilter);
         mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         registerReceiver(mReceiver, mFilter);
         mFilter = new IntentFilter(BluetoothModule.ACTION_BATTERY_LOW);
         registerReceiver(mReceiver, mFilter);
-
+*/
 
         // Initialize and connect the BluetoothModule if none exists
         myDevice = ((MyApp)getApplicationContext()).getDevice();
