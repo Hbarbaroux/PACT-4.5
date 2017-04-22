@@ -151,22 +151,44 @@ public class PartitionPlayingActivity extends AppCompatActivity {
 
             wavRecorder.startRecording();
 
-            for (int i = 1;i<noteArray.size();i++){
+            if (mreplay==0){
+                for (int i = 1;i<noteArray.size();i++){
 
-                double t1 = (double) noteArray.get(i-1).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
-                double t2 = (double) noteArray.get(i).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
-                try {
-                    long delta = (long) (t2 - t1);
-                    synchronized (this) {
-                        this.wait(delta);
+                    double t1 = (double) noteArray.get(i-1).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
+                    double t2 = (double) noteArray.get(i).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
+                    try {
+                        long delta = (long) (t2 - t1);
+                        synchronized (this) {
+                            this.wait(delta);
+                        }
+                        int[] stringAndFret = findStringAndFretFromNote(noteArray.get(i));
+                        myDevice.send(stringAndFret[0]+1, stringAndFret[1]+1, 1); // doigt inutile pour l'instant
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    int[] stringAndFret = findStringAndFretFromNote(noteArray.get(i));
-                    myDevice.send(stringAndFret[0]+1, stringAndFret[1]+1, 1); // doigt inutile pour l'instant
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
+            else{
+                for (int i = mx1+1;i<mx2;i++){
+
+                    double t1 = (double) noteArray.get(i-1).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
+                    double t2 = (double) noteArray.get(i).getStartTime()*myTimeSignature.getTempo()/(myTimeSignature.getQuarter()*1000*facteur);
+                    try {
+                        long delta = (long) (t2 - t1);
+                        synchronized (this) {
+                            this.wait(delta);
+                        }
+                        int[] stringAndFret = findStringAndFretFromNote(noteArray.get(i));
+                        myDevice.send(stringAndFret[0]+1, stringAndFret[1]+1, 1); // doigt inutile pour l'instant
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
 
             wavRecorder.stopRecording();
             Intent intent2 = new Intent(PartitionPlayingActivity.this, PostPlayingActivity.class);
