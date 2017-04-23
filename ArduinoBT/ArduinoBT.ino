@@ -72,10 +72,18 @@ void loop() {
   if (incomingByte1 == 0 && incomingByte2 == 0 && incomingByte3 == 0) {
     // LEDs test
     if (incomingByte4 == 1) {
-      leds[ledarray[0]-1] = CRGB::White;
+      leds[ledarray[0]-1] = CRGB::Red;
       LEDS.show();
       delay(250);
-      for (int i=0;i<20;i++) {
+      leds[ledarray[0]-1] = CRGB::Black;
+      leds[ledarray[1]-1] = CRGB::Green;
+      LEDS.show();
+      delay(250);
+      leds[ledarray[1]-1] = CRGB::Black;
+      leds[ledarray[2]-1] = CRGB::Blue;
+      LEDS.show();
+      delay(250);
+      for (int i=2;i<20;i++) {
         leds[ledarray[i+1]-1] = CRGB::White;
         leds[ledarray[i]-1] = CRGB::Black;
         LEDS.show();
