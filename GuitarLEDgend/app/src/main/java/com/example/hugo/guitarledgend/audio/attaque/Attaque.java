@@ -1,5 +1,9 @@
 package com.example.hugo.guitarledgend.audio.attaque;
 
+import android.util.Log;
+import android.widget.ImageButton;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Attaque {
@@ -105,7 +109,36 @@ public class Attaque {
         }
         return a;
     }
+
+    private static ArrayList<Integer> maxi(Float[] signal) // finds max
+    {
+        ArrayList<Integer> indices = new ArrayList<>();
+        float a = signal[0];
+        for (int k = 0; k<signal.length; k++)
+        {
+            if (a<signal[k])
+            {
+                a = signal[k];
+                indices.add(k);
+            }
+        }
+        return indices;
+    }
+
+    private static Integer[] toList(ArrayList<Integer> signal) //takes an ArrayList<Complex> and gives the equivalent list of Complex
+
+    {
+        Integer[] res = new Integer[signal.size()];
+        for (int k=0; k<signal.size(); k++ )
+        {
+            res[k] = signal.get(k);
+        }
+        return res;
+    }
+
     public static Float[] attaque (Float[] signal, float fech, float a){
+        //float T = max(signal);
+        //Log.e("TAF",Float.toString(T));
         //prend en entr�e un signal et sa fr�quence d'�chantillonage et renvoie son attaque
         //on applique un filtre passe-haut au signal, avec comme fr�quence de coupure fech/2
         Float[] B = {(float)0.3370 , (float)-0.6740, (float)0.3370};
@@ -115,21 +148,64 @@ public class Attaque {
         //print(sigp);
 
         Float[] env = enveloppe(signal, a);
-        //System.out.println(max(env));
+        float T = max(env);
+        Log.e("TAF",Float.toString(T));
         env = decfreq(env,fech,441);
-        //print(env);
+        T = max(env);
+        Log.e("TAF",Float.toString(T));
         //on estime qu'une enveloppe n'a pas beaucoup de fr�quences >200 Hz, donc on se permet
         //de diminuer sa fr�quence d'�chantillonage � 400 Hz
         env=dB(env);
+        T = max(env);
+        Log.e("TAF",Float.toString(T));
+        print("TADDDD",Arrays.copyOfRange(env, 0,27));
         //print(env);
         Float[] derenv = derivLarge(env, 20);
+        Integer[] indices = toList(maxi(derenv));
+        T = max(derenv);
+        Log.e("TAF",Float.toString(T));
+        print("TADD",indices);
         //print(derenv);
         Float[] aderenv = new Float[derenv.length];
         for (int i = 0; i<derenv.length; i++){
             aderenv[i]=Math.max(0,derenv[i]);
         }
         //print(aderenv);
+        T = max(aderenv);
+        Log.e("TAF",Float.toString(T));
         return aderenv;
+    }
+
+    public static void print(String tag, Float[] env){
+        String rep = "";
+        for (int i=0;i<env.length;i++){
+            if (i==0) {
+                rep=rep+"["+env[i];
+            }
+            else if (i==env.length-1){
+                rep=rep+";"+env[i]+"]";
+            }
+            else {
+                rep=rep+";"+env[i];
+            }
+        }
+        Log.e(tag,rep);
+    }
+
+    public static void print(String tag, Integer[] env){
+        String rep = "";
+        for (int i=0;i<env.length;i++){
+            if (i==0) {
+                rep=rep+"["+env[i];
+            }
+            else if (i==env.length-1){
+                rep=rep+";"+env[i]+"]";
+            }
+            else {
+                rep=rep+";"+env[i];
+            }
+        }
+        Log.e(tag,rep);
     }
 
 }

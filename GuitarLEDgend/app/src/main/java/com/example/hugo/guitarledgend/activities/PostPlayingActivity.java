@@ -125,7 +125,8 @@ public class PostPlayingActivity extends AppCompatActivity {
         Tablature maTablature = createTablature(filename, facteur);
 
         CompTable compTable = new CompTable(null, 0);
-        compTable = compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/audiorecordtest.wav",maTablature);
+        compTable = compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/melodie" +
+                ".wav",maTablature);
 
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
         if (!dir.exists()) {
@@ -335,7 +336,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
 
 
-    public void fileCreation(Boolean[] bolTab) {
+    public void fileCreation(boolean[] bolTab) {
         File phone = this.getFilesDir();
 
         File dir = new File(phone.getPath() + "/statsData/reception/");

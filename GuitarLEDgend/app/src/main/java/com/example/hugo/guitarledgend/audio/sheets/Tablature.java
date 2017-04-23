@@ -46,7 +46,7 @@ public class Tablature {
             else{
                 demitons = frette[i]-2+(corde[i]-1)*5;}
             //nb de demi-tons de la note par rapport au mi grave
-            freq[i]=(float)(82.5*(Math.pow(2,demitons/12)));
+            freq[i]=(float)(82.5*(Math.pow(2,(float)demitons/12)));
         }
         Tabnotes tabnotes = new Tabnotes (temps,freq);
         return tabnotes;
