@@ -72,18 +72,10 @@ void loop() {
   if (incomingByte1 == 0 && incomingByte2 == 0 && incomingByte3 == 0) {
     // LEDs test
     if (incomingByte4 == 1) {
-      leds[ledarray[0]-1] = CRGB::Red;
+      leds[ledarray[0]-1] = CRGB::White;
       LEDS.show();
       delay(250);
-      leds[ledarray[0]-1] = CRGB::Black;
-      leds[ledarray[1]-1] = CRGB::Green;
-      LEDS.show();
-      delay(250);
-      leds[ledarray[1]-1] = CRGB::Black;
-      leds[ledarray[2]-1] = CRGB::Blue;
-      LEDS.show();
-      delay(250);
-      for (int i=2;i<20;i++) {
+      for (int i=0;i<20;i++) {
         leds[ledarray[i+1]-1] = CRGB::White;
         leds[ledarray[i]-1] = CRGB::Black;
         LEDS.show();
@@ -119,24 +111,27 @@ void loop() {
     
     int hue;
     if (incomingByte1 == 1) {
-      hue = 128;
+      hue = 0; // red
     }
     else if (incomingByte1 == 2) {
-      hue = 0;
+      hue = 64; // yellow
     }
     else if (incomingByte1 == 3) {
-      hue = 64;
+      hue = 96; // green
     }
     else if (incomingByte1 == 4) {
-      hue = 96;
+      hue = 128; // aqua
+    }
+    else if (incomingByte1 == 5) {
+      hue = 160; // blue
     }
     else {
-      hue = 160;
+      hue = 208; // pink/purple
     }
     
     int lednumber=10 * incomingByte2 + incomingByte3;
 
-    
+    /*
     // Shift of hue on same note
     if (previousLed != lednumber) {
       previousLed = lednumber;
@@ -144,6 +139,17 @@ void loop() {
     else {
       hue += 11; // Adjust to be visible enough without looking like another note
       previousLed = 0;
+    }
+    */
+
+    // Black out on same note
+    if (previousLed != lednumber) {
+      previousLed = lednumber;
+    }
+    else {
+      FastLED.clear();
+      LEDS.show();
+      delay(200);
     }
     
     CHSV color = CHSV(hue, 255, brightness);
