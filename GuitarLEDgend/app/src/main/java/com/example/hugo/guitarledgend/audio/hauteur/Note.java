@@ -1,5 +1,7 @@
 package com.example.hugo.guitarledgend.audio.hauteur;
 
+import android.util.Log;
+
 import java.util.*;
 import com.example.hugo.guitarledgend.audio.comparaison.Tabnotes;
 import com.example.hugo.guitarledgend.audio.attaque.Attaque;
@@ -134,13 +136,26 @@ public class Note {
 
     private static ArrayList<Float> oppose(ArrayList<Float> echantillon) // Multiplies ArrayList by -1
     {
+        ArrayList<Float> rep = new ArrayList<>();
         for (int k=0; k<echantillon.size(); k++)
         {
             float a = echantillon.get(k);
-            echantillon.remove(k);
-            echantillon.add(k, -1*a*a);
+            rep.add(k, -1*a);
         }
-        return echantillon;
+        return rep;
+    }
+
+    private static ArrayList<Float> retourne(ArrayList<Float> echantillon) // retourne l’arralyst
+    {
+        int N;
+        N = echantillon.size();
+        ArrayList<Float> res = new ArrayList<Float>();
+        for (int k=0; k<N; k++)
+        {
+            float a = echantillon.get(N-k-1);
+            res.add(k, a);
+        }
+        return res;
     }
 
     private static ArrayList<Complex> multTaT(ArrayList<Complex> signal, ArrayList<Complex> signalb) // Multiplies term by term two ArrayLists
@@ -186,7 +201,7 @@ public class Note {
         {
             k++;
         }
-        org.apache.commons.math3.complex.Complex[] sig = new Complex[((int)Math.pow(2, k))];
+        Complex[] sig = new Complex[((int)Math.pow(2, k))];
         sig = toListComplex(signal);
         for (int j = signal.size()+1; j<sig.length; j++)
         {
@@ -212,7 +227,7 @@ public class Note {
             j *= Math.pow(2,(float)1/12);
         }
         q = maxIndex(frequencies);
-        return (float) Math.pow((82.5*2), ((q)/12));
+        return (float) (82.5*Math.pow(2, ((q-2)/12)));
     }
 
     public static Tabnotes sheet(Float[] signal) // takes a played song and writes the sheet
@@ -222,16 +237,19 @@ public class Note {
         ArrayList<Integer> lim = new ArrayList<Integer>();
         ArrayList<Float> timetable = new ArrayList<Float>();
         ArrayList<Float> freqtable = new ArrayList<Float>();
+//        Log.e("att",Integer.toString(att.size()));
         int i = 0;
         float M = max(att);
+//        Log.e("M",Float.toString(M));
         while (i < (att.size()-1))
         {
-            while (att.get(i) < (float)0.1*M && i < (att.size()-1))
+            while (att.get(i) < (float)0.2*M && i < (att.size()-1))
             {
                 i++;
             }
             lim.add(i);
-            while (att.get(i) >= (float)0.1*M && i < (att.size()-1))
+            //Log.e("lim",Integer.toString(lim.size()));
+            while (att.get(i) >= (float)0.2*M && i < (att.size()-1))
             {
                 i++;
             }
@@ -250,14 +268,49 @@ public class Note {
                 if (freq > 50 && freq < 2000)
                 {
                     freqtable.add(freq);
-                    timetable.add((float)mont.get(j)/400);
+                    timetable.add((float)mont.get(j)/441);
                 }
             }
         }
         Float[] freqlist = toList (freqtable);
         Float[] timelist = toList(timetable);
         Tabnotes sheet = new Tabnotes (timelist, freqlist);
+        Log.e("ntime",Integer.toString(timelist.length));
+        Log.e("nfreq",Integer.toString(freqlist.length));
+        print("time",timelist);
+        print("freq",freqlist);
         return sheet;
     }
+
+    public static void print(String tag, Float[] env){
+        String rep = "";
+        for (int i=0;i<env.length;i++){
+            if (i==0) {
+                rep=rep+"["+env[i];
+            }
+            else if (i==env.length-1){
+                rep=rep+";"+env[i]+"]";
+            }
+            else {
+                rep=rep+";"+env[i];
+            }
+        }
+        Log.e(tag,rep);
+    }
+
+
+ /*   public static ArrayList<Complex> autocorr(ArrayList<Float> signal) {
+        int N = signal.size();
+        int temp;
+        ArrayList<Complex> cor = new ArrayList<>();
+        for (int k = 0 ; k<N ; k++) {
+            temp = 0;
+            for (int i = 0 ; i < N-k ; i++) {
+                temp += signal.get(i)*signal.get(i+k);
+            }
+            cor.add(k,new Complex(temp,0));
+        }
+        return cor;
+    }*/
 
 }
