@@ -266,7 +266,8 @@ public class Note {
         float z = 0;
         while (j<2000)
         {
-            frequencies.add(correl(signal, (int)Math.floor((44100/j))));
+            z = (float) correl.get((int) Math.floor(44100/j)).getReal();
+            frequencies.add(z);
             j *= Math.pow(2,(float)1/12);
         }
         q = maxIndex(frequencies);
