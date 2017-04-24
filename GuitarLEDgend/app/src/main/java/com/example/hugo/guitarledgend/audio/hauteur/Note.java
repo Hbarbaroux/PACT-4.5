@@ -129,7 +129,6 @@ public class Note {
         for (int k = startIndex; k < (endIndex + 1) ; k++)
         {
             subTab.add(signal[k]);
-            k++;
         }
         return subTab;
     }
@@ -213,7 +212,7 @@ public class Note {
 
     }
 
-    private static float findFreq(ArrayList<Float> signal) //finds frequency by auto-corelation method
+    /*private static float findFreq(ArrayList<Float> signal) //finds frequency by auto-corelation method
     {
 
         int ms = (int) 441/5;
@@ -225,7 +224,7 @@ public class Note {
         return 44100/(ms + argMax - 1);
     }
 
- /*   public static final float findFreq(ArrayList<Float> signal){ //finds frequency by auto-corelation method
+    public static final float findFreq(ArrayList<Float> signal){ //finds frequency by auto-corelation method
 
         int ms2 = (int) 44100/500 ;
         int ms20 = (int) 44100/50 ;
@@ -256,22 +255,23 @@ public class Note {
         }
         float t = (float)(a/(Math.sqrt(b*c)));
         return t;
-    }
+    }*/
 
     private static float findFreq(ArrayList<Float> signal) //finds frequency by autocorrelation method
     {
+        ArrayList<Complex> correl = ifft(multTaT(fft(signal),fft(retourne(signal))));
         ArrayList<Float> frequencies = new ArrayList<Float>();
         float j = (float) 82.5;
         float q = 0;
         float z = 0;
         while (j<2000)
         {
-            frequencies.add(autocorrelation(signal, (int)Math.floor((44100/j))));
+            frequencies.add(correl(signal, (int)Math.floor((44100/j))));
             j *= Math.pow(2,(float)1/12);
         }
         q = maxIndex(frequencies);
-        return (float) (82.5*Math.pow(2, ((q+23)/12)));
-    }*/
+        return (float) (82.5*Math.pow(2, ((q)/12)));
+    }
 
     public static Tabnotes sheet(Float[] signal) // takes a played song and writes the sheet
     {
