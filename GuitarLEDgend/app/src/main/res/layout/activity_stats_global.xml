@@ -36,11 +36,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/high_scores"
-        android:layout_marginTop="92dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/dernieres_stats" />
-
-
+        android:layout_marginBottom="45dp" />
 
 
 </RelativeLayout>
