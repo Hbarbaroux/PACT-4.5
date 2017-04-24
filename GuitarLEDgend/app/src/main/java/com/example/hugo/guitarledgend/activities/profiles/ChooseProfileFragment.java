@@ -2,6 +2,7 @@ package com.example.hugo.guitarledgend.activities.profiles;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -48,7 +49,10 @@ public class ChooseProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile_choose, container, false);
 
         textView = (TextView) rootView.findViewById(R.id.nom_profile);
+        Typeface century = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Century Gothic.ttf");
+        textView.setTypeface(century);
         textView2 = (TextView) rootView.findViewById(R.id.age_profile);
+        textView2.setTypeface(century);
         database = new UserDAO(getActivity());
         database.open();
         String name=database.selectionnerProfile(id).getNom();

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -25,6 +26,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.hugo.guitarledgend.MyApp;
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.ChooseSpeedActivity;
+
+import org.w3c.dom.Text;
 
 public class TestBluetoothActivity extends AppCompatActivity {
 
@@ -58,6 +61,20 @@ public class TestBluetoothActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_test_bluetooth);
+
+        Typeface century = Typeface.createFromAsset(getAssets(), "fonts/Century Gothic Bold.ttf");
+
+        TextView title = (TextView) findViewById(R.id.info4);
+        title.setTypeface(century);
+
+        TextView textConnect = (TextView) findViewById(R.id.buttonConnect);
+        textConnect.setTypeface(century);
+
+        TextView textTest = (TextView) findViewById(R.id.buttonTest);
+        textTest.setTypeface(century);
+
+        TextView textVitesse = (TextView) findViewById(R.id.versvitesse);
+        textVitesse.setTypeface(century);
 
         IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
         registerReceiver(mReceiver, mFilter);
@@ -129,17 +146,18 @@ public class TestBluetoothActivity extends AppCompatActivity {
         Log.d("Resultat 1: ", String.valueOf(resultatTests[1]));
     }
 
-    public boolean testContinue () {
+/*    public boolean testContinue () {
         if ((resultatTests[0] == 1) && (resultatTests[1] == 1)) {
             return true;
         }
         return false;
     }
+*/
 
-/*      public boolean testContinue () {
+      public boolean testContinue () {
         return true;
     }
-*/
+
 
 
 

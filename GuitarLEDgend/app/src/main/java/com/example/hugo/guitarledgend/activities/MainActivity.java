@@ -1,6 +1,7 @@
 package com.example.hugo.guitarledgend.activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
@@ -24,6 +26,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        TextView title = (TextView) findViewById(R.id.info2);
+        Typeface century = Typeface.createFromAsset(getAssets(), "fonts/Century Gothic Bold.ttf");
+        title.setTypeface(century);
+
 
         Button statsButton = (Button) findViewById(R.id.stats_button);
         statsButton.setOnClickListener(new View.OnClickListener() {

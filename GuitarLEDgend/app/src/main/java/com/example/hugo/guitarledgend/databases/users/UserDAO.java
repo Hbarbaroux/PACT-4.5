@@ -126,16 +126,22 @@ public class UserDAO {
 */
 
     public int nombreProfils () {
+        int i = 0;
         Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.PROFILE_TABLE_NAME, null);
         c.moveToFirst();
-        return c.getInt(0);
+        i=c.getInt(0);
+        c.close();
+        return i;
     }
 
     public int nombreStats (long profile, long partition){
+        int i = 0;
         String whereClause = UsersSQLiteHelper.STATS_PROFILE+" = " + String.valueOf(profile) + " AND " +UsersSQLiteHelper.STATS_PARTITION+" = " + String.valueOf(partition);
         Cursor c = mDb.rawQuery("SELECT COUNT(*) FROM "+ UsersSQLiteHelper.STATS_TABLE_NAME + " WHERE " + whereClause, null);
         c.moveToFirst();
-        return c.getInt(0);
+        i = c.getInt(0);
+        c.close();
+        return i;
     }
 
     public Profile selectionnerProfile (long id){
@@ -145,8 +151,10 @@ public class UserDAO {
         c.moveToFirst();
         if (!c.isAfterLast()) {
             Profile p = cursorToProfile(c);
+            c.close();
             return p;
         }
+        c.close();
         return null;
     }
 
@@ -157,8 +165,10 @@ public class UserDAO {
         c.moveToFirst();
         if (!c.isAfterLast()) {
             Stats s = cursorToStats(c);
+            c.close();
             return s;
         }
+        c.close();
         return null;
     }
 

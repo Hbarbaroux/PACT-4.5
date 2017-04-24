@@ -271,11 +271,11 @@ public class PartitionPlayingActivity extends AppCompatActivity {
     public int[] findStringAndFretFromNote(MidiNote note) {
         int noteNumber = note.getNumber();
         int corde = (noteNumber-41)/5; // from 0
-        if (corde > 6) { // guitar limited to 6 strings
-            corde = 6;
+        if (corde > 5) { // guitar limited to 6 strings
+            corde = 5;
         }
         int frette = noteNumber-41-corde*5; // from 0
-        if (corde >= 5) { // increment of 4 instead of 5 from the 4th to the 5th string
+        if (corde >= 4) { // increment of 4 instead of 5 from the 4th to the 5th string
             frette ++;
         }
 

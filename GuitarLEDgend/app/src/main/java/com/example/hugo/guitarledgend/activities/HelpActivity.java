@@ -1,5 +1,6 @@
 package com.example.hugo.guitarledgend.activities;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -12,8 +13,12 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-
+        TextView helpTitle = (TextView) findViewById(R.id.help_title);
+        Typeface centuryb = Typeface.createFromAsset(getAssets(), "fonts/Century Gothic Bold.ttf");
+        helpTitle.setTypeface(centuryb);
         TextView helpText = (TextView) findViewById(R.id.help);
+        Typeface century = Typeface.createFromAsset(getAssets(), "fonts/Century Gothic.ttf");
+        helpText.setTypeface(century);
         helpText.setText("PROFILS : \n " +
                 "Vous pouvez changer de profil à tout moment. " +
                 "Pour cela, sélectionnez le menu déroulant sur le côté, et cliquez sur Profils. " +

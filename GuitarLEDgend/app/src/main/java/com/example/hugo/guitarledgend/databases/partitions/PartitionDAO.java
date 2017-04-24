@@ -95,6 +95,7 @@ public class PartitionDAO {
         Cursor c = mDb.query(PartitionsSQLiteHelper.PARTITION_TABLE_NAME, null, whereClause, args, null, null, null);
         c.moveToFirst();
         Partition p = cursorToPartition(c);
+        c.close();
         return p;
     }
 
