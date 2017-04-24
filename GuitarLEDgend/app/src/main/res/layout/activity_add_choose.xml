@@ -3,15 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        style="@style/button"
-        android:text="@string/choisirPartition"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/choisirPartition_button"
-        android:layout_marginTop="92dp"
-        android:layout_centerHorizontal="true" />
 
     <Button
         style="@style/button"
@@ -23,5 +14,28 @@
         android:layout_marginTop="92dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/choisirPartition_button" />
+
+    <TextView
+        android:text="Que souhaitez-vous faire ?"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:textSize="30sp"
+        android:id="@+id/info2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="@style/button"
+        android:text="@string/choisirPartition"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/choisirPartition_button"
+        android:layout_marginTop="76dp"
+        android:layout_below="@+id/info2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

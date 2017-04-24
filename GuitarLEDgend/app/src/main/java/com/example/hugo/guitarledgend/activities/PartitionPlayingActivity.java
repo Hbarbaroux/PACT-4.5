@@ -6,39 +6,28 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.hugo.guitarledgend.MyApp;
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.audio.WavRecorder;
-import com.example.hugo.guitarledgend.audio.sheets.Tablature;
-import com.example.hugo.guitarledgend.bluetooth.BluetoothModule;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFile;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiFileException;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiNote;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiTrack;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.TimeSignature;
-import com.example.hugo.guitarledgend.bluetooth.ErrorConnectFragment;
-import com.example.hugo.guitarledgend.bluetooth.TestBluetoothActivity;
+import com.example.hugo.guitarledgend.bluetooth.BluetoothModule;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -49,7 +38,7 @@ public class PartitionPlayingActivity extends AppCompatActivity {
     private ArrayList<MidiNote> mNotes;
     private TimeSignature mTimeSignature;
     private long  partition_id=0;
-    private int vitesse; // vitesse normale : 10.
+    private int vitesse; // vitesse normale : 100.
     private PartitionDAO database;
     private int x1;
     private int x2;
@@ -129,7 +118,7 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         private Future<?> publisher = null;
         private ArrayList<MidiNote> noteArray;
         private TimeSignature myTimeSignature;
-        private float facteur = vitesse/10;
+        private float facteur = vitesse/100;
         private final int mx1 = x1;
         private final int mx2 = x2;
         private final int mreplay = replay;

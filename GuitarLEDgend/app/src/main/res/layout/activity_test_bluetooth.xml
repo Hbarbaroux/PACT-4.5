@@ -12,7 +12,8 @@
     >
 
     <Button
-        android:background="@drawable/buttons"
+        android:textSize="30sp"
+        style="@style/button"
         android:text="Vers Vitesse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,30 +22,44 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="91dp" />
+        android:layout_marginBottom="27dp" />
 
     <Button
-        android:background="@drawable/buttons"
+        style="@style/button"
+        android:text="Test"
+        android:textSize="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonTest"
+        android:onClick="onClick_Test"
+        android:layout_marginBottom="107dp"
+        android:layout_above="@+id/versvitesse"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:textSize="30sp"
+        style="@style/button"
         android:text="Connect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonConnect"
         android:onClick="onClick_Connect"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/buttonTest"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="62dp" />
+        android:layout_marginBottom="71dp" />
 
-    <Button
-        android:background="@drawable/buttons"
-        android:text="Test"
+    <TextView
+        android:text="Tests de connectivité Bluetooth"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonTest"
-        android:onClick="onClick_Test"
-        android:layout_below="@+id/buttonConnect"
+        android:layout_marginTop="35dp"
+        android:textSize="30sp"
+        android:id="@+id/info2"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

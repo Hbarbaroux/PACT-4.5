@@ -125,7 +125,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         Tablature maTablature = createTablature(filename, facteur);
 
         CompTable compTable = new CompTable(null, 0);
-        compTable = compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/melodie" +
+        compTable = compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/audiorecordtest" +
                 ".wav",maTablature);
 
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
@@ -324,19 +324,18 @@ public class PostPlayingActivity extends AppCompatActivity {
         titleView2.setText(title2);
         titleView2.setTextSize(25);
 
-        TextView score_view = (TextView) findViewById(R.id.score);
-        score_view.setText(String.valueOf(score)+"%");
+        TextView score_view = (TextView) findViewById(R.id.reussis);
+        score_view.setText("Pourcentage de notes réussies : " + String.valueOf(score)+"%");
 
-
-
-
+        TextView entrop = (TextView) findViewById((R.id.rate));
+        entrop.setText("Nombre de notes jouées en trop ou en moins : " + String.valueOf(Math.abs(compTable.getentrop())));
     }
 
 
 
 
 
-    public void fileCreation(boolean[] bolTab) {
+  /*  public void fileCreation(boolean[] bolTab) {
         File phone = this.getFilesDir();
 
         File dir = new File(phone.getPath() + "/statsData/reception/");
@@ -371,7 +370,7 @@ public class PostPlayingActivity extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 
     //methode provisoire
     /*
@@ -415,7 +414,8 @@ public class PostPlayingActivity extends AppCompatActivity {
     */
 
     //methode provisoire: cree un fichier faux des resultats aleatoirement dans le dossier reception
-    public void fileCreation() {
+    public void fileCreation(boolean[] tab) {
+        int n = tab.length;
         File phone = this.getFilesDir();
 
         File dir = new File(phone.getPath()+"/statsData/reception/");
@@ -432,9 +432,9 @@ public class PostPlayingActivity extends AppCompatActivity {
             f.createNewFile();
             pw = new PrintWriter(f);
 
-            for (int i=0;i<50;i++){
+            for (int i=0;i<n;i++){
                 double r = Math.random();
-                if (r<0.5)
+                if (r<0.6)
                     pw.println(0);
                 else
                     pw.println(1);

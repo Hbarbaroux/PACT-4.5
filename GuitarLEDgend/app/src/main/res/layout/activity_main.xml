@@ -52,6 +52,18 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context="com.example.hugo.guitarledgend.activities.MainActivity">
 
+
+            <TextView
+                android:text="MENU"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="30sp"
+                android:id="@+id/info2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
             <Button
                 style="@style/button"
                 android:text="@string/startPlay"
@@ -59,8 +71,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/startPlay_button"
-                android:layout_marginTop="92dp"
-                android:layout_centerHorizontal="true"/>
+                android:layout_marginTop="42dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/info2"/>
 
             <Button
                 style="@style/button"
@@ -69,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/stats_button"
-                android:layout_marginTop="92dp"
+                android:layout_marginTop="60dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/startPlay_button" />
 

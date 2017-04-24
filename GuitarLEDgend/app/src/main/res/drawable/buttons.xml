@@ -7,7 +7,7 @@
             <item>
                 <shape xmlns:android="http://schemas.android.com/apk/res/android">
                     <solid android:color="#000000"/>
-                    <corners android:radius="30sp"/>
+                    <corners android:radius="10sp"/>
                 </shape>
             </item>
             <item>
@@ -18,7 +18,7 @@
                         android:endColor="#edce7d"
                         android:startColor="@color/colorButtonPressed"
                         android:type="linear" />
-                    <corners android:radius="30sp" />
+                    <corners android:radius="10sp" />
                     <padding
                         android:left="20dp"
                         android:right="20dp"
@@ -34,7 +34,7 @@
             <item>
                 <shape xmlns:android="http://schemas.android.com/apk/res/android">
                     <solid android:color="#000000"/>
-                    <corners android:radius="30sp"/>
+                    <corners android:radius="10sp"/>
                 </shape>
             </item>
             <item>
@@ -45,7 +45,7 @@
                         android:endColor="#edce7d"
                         android:startColor="@color/colorButton"
                         android:type="linear" />
-                    <corners android:radius="30sp" />
+                    <corners android:radius="10sp" />
                     <padding
                         android:left="20dp"
                         android:right="20dp"
