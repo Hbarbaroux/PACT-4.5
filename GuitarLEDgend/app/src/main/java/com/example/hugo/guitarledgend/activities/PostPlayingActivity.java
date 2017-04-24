@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hugo.guitarledgend.MyApp;
 import com.example.hugo.guitarledgend.R;
 import com.example.hugo.guitarledgend.activities.profiles.ProfilesActivity;
 import com.example.hugo.guitarledgend.activities.stats.ChoosePartitionInStatsActivity;
@@ -26,6 +27,7 @@ import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiNote;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.MidiTrack;
 import com.example.hugo.guitarledgend.audio.midisheetmusic.TimeSignature;
 import com.example.hugo.guitarledgend.audio.sheets.Tablature;
+import com.example.hugo.guitarledgend.bluetooth.BluetoothModule;
 import com.example.hugo.guitarledgend.databases.partitions.Partition;
 import com.example.hugo.guitarledgend.databases.partitions.PartitionDAO;
 import com.example.hugo.guitarledgend.databases.users.Stats;
@@ -72,6 +74,8 @@ public class PostPlayingActivity extends AppCompatActivity {
     private long statId;
 
     private long partition_id;
+    private BluetoothModule myDevice;
+
 
 
 
@@ -114,6 +118,9 @@ public class PostPlayingActivity extends AppCompatActivity {
         final int replay=intent.getIntExtra("replay",0);
         final float facteur=intent.getFloatExtra("facteur", 1);
 
+        myDevice = ((MyApp)getApplicationContext()).getDevice();
+        myDevice.disconnect();
+
         database_partition = new PartitionDAO(PostPlayingActivity.this);
         database_partition.open();
 
@@ -122,11 +129,15 @@ public class PostPlayingActivity extends AppCompatActivity {
         File sdcard = Environment.getExternalStorageDirectory();
         File file = new File(sdcard, "GuitarLEDgend/midiFiles/" + filename);
 
-        Tablature maTablature = createTablature(filename, facteur);
+        Tablature maTablature = null;
 
         CompTable compTable = new CompTable(null, 0);
-        compTable = compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/audiorecordtest" +
-                ".wav",maTablature);
+        if (replay==0){
+            maTablature=createTablature(filename, facteur);
+            compTable = compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/audiorecordtest" +
+                    ".wav",maTablature);
+        }
+
 
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
         if (!dir.exists()) {
@@ -326,9 +337,11 @@ public class PostPlayingActivity extends AppCompatActivity {
 
         TextView score_view = (TextView) findViewById(R.id.reussis);
         score_view.setText("Pourcentage de notes réussies : " + String.valueOf(score)+"%");
+        score_view.setTextSize(17);
 
         TextView entrop = (TextView) findViewById((R.id.rate));
-        entrop.setText("Nombre de notes jouées en trop ou en moins : " + String.valueOf(Math.abs(compTable.getentrop())));
+        entrop.setText("Notes jouées en trop ou en moins : " + String.valueOf(Math.abs(compTable.getentrop())));
+        entrop.setTextSize(17);
     }
 
 

@@ -118,7 +118,7 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         private Future<?> publisher = null;
         private ArrayList<MidiNote> noteArray;
         private TimeSignature myTimeSignature;
-        private float facteur = vitesse/100;
+        private float facteur = (float)vitesse/100;
         private final int mx1 = x1;
         private final int mx2 = x2;
         private final int mreplay = replay;

@@ -136,14 +136,14 @@ public class Attaque {
         return res;
     }
 
-    public static Float[] attaque (Float[] signal, float fech, float a){
+    public static Float[] attaque (Float[] signalo, float fech, float a){
         //float T = max(signal);
         //Log.e("TAF",Float.toString(T));
         //prend en entr�e un signal et sa fr�quence d'�chantillonage et renvoie son attaque
         //on applique un filtre passe-haut au signal, avec comme fr�quence de coupure fech/2
         Float[] B = {(float)0.3370 , (float)-0.6740, (float)0.3370};
         Float[] A = {(float)1, (float)-0.1712, (float)0.1768};
-        signal = filter(B,A,signal);
+        Float[] signal = filter(B,A,signalo);
         //Float [] sigp = Arrays.copyOfRange(signal,0,100000);
         //print(sigp);
 

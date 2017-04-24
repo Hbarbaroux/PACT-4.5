@@ -20,7 +20,7 @@ public class AddChooseActivity extends AppCompatActivity {
 
         apa=this;
 
-        Button choisirPartitionButton = (Button) findViewById(R.id.choisirPartition_button);
+        Button choisirPartitionButton = (Button) findViewById(R.id.choisirPartition_butto);
         choisirPartitionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(AddChooseActivity.this, ChoosePartitionActivity.class);
