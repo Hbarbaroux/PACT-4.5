@@ -22,6 +22,7 @@ import java.util.List;
 public class ChooseProfileFragment extends Fragment {
 
     long id2;
+    TextView textView2;
     TextView textView;
     Button next_button;
     Button delete_button;
@@ -47,13 +48,15 @@ public class ChooseProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile_choose, container, false);
 
         textView = (TextView) rootView.findViewById(R.id.nom_profile);
+        textView2 = (TextView) rootView.findViewById(R.id.age_profile);
         database = new UserDAO(getActivity());
         database.open();
         String name=database.selectionnerProfile(id).getNom();
+        int age = database.selectionnerProfile(id).getAge();
         textView.setText(name);
+        textView2.setText(String.valueOf(age));
 
         id2=id;
-
 
 
         database = new UserDAO(getActivity());

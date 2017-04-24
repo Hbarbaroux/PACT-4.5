@@ -19,7 +19,7 @@ SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 
 #define NUM_FRETTES 21
 CRGB leds[NUM_LEDS];
-int ledarray[]={1,6,11,15,19,23,27,30,34,37,40,43,45,48,50,52,54,56,58,60,62};
+int ledarray[]={1,6,11,15,19,23,27,31,34,37,41,43,45,48,50,52,54,56,58,60,62};
 int ledarray2[]={1,3,5,7,9,11,13,15,18,20,23,26,29,33,36,40,44,48,52,57,62};
 int dot = 0;
 int brightness = 128;

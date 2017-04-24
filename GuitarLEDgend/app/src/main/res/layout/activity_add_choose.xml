@@ -15,6 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/choisirPartition_butto" />
 
+
     <TextView
         android:text="Que souhaitez-vous faire ?"
         android:gravity="center"
