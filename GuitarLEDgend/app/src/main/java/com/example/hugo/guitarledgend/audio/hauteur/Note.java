@@ -255,7 +255,7 @@ public class Note {
         }
         float t = (float)(a/(Math.sqrt(b*c)));
         return t;
-    }*/
+    }
 
     private static float findFreq(ArrayList<Float> signal) //finds frequency by autocorrelation method
     {
@@ -272,6 +272,37 @@ public class Note {
         }
         q = maxIndex(frequencies);
         return (float) (82.5*Math.pow(2, ((q)/12)));
+    }*/
+
+
+    private static float findFreq(ArrayList<Float> signal){
+        ArrayList<Complex> fourier = fft(signal);
+
+        float imax = (float)0.0;
+        for (int i=0 ; i<fourier.size()/2 ; i++){
+            if (fourier.get(i).abs()>fourier.get((int)imax).abs()) imax=(float)i;
+        }
+        initFreqTable();
+        imax=44100*imax/signal.size();
+        float minecart = Math.abs(imax-freqtable.get(0));
+        float ecart;
+        int freqindex = 0;
+        for (int i=0  ; i<50;i++){
+            ecart = Math.abs(imax-freqtable.get(i));
+            if (ecart<minecart) freqindex = i; minecart = ecart;
+        }
+        return freqtable.get(freqindex);
+    }
+
+    private static ArrayList<Float> freqtable;
+
+    private static void initFreqTable(){
+        float a = (float)82.5;
+        freqtable.add(a);
+        for (int i=0; i<50; i++){
+            freqtable.add(a);
+            a=a*(float)Math.pow(2, (double)1/12);
+        }
     }
 
     public static Tabnotes sheet(Float[] signal) // takes a played song and writes the sheet
