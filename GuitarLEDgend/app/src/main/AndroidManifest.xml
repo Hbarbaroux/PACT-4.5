@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
-        android:name="com.example.hugo.guitarledgend.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon_appli"
         android:label="@string/app_name"
@@ -50,7 +50,7 @@
             android:label="@string/title_activity_test_playing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.PreferencesModifyPartitionActivity" />
-
+        <activity android:name=".activities.stats.HighScoresActivity"></activity>
     </application>
 
 </manifest>

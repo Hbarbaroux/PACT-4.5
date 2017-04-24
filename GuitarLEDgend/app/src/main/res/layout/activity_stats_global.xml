@@ -29,6 +29,17 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/graph" />
 
+    <Button
+        style="@style/button"
+        android:text="@string/high_scores"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/high_scores"
+        android:layout_marginTop="92dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/dernieres_stats" />
+
 
 
 

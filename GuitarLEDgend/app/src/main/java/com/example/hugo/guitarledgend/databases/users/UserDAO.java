@@ -197,6 +197,23 @@ public class UserDAO {
         return profile;
     }
 
+    public List<Stats> getAllStats(long partition){
+        List<Stats> stats = new ArrayList<Stats>();
+        String p= String.valueOf(partition);
+        String[] args = new String[] {p};
+        String whereClause = UsersSQLiteHelper.STATS_PARTITION+" = ?";
+        String orderBy = UsersSQLiteHelper.STATS_SCORE + " DESC";
+        Cursor cursor = mDb.query (UsersSQLiteHelper.STATS_TABLE_NAME, null,whereClause,args,null,null,orderBy);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Stats s = cursorToStats(cursor);
+            stats.add(s);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return stats;
+    }
+
     public List<Stats> getAllStats(long profile, long partition){
         List<Stats> stats = new ArrayList<Stats>();
 

@@ -70,6 +70,15 @@ public class StatsGlobalActivity extends AppCompatActivity {
             }
         });
 
+        Button highScores = (Button) findViewById(R.id.high_scores);
+        highScores.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(StatsGlobalActivity.this, HighScoresActivity.class);
+                intent.putExtra("partition_id", (long) partition_id);
+                startActivity(intent);
+            }
+        });
+
 
         //GRAPHE
 
