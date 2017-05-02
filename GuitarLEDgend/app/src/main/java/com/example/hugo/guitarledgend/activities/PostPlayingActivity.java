@@ -237,7 +237,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
             //guardar el id de la estadistica y transmitirlo en el intent si replay para reconstruir el grafico
             List<Stats> values = database.getAllStats(user_id,partition_id);
-            statId= values.get(values.size()-1).getId();
+            statId= values.get(0).getId();
 
             database_partition = new PartitionDAO(PostPlayingActivity.this);
             database_partition.open();
