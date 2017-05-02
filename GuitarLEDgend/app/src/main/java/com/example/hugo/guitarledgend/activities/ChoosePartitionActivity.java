@@ -64,7 +64,7 @@ public class ChoosePartitionActivity extends AppCompatActivity {
                 if (!(file.exists())) {
                     askingForDeletion();
                 } else {
-                    Intent intent = new Intent(ChoosePartitionActivity.this, TestBluetoothActivity.class);
+                    Intent intent = new Intent(ChoosePartitionActivity.this, ChooseSpeedActivity.class);
                     intent.putExtra("partition_id", partition_id);
                     startActivity(intent);
                 }
