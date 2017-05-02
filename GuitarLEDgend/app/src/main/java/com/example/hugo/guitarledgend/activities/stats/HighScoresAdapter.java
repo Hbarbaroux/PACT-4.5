@@ -51,11 +51,9 @@ public class HighScoresAdapter extends ArrayAdapter<Stats> {
         database.open();
         Profile p= database.selectionnerProfile(stat.getProfil());
 
-        viewHolder.indice.setText(String.valueOf(position));
+        viewHolder.indice.setText(String.valueOf(position+1));
         viewHolder.profile.setText(p.getNom());
-        viewHolder.profile.setTextSize(20);
         viewHolder.score.setText(String.valueOf(stat.getScore()));
-        viewHolder.score.setTextSize(9);
 
 
 

@@ -118,8 +118,8 @@ public class PostPlayingActivity extends AppCompatActivity {
         final int replay=intent.getIntExtra("replay",0);
         final float facteur=intent.getFloatExtra("facteur", 1);
 
-        myDevice = ((MyApp)getApplicationContext()).getDevice();
-        myDevice.disconnect();
+        //myDevice = ((MyApp)getApplicationContext()).getDevice();
+        //myDevice.disconnect();
 
         database_partition = new PartitionDAO(PostPlayingActivity.this);
         database_partition.open();

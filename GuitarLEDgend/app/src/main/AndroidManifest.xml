@@ -50,7 +50,8 @@
             android:label="@string/title_activity_test_playing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.PreferencesModifyPartitionActivity" />
-        <activity android:name=".activities.stats.HighScoresActivity"></activity>
+        <activity android:name=".activities.stats.HighScoresActivity" />
+        <activity android:name=".activities.PartitionPlayingActivityTest"></activity>
     </application>
 
 </manifest>
