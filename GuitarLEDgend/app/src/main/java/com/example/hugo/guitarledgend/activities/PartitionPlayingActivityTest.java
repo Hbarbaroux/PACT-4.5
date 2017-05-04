@@ -1,5 +1,6 @@
 package com.example.hugo.guitarledgend.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -9,18 +10,21 @@ import com.example.hugo.guitarledgend.R;
 
 public class PartitionPlayingActivityTest extends AppCompatActivity {
 
-
+    Activity as;
     private long  partition_id=0;
     private int x1;
     private int x2;
     private int replay;
     private int vitesse; // vitesse normale : 100.
     private long statId;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partition_playing_test);
+
+        as=this;
 
 
         Intent intent =getIntent();
@@ -33,7 +37,7 @@ public class PartitionPlayingActivityTest extends AppCompatActivity {
 
         final float facteur = (float)vitesse/100;
 
-        final Handler handler = new Handler();
+        handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -50,7 +54,14 @@ public class PartitionPlayingActivityTest extends AppCompatActivity {
                 finish();
 
             }
-        }, 2000);
+        }, 5000);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+        as.finish();
     }
 
 

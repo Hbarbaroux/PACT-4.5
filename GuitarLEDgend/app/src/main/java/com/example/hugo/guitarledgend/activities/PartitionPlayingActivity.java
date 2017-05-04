@@ -45,6 +45,7 @@ public class PartitionPlayingActivity extends AppCompatActivity {
     private int replay;
     private long statId;
     private playNotes play;
+    Activity as;
 
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -69,6 +70,8 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_partition_playing);
+
+        as=this;
 
         Intent intent =getIntent();
         partition_id=intent.getLongExtra("partition_id",1L);
@@ -111,6 +114,16 @@ public class PartitionPlayingActivity extends AppCompatActivity {
         mTimeSignature = myTimeSignature;
         play = new playNotes();
         play.start();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        play.stop();
+        myDevice = ((MyApp)getApplicationContext()).getDevice();
+        myDevice.disconnect();
+        as.finish();
+
     }
 
     private class playNotes implements Runnable {
