@@ -117,10 +117,10 @@ public class PostPlayingActivity extends AppCompatActivity {
         statId=intent.getLongExtra("statId",0);
         final int replay=intent.getIntExtra("replay",0);
         final float facteur=intent.getFloatExtra("facteur", 1);
-
+/*
         myDevice = ((MyApp)getApplicationContext()).getDevice();
         myDevice.disconnect();
-
+*/
         database_partition = new PartitionDAO(PostPlayingActivity.this);
         database_partition.open();
 
@@ -129,7 +129,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         File sdcard = Environment.getExternalStorageDirectory();
         File file = new File(sdcard, "GuitarLEDgend/midiFiles/" + filename);
 
-
+/*
         Tablature maTablature = null;
 
         CompTable compTable = new CompTable(null, 0);
@@ -138,7 +138,7 @@ public class PostPlayingActivity extends AppCompatActivity {
             compTable = compTable.evaluate(Environment.getExternalStorageDirectory().getPath()+"/GuitarLEDgend/audio/audiorecordtest" +
                     ".wav",maTablature);
         }
-
+*/
 
         File dir = new File(sdcard.getPath()+"/GuitarLEDgend/audio/");
         if (!dir.exists()) {
@@ -222,7 +222,8 @@ public class PostPlayingActivity extends AppCompatActivity {
 
             String dataFile = "User_" + user_id + "-Part_" + partition_id + "-Date_" + nowAsString + ".txt";
 
-            fileCreation(compTable.getevalnotes());
+            //fileCreation(compTable.getevalnotes());
+            fileCreation();
             moveFile(dataFile);
 
             score = score(dataFile);
@@ -341,7 +342,7 @@ public class PostPlayingActivity extends AppCompatActivity {
         score_view.setTextSize(17);
 
         TextView entrop = (TextView) findViewById((R.id.rate));
-        entrop.setText("Notes jouées en trop ou en moins : " + String.valueOf(Math.abs(compTable.getentrop())));
+        //entrop.setText("Notes jouées en trop ou en moins : " + String.valueOf(Math.abs(compTable.getentrop())));
         entrop.setText("Notes jouées en trop ou en moins : " + String.valueOf(7));
         entrop.setTextSize(17);
     }
@@ -429,9 +430,9 @@ public class PostPlayingActivity extends AppCompatActivity {
     */
 
     //methode provisoire: cree un fichier faux des resultats aleatoirement dans le dossier reception
-    public void fileCreation(boolean[] tab) {
-        int n = tab.length;
-        //int n=50;
+    public void fileCreation() {
+        //int n = tab.length;
+        int n=50;
         File phone = this.getFilesDir();
 
         File dir = new File(phone.getPath()+"/statsData/reception/");

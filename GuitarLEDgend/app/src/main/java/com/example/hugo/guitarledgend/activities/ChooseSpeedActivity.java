@@ -48,7 +48,7 @@ public class ChooseSpeedActivity extends AppCompatActivity {
 
                 }
                 else{
-                    Intent intent = new Intent(ChooseSpeedActivity.this, PartitionPlayingActivity.class);
+                    Intent intent = new Intent(ChooseSpeedActivity.this, PartitionPlayingActivityTest.class);
                     intent.putExtra("partition_id", partition_id);
                     intent.putExtra("vitesse", Integer.parseInt(vitesse));
                     if (replay==1){
