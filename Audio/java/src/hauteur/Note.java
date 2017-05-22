@@ -1,13 +1,13 @@
 package hauteur;
 
 import java.util.*;
-import comparaison.Tabnotes;
-import attaque.Attaque;
+
+import comparaison.*;
+import attaque.*;
 
 import org.apache.commons.math3.complex.*;
 import org.apache.commons.math3.dfp.*;
 import org.apache.commons.math3.transform.*;
-
 
 
 public class Note {

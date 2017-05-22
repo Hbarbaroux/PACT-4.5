@@ -1,5 +1,8 @@
 package capture;
 
+import com.example.hugo.guitarledgend.audio.attaque.Attaque;
+import com.example.hugo.guitarledgend.audio.comparaison.Tabnotes;
+
 import attaque.*;
 import hauteur.*;
 import comparaison.*;
