@@ -48,7 +48,7 @@ public class Note {
         int res = 0;
         for (int k = 0; k<signal.size(); k++)
         {
-            if (res<signal.get(k))
+            if (a<signal.get(k))
             {
                 a = signal.get(k);
                 res = k;
@@ -133,29 +133,6 @@ public class Note {
         return subTab;
     }
 
-    private static ArrayList<Float> oppose(ArrayList<Float> echantillon) // Multiplies ArrayList by -1
-    {
-        ArrayList<Float> rep = new ArrayList<>();
-        for (int k=0; k<echantillon.size(); k++)
-        {
-            float a = echantillon.get(k);
-            rep.add(k, -1*a);
-        }
-        return rep;
-    }
-
-    private static ArrayList<Float> retourne(ArrayList<Float> echantillon) // retourne l’arralyst
-    {
-        int N;
-        N = echantillon.size();
-        ArrayList<Float> res = new ArrayList<Float>();
-        for (int k=0; k<N; k++)
-        {
-            float a = echantillon.get(N-k-1);
-            res.add(k, a);
-        }
-        return res;
-    }
 
     private static ArrayList<Complex> multTaT(ArrayList<Complex> signal, ArrayList<Complex> signalb) // Multiplies term by term two ArrayLists
     {
@@ -212,54 +189,10 @@ public class Note {
 
     }
 
-    /*private static float findFreq(ArrayList<Float> signal) //finds frequency by auto-corelation method
-    {
-
-        int ms = (int) 441/5;
-
-        int ms2 = (int) 4410/5;
-        ArrayList<Complex> correl = ifft(multTaT(fft(signal),conjugate(fft((signal)))));
-        float argMax = maxIndex(subTab(getReal(correl), ms, ms2));
-
-        return 44100/(ms + argMax - 1);
-    }
-
-    public static final float findFreq(ArrayList<Float> signal){ //finds frequency by auto-corelation method
-
-        int ms2 = (int) 44100/500 ;
-        int ms20 = (int) 44100/50 ;
-
-        Float[] xcorr = new Float[ms20 - ms2] ;
-        for (int lag = ms2 ; lag < ms20 ; lag++){
-            xcorr[lag-ms2] = (float)0;
-            for (int k = 0 ; k < signal.size() - lag ; k++) xcorr[lag-ms2] += signal.get(k)*signal.get(k+lag) ;
-        }
-        float argMax = maxIndex(toArrayList(xcorr)) ;
-        return 44100/(ms2 + argMax - 1) ;
-
-    }*/
-
-/*    private static float autocorrelation(ArrayList<Float> signal, int k) // auto-correlation function
-    {
-        float a = 0;
-        float b = 0;
-        float c = 0;
-        for (int j=0; j<signal.size(); j++)
-        {
-            if ((j*k)>1)
-            {
-                b+=signal.get(j)*signal.get(j);
-                a+=signal.get(j)*signal.get(j-k);
-                c+=signal.get(j-k)*signal.get(j-k);
-            }
-        }
-        float t = (float)(a/(Math.sqrt(b*c)));
-        return t;
-    }
 
     private static float findFreq(ArrayList<Float> signal) //finds frequency by autocorrelation method
     {
-        ArrayList<Complex> correl = ifft(multTaT(fft(signal),fft(retourne(signal))));
+        ArrayList<Complex> correl = ifft(multTaT(fft(signal),conjugate(fft(signal))));
         ArrayList<Float> frequencies = new ArrayList<Float>();
         float j = (float) 82.5;
         float q = 0;
@@ -272,26 +205,6 @@ public class Note {
         }
         q = maxIndex(frequencies);
         return (float) (82.5*Math.pow(2, ((q)/12)));
-    }*/
-
-
-    private static float findFreq(ArrayList<Float> signal){
-        ArrayList<Complex> fourier = fft(signal);
-
-        float imax = (float)0.0;
-        for (int i=0 ; i<fourier.size()/2 ; i++){
-            if (fourier.get(i).abs()>fourier.get((int)imax).abs()) imax=(float)i;
-        }
-        initFreqTable();
-        imax=44100*imax/signal.size();
-        float minecart = Math.abs(imax-freqtable.get(0));
-        float ecart;
-        int freqindex = 0;
-        for (int i=0  ; i<50;i++){
-            ecart = Math.abs(imax-freqtable.get(i));
-            if (ecart<minecart) freqindex = i; minecart = ecart;
-        }
-        return freqtable.get(freqindex);
     }
 
     private static ArrayList<Float> freqtable;
@@ -352,41 +265,9 @@ public class Note {
         Tabnotes sheet = new Tabnotes (timelist, freqlist);
         Log.e("ntime",Integer.toString(timelist.length));
         Log.e("nfreq",Integer.toString(freqlist.length));
-        print("time",timelist);
-        print("freq",freqlist);
         return sheet;
     }
 
-    public static void print(String tag, Float[] env){
-        String rep = "";
-        for (int i=0;i<env.length;i++){
-            if (i==0) {
-                rep=rep+"["+env[i];
-            }
-            else if (i==env.length-1){
-                rep=rep+";"+env[i]+"]";
-            }
-            else {
-                rep=rep+";"+env[i];
-            }
-        }
-        Log.e(tag,rep);
-    }
-
-
- /*   public static ArrayList<Complex> autocorr(ArrayList<Float> signal) {
-        int N = signal.size();
-        int temp;
-        ArrayList<Complex> cor = new ArrayList<>();
-        for (int k = 0 ; k<N ; k++) {
-            temp = 0;
-            for (int i = 0 ; i < N-k ; i++) {
-                temp += signal.get(i)*signal.get(i+k);
-            }
-            cor.add(k,new Complex(temp,0));
-        }
-        return cor;
-    }*/
 
     public static final ArrayList<Complex> conjugate(ArrayList<Complex> input){
 
