@@ -222,8 +222,8 @@ public class PostPlayingActivity extends AppCompatActivity {
 
             String dataFile = "User_" + user_id + "-Part_" + partition_id + "-Date_" + nowAsString + ".txt";
 
-            fileCreation(compTable.getevalnotes());
-            //fileCreation();
+            //fileCreation(compTable.getevalnotes());
+            fileCreation();
             moveFile(dataFile);
 
             score = score(dataFile);
@@ -451,7 +451,7 @@ public class PostPlayingActivity extends AppCompatActivity {
 
             for (int i=0;i<n;i++){
                 double r = Math.random();
-                if (r<0.6)
+                if (r<0.2)
                     pw.println(0);
                 else
                     pw.println(1);
